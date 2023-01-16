@@ -1,10 +1,16 @@
 import './App.css';
-import Main from './components/Main';
+import Navbar from './components/Navbar';
+
+// Ecommerce
+
+// 1-Fashion
+// 2-Electronics
+// 3-Groceries
 
 function App() {
   return (
     <div className="App">
-      <Main message='Hello World' />
+      <Navbar />
     </div>
   );
 }
