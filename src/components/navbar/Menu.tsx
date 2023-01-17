@@ -1,7 +1,7 @@
 
 type MenuProps = {
     children: JSX.Element,
-    width: number
+    width: string
 }
 
 const Menu = ({children, width}: MenuProps): JSX.Element => {
