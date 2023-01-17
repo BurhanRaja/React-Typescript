@@ -4,7 +4,7 @@ type ElectronicProps = {
 
 const Electronics = ({openCheck}: ElectronicProps): JSX.Element => {
   return (
-<div className={`absolute w-[60rem] h-auto bg-gray-100 border-[0.15rem] rounded-md top-[3.2rem] left-[-120px] flex justify-between items-center py-5 px-10 ${openCheck ? "block" : "hidden"}`}>
+<div className={`absolute w-[60rem] z-50 h-auto bg-gray-100 border-[0.15rem] rounded-md top-[3.2rem] left-[-120px] flex justify-between items-center py-5 px-10 ${openCheck ? "block" : "hidden"}`}>
       <div className="px-4 w-[60%]">
         <div className="flex justify-between text-sm w-[100%] mr-3 mb-4 text-gray-600">
           <ul className="mr-5 text-start">

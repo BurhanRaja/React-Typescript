@@ -29,9 +29,9 @@ const RightHalf = (): JSX.Element => {
         >
           <IoMdNotificationsOutline />
         </button>
-        {notifyOpen && <Menu children={<Notification />} width="60" />}
+        {notifyOpen && <Menu children={<Notification />} />}
       </li>
-      <li className="relative">
+      <li className="relative w-">
         <button
           className="text-xl flex"
           onClick={() => {
@@ -41,7 +41,7 @@ const RightHalf = (): JSX.Element => {
         >
           <BsCart />
         </button>
-        {cartOpen && <Menu children={<Cart />} width="72" />}
+        {cartOpen && <Menu children={<Cart />} />}
       </li>
       <li>
         <button className="bg-black w- px-2 py-1 rounded-md border-[0.1rem] border-black hover:bg-transparent hover:text-black transition duration-150 text-white max-sm:text-sm">
