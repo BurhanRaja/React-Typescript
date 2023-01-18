@@ -1,6 +1,5 @@
 import "./App.css";
-import HeroSlider from "./components/herosection/Slider";
-import Header from "./components/navbar/Header";
+import Home from "./components/Home/Home";
 
 // Ecommerce
 
@@ -11,9 +10,7 @@ import Header from "./components/navbar/Header";
 function App() {
   return (
     <div className="App">
-      <Header />
-      <HeroSlider />
-      {/* <Hero/> */}
+      <Home />
     </div>
   );
 }
