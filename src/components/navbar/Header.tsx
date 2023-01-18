@@ -2,7 +2,7 @@ import Navbar from "./Navbar"
 
 const Header = (): JSX.Element => {
   return (
-    <div className=" w-[95%] mx-auto border-b-[0.1rem]">
+    <div className=" w-[95%] mx-auto">
         <Navbar />
     </div>
   )

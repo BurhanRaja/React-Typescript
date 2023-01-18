@@ -1,6 +1,5 @@
 import "./App.css";
-import Hero from "./components/herosection/Hero";
-// import HeroSlider from "./components/herosection/Slider";
+import HeroSlider from "./components/herosection/Slider";
 import Header from "./components/navbar/Header";
 
 // Ecommerce
@@ -13,8 +12,8 @@ function App() {
   return (
     <div className="App">
       <Header />
-      {/* <HeroSlider children={<div>Hello</div>} /> */}
-      <Hero/>
+      <HeroSlider />
+      {/* <Hero/> */}
     </div>
   );
 }

@@ -4,12 +4,9 @@ import { BsArrowLeftSquare, BsArrowRightSquare } from "react-icons/bs";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import Hero from "./Hero";
 
-type HeroSliderProps = {
-  children: JSX.Element;
-};
-
-const HeroSlider = ({ children }: HeroSliderProps) => {
+const HeroSlider = () => {
   var settings = {
     infinite: true,
     slidesToShow: 1,
@@ -35,45 +32,46 @@ const HeroSlider = ({ children }: HeroSliderProps) => {
   };
 
   return (
+    <>
     <div className="overflow-hidden relative">
       <Slider {...settings} ref={sliderRef}>
-        <div>
-          <img
-            src="https://cdn.thewirecutter.com/wp-content/media/2022/10/laptopstopicpage-2048px-2102-2x1-1.jpg?auto=webp&quality=75&crop=2:1&width=1024"
-            alt="tshirt"
-            className="rounded-md opacity-100 hover:opacity-80"
-          />
-        </div>
-        <div>
-          <img
-            src="https://cdn.thewirecutter.com/wp-content/media/2022/10/laptopstopicpage-2048px-2102-2x1-1.jpg?auto=webp&quality=75&crop=2:1&width=1024"
-            alt="tshirt"
-            className="rounded-md opacity-100 hover:opacity-80"
-          />
-        </div>
-        <div>
-          <img
-            src="https://cdn.thewirecutter.com/wp-content/media/2022/10/laptopstopicpage-2048px-2102-2x1-1.jpg?auto=webp&quality=75&crop=2:1&width=1024"
-            alt="tshirt"
-            className="rounded-md opacity-100 hover:opacity-80"
-          />
-        </div>
-        <div>
-          <img
-            src="https://cdn.thewirecutter.com/wp-content/media/2022/10/laptopstopicpage-2048px-2102-2x1-1.jpg?auto=webp&quality=75&crop=2:1&width=1024"
-            alt="tshirt"
-            className="rounded-md opacity-100 hover:opacity-80"
-          />
-        </div>
-        <div>
-          <img
-            src="https://cdn.thewirecutter.com/wp-content/media/2022/10/laptopstopicpage-2048px-2102-2x1-1.jpg?auto=webp&quality=75&crop=2:1&width=1024"
-            alt="tshirt"
-            className="rounded-md opacity-100 hover:opacity-80"
-          />
-        </div>
+        <Hero
+          fTitle="Fashion"
+          lTitle="Collections"
+          link="#"
+          mainImg="/images/womenfashion.jpg"
+          twoImg={[
+            {
+              id: "1",
+              name: "/images/glasses.avif",
+            },
+            {
+              id: "2",
+              name: "/images/shoes.webp"
+            },
+          ]}
+          bgColor="bg-slate-200"
+        />
+        <Hero
+          fTitle="Electronic"
+          lTitle="Products"
+          link="#"
+          mainImg="/images/mobiles.webp"
+          twoImg={[
+            {
+              id: "1",
+              name: "/images/laptops.jpg",
+            },
+            {
+              id: "2",
+              name: "/images/headphones.jpg"
+            },
+          ]}
+          bgColor="bg-orange-300"
+        />
       </Slider>
-      <div className="absolute bottom-6 w-[100%]">
+    </div>
+      <div className="w-[100%]">
         <button onClick={handlePrev} className="p-3 mx-3 text-3xl">
           <BsArrowLeftSquare />
         </button>
@@ -81,7 +79,7 @@ const HeroSlider = ({ children }: HeroSliderProps) => {
           <BsArrowRightSquare />
         </button>
       </div>
-    </div>
+      </>
   );
 };
 
