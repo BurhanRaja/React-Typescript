@@ -34,6 +34,9 @@ const Fashion = ({openCheck}: FashionProps): JSX.Element => {
             <li className="mt-[0.4rem] hover:text-gray-800">
               <a href="#">Sunglasses</a>
             </li>
+            <li className="mt-[0.4rem] hover:text-gray-800">
+              <a href="#">Shoes & Sneakers</a>
+            </li>
           </ul>
         </div>
         <p className="text-xl text-start mb-3 font-bold text-gray-900">
@@ -65,6 +68,9 @@ const Fashion = ({openCheck}: FashionProps): JSX.Element => {
             </li>
             <li className="mt-[0.4rem] hover:text-gray-800">
               <a href="#">Bags</a>
+            </li>
+            <li className="mt-[0.4rem] hover:text-gray-800">
+              <a href="#">Shoes</a>
             </li>
           </ul>
         </div>
