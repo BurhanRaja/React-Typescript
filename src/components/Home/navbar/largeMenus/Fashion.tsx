@@ -1,3 +1,5 @@
+import { fashionData } from "../../../../utils/menuData";
+
 type FashionProps = {
     openCheck: boolean
 }
@@ -10,33 +12,23 @@ const Fashion = ({openCheck}: FashionProps): JSX.Element => {
         <div className="flex justify-between text-sm w-[100%] mr-3 mb-4 text-gray-600">
           <ul className="mr-5 text-start">
             <li className="text-sm text-gray-800 font-bold">Clothing</li>
-            <li className="mt-[0.4rem] hover:text-gray-800">
-              <a href="#">T-Shirt</a>
-            </li>
-            <li className="mt-[0.4rem] hover:text-gray-800">
-              <a href="#">Pants</a>
-            </li>
-            <li className="mt-[0.4rem] hover:text-gray-800">
-              <a href="#">Sweaters</a>
-            </li>
-            <li className="mt-[0.4rem] hover:text-gray-800">
-              <a href="#">Jackets</a>
-            </li>
+            {fashionData?.men?.clothing?.map((el) => {
+              return (
+                <li key={el} className="mt-[0.4rem] hover:text-gray-800">
+                  <a href="#">{el}</a>
+                </li>
+              );
+            })}
           </ul>
           <ul className="mr-5 text-start">
             <li className="text-sm text-gray-800 font-bold">Accessories</li>
-            <li className="mt-[0.4rem] hover:text-gray-800">
-              <a href="#">Watchs</a>
-            </li>
-            <li className="mt-[0.4rem] hover:text-gray-800">
-              <a href="#">Wallets</a>
-            </li>
-            <li className="mt-[0.4rem] hover:text-gray-800">
-              <a href="#">Sunglasses</a>
-            </li>
-            <li className="mt-[0.4rem] hover:text-gray-800">
-              <a href="#">Shoes & Sneakers</a>
-            </li>
+            {fashionData?.men?.asccessories?.map((el) => {
+              return (
+                <li key={el} className="mt-[0.4rem] hover:text-gray-800">
+                  <a href="#">{el}</a>
+                </li>
+              );
+            })}
           </ul>
         </div>
         <p className="text-xl text-start mb-3 font-bold text-gray-900">
@@ -45,33 +37,23 @@ const Fashion = ({openCheck}: FashionProps): JSX.Element => {
         <div className="flex justify-between text-sm w-[100%] mr-3 text-gray-600">
           <ul className="mr-5 text-start">
             <li className="text-sm text-gray-800 font-bold">Clothing</li>
-            <li className="mt-[0.4rem] hover:text-gray-800">
-              <a href="#">T-Shirts</a>
-            </li>
-            <li className="mt-[0.4rem] hover:text-gray-800">
-              <a href="#">Dresses</a>
-            </li>
-            <li className="mt-[0.4rem] hover:text-gray-800">
-              <a href="#">Jackets</a>
-            </li>
-            <li className="mt-[0.4rem] hover:text-gray-800">
-              <a href="#">Denim</a>
-            </li>
+            {fashionData?.women?.clothing?.map((el) => {
+              return (
+                <li key={el} className="mt-[0.4rem] hover:text-gray-800">
+                  <a href="#">{el}</a>
+                </li>
+              );
+            })}
           </ul>
           <ul className="mr-5 text-start">
             <li className="text-sm text-gray-800 font-bold">Accessories</li>
-            <li className="mt-[0.4rem] hover:text-gray-800">
-              <a href="#">Watches</a>
-            </li>
-            <li className="mt-[0.4rem] hover:text-gray-800">
-              <a href="#">Wallets</a>
-            </li>
-            <li className="mt-[0.4rem] hover:text-gray-800">
-              <a href="#">Bags</a>
-            </li>
-            <li className="mt-[0.4rem] hover:text-gray-800">
-              <a href="#">Shoes</a>
-            </li>
+            {fashionData?.women?.asccessories?.map((el) => {
+              return (
+                <li key={el} className="mt-[0.4rem] hover:text-gray-800">
+                  <a href="#">{el}</a>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>

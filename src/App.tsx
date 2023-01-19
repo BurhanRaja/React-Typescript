@@ -1,16 +1,12 @@
 import "./App.css";
-import Home from "./components/Home/Home";
-
-// Ecommerce
-
-// 1-Fashion
-// 2-Electronics
-// 3-Groceries
+import FashionHome from "./components/fashion/FashionHome";
+// import Home from "./components/Home/Home";
 
 function App() {
   return (
     <div className="App">
-      <Home />
+      {/* <Home /> */}
+      <FashionHome />
     </div>
   );
 }

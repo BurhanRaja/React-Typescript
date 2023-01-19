@@ -5,6 +5,7 @@ import { BsArrowLeftSquare, BsArrowRightSquare } from "react-icons/bs";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import Hero from "./Hero";
+import DiscountSaleHero from "./DiscountSaleHero";
 
 const HeroSlider = () => {
   var settings = {
@@ -35,6 +36,7 @@ const HeroSlider = () => {
     <>
     <div className="overflow-hidden relative">
       <Slider {...settings} ref={sliderRef}>
+      <DiscountSaleHero />
         <Hero
           fTitle="Fashion"
           lTitle="Collections"

@@ -7,6 +7,9 @@ module.exports = {
     extend: {
       fontFamily: {
         "roboto": ['Roboto', 'sans-serif']
+      },
+      grayscale: {
+        10: "10%"
       }
     },
   },

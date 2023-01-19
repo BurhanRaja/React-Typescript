@@ -1,56 +1,49 @@
-type ElectronicProps = {
-    openCheck: boolean
-}
+import { electronicData } from "../../../../utils/menuData";
 
-const Electronics = ({openCheck}: ElectronicProps): JSX.Element => {
+type ElectronicProps = {
+  openCheck: boolean;
+};
+
+const Electronics = ({ openCheck }: ElectronicProps): JSX.Element => {
   return (
-<div className={`absolute w-[60rem] z-50 h-auto bg-gray-100 border-[0.15rem] rounded-md top-[3.2rem] left-[-120px] flex justify-between items-center py-5 px-10 ${openCheck ? "block" : "hidden"}`}>
+    <div
+      className={`absolute w-[60rem] z-50 h-auto bg-gray-100 border-[0.15rem] rounded-md top-[3.2rem] left-[-120px] flex justify-between items-center py-5 px-10 ${
+        openCheck ? "block" : "hidden"
+      }`}
+    >
       <div className="px-4 w-[60%]">
         <div className="flex justify-between text-sm w-[100%] mr-3 mb-4 text-gray-600">
           <ul className="mr-5 text-start">
-            <li className="text-sm text-gray-800 font-bold">Mobile & Accessories</li>
-            <li className="mt-[0.4rem] hover:text-gray-800">
-              <a href="#">Mobiles</a>
+            <li className="text-sm text-gray-800 font-bold">
+              Mobile & Accessories
             </li>
-            <li className="mt-[0.4rem] hover:text-gray-800">
-              <a href="#">Screen Guards</a>
-            </li>
-            <li className="mt-[0.4rem] hover:text-gray-800">
-              <a href="#">Chargers</a>
-            </li>
-            <li className="mt-[0.4rem] hover:text-gray-800">
-              <a href="#">Power Banks</a>
-            </li>
-            <li className="mt-[0.4rem] hover:text-gray-800">
-              <a href="#">Smart Watches</a>
-            </li>
+            {electronicData?.mobile?.map((el) => {
+              return (
+                <li key={el} className="mt-[0.4rem] hover:text-gray-800">
+                  <a href="#">{el}</a>
+                </li>
+              );
+            })}
           </ul>
           <ul className="mr-5 text-start">
             <li className="text-sm text-gray-800 font-bold">Laptops</li>
-            <li className="mt-[0.4rem] hover:text-gray-800">
-              <a href="#">Thin and light Laptops</a>
-            </li>
-            <li className="mt-[0.4rem] hover:text-gray-800">
-              <a href="#">2-in-1 Laptops</a>
-            </li>
-            <li className="mt-[0.4rem] hover:text-gray-800">
-              <a href="#">Gaming Laptops</a>
-            </li>
-            <li className="mt-[0.4rem] hover:text-gray-800">
-              <a href="#">Business Laptops</a>
-            </li>
+            {electronicData?.laptops?.map((el) => {
+              return (
+                <li key={el} className="mt-[0.4rem] hover:text-gray-800">
+                  <a href="#">{el}</a>
+                </li>
+              );
+            })}
           </ul>
           <ul className="mr-5 text-start">
             <li className="text-sm text-gray-800 font-bold">Audio</li>
-            <li className="mt-[0.4rem] hover:text-gray-800">
-              <a href="#">Earphones</a>
-            </li>
-            <li className="mt-[0.4rem] hover:text-gray-800">
-              <a href="#">On & Over ears Headphones</a>
-            </li>
-            <li className="mt-[0.4rem] hover:text-gray-800">
-              <a href="#">Speakers</a>
-            </li>
+            {electronicData?.audio?.map((el) => {
+              return (
+                <li key={el} className="mt-[0.4rem] hover:text-gray-800">
+                  <a href="#">{el}</a>
+                </li>
+              );
+            })}
           </ul>
         </div>
       </div>
@@ -83,7 +76,7 @@ const Electronics = ({openCheck}: ElectronicProps): JSX.Element => {
         </div>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default Electronics
+export default Electronics;

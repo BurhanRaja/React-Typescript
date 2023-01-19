@@ -3,7 +3,6 @@ type ProductProps = {
     title: string
 }
 
-
 const ProductSection = ({title}: ProductProps): JSX.Element => {
   return (
     <section className="text-gray-600 body-font">
@@ -11,7 +10,7 @@ const ProductSection = ({title}: ProductProps): JSX.Element => {
         <h1 className="text-4xl mb-8 font-bold text-gray-800">{title}</h1>
         <div className="flex flex-wrap -m-4">
           <div className="lg:w-1/4 md:w-1/2 p-4 w-full">
-            <a className="block relative h-96 rounded overflow-hidden">
+            <a className="block relative h-72 rounded overflow-hidden">
               <img
                 alt="ecommerce"
                 className="object-cover object-center w-full h-full block"
@@ -29,7 +28,7 @@ const ProductSection = ({title}: ProductProps): JSX.Element => {
             </div>
           </div>
           <div className="lg:w-1/4 md:w-1/2 p-4 w-full">
-            <a className="block relative h-96 rounded overflow-hidden">
+            <a className="block relative h-72 rounded overflow-hidden">
               <img
                 alt="ecommerce"
                 className="object-cover object-center w-full h-full block"
@@ -47,7 +46,7 @@ const ProductSection = ({title}: ProductProps): JSX.Element => {
             </div>
           </div>
           <div className="lg:w-1/4 md:w-1/2 p-4 w-full">
-            <a className="block relative h-96 rounded overflow-hidden">
+            <a className="block relative h-72 rounded overflow-hidden">
               <img
                 alt="ecommerce"
                 className="object-cover object-center w-full h-full block"
@@ -65,7 +64,7 @@ const ProductSection = ({title}: ProductProps): JSX.Element => {
             </div>
           </div>
           <div className="lg:w-1/4 md:w-1/2 p-4 w-full">
-            <a className="block relative h-96 rounded overflow-hidden">
+            <a className="block relative h-72 rounded overflow-hidden">
               <img
                 alt="ecommerce"
                 className="object-cover object-center w-full h-full block"
