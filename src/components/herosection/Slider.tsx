@@ -56,7 +56,7 @@ const HeroSlider = () => {
           fTitle="Electronic"
           lTitle="Products"
           link="#"
-          mainImg="/images/mobiles.webp"
+          mainImg="/images/mobile-image.jpg"
           twoImg={[
             {
               id: "1",
@@ -64,7 +64,7 @@ const HeroSlider = () => {
             },
             {
               id: "2",
-              name: "/images/headphones.jpg"
+              name: "/images/headphones-image.jpg"
             },
           ]}
           bgColor="bg-orange-300"

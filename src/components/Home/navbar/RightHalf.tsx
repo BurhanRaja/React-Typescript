@@ -31,7 +31,7 @@ const RightHalf = (): JSX.Element => {
         </button>
         {notifyOpen && <Menu children={<Notification />} />}
       </li>
-      <li className="relative w-">
+      <li className="relative">
         <button
           className="text-xl flex"
           onClick={() => {
@@ -44,12 +44,12 @@ const RightHalf = (): JSX.Element => {
         {cartOpen && <Menu children={<Cart />} />}
       </li>
       <li>
-        <button className="bg-black w- px-2 py-1 rounded-md border-[0.1rem] border-black hover:bg-transparent hover:text-black transition duration-150 text-white max-sm:text-sm">
+        <button className="bg-black w- px-2 py-1 rounded-sm border-[0.1rem] border-black hover:bg-transparent hover:text-black transition duration-150 text-white max-sm:text-sm">
           Sign in
         </button>
       </li>
       <li>
-        <button className="bg-white border-[0.1rem] border-black px-2 py-1 rounded-md hover:bg-black hover:text-white transition duration-150 max-sm:text-sm">
+        <button className="bg-white border-[0.1rem] border-black px-2 py-1 rounded-sm hover:bg-black hover:text-white transition duration-150 max-sm:text-sm">
           Login
         </button>
       </li>

@@ -18,8 +18,8 @@ const Navbar = (): JSX.Element => {
         <LeftHalf />
       </div>
       <form className="flex justify-center items-center w-[45%] lg:flex max-lg:hidden">
-        <input type="text" className="w-[100%] border-[0.1rem] rounded-l-md p-1 focus:outline-none focus:border-[0.1rem] focus:border-black border-gray-400" />
-          <button className="text-lg flex bg-black text-white py-[0.55rem] px-2 rounded-r-md">
+        <input type="text" className="w-[100%] border-[0.1rem] rounded-l-sm p-1 focus:outline-none focus:border-[0.1rem] focus:border-black border-gray-400" />
+          <button className="text-lg flex bg-black text-white py-[0.55rem] px-2 rounded-r-sm">
             <BsSearch />
           </button>
         </form>
