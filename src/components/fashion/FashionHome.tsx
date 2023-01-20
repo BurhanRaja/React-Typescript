@@ -13,4 +13,4 @@ const FashionHome = () => {
   )
 }
 
-export default FashionHome
+export default FashionHome;

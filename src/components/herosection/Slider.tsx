@@ -1,18 +1,23 @@
 import Slider from "react-slick";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { BsArrowLeftSquare, BsArrowRightSquare } from "react-icons/bs";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import Hero from "./Hero";
-import DiscountSaleHero from "./DiscountSaleHero";
 
-const HeroSlider = () => {
+type HeroSliderProps = {
+  children: JSX.Element | JSX.Element[];
+  autoPlay: boolean,
+  infinite: boolean,
+};
+
+const HeroSlider = ({ children, autoPlay, infinite }: HeroSliderProps): JSX.Element => {
+
   var settings = {
-    infinite: true,
+    infinite: infinite,
     slidesToShow: 1,
     slidesToScroll: 1,
-    autoplay: true,
+    autoplay: autoPlay,
     speed: 1500,
     autoplaySpeed: 5000,
     cssEase: "linear",
@@ -34,46 +39,12 @@ const HeroSlider = () => {
 
   return (
     <>
-    <div className="overflow-hidden relative">
-      <Slider {...settings} ref={sliderRef}>
-      <DiscountSaleHero />
-        <Hero
-          fTitle="Fashion"
-          lTitle="Collections"
-          link="#"
-          mainImg="/images/womenfashion.jpg"
-          twoImg={[
-            {
-              id: "1",
-              name: "/images/glasses.avif",
-            },
-            {
-              id: "2",
-              name: "/images/shoes.webp"
-            },
-          ]}
-          bgColor="bg-slate-200"
-        />
-        <Hero
-          fTitle="Electronic"
-          lTitle="Products"
-          link="#"
-          mainImg="/images/mobile-image.jpg"
-          twoImg={[
-            {
-              id: "1",
-              name: "/images/laptops.jpg",
-            },
-            {
-              id: "2",
-              name: "/images/headphones-image.jpg"
-            },
-          ]}
-          bgColor="bg-orange-300"
-        />
-      </Slider>
-    </div>
-      <div className="w-[100%]">
+      <div className="overflow-hidden relative">
+        <Slider {...settings} ref={sliderRef}>
+          {children}
+        </Slider>
+      </div>
+      <div className="w-[100%] text-center">
         <button onClick={handlePrev} className="p-3 mx-3 text-3xl">
           <BsArrowLeftSquare />
         </button>
@@ -81,7 +52,7 @@ const HeroSlider = () => {
           <BsArrowRightSquare />
         </button>
       </div>
-      </>
+    </>
   );
 };
 
