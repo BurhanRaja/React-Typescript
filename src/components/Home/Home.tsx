@@ -1,13 +1,12 @@
-import HeroSlider from '../herosection/Slider'
-import CategorySection from './CategorySection'
-import Layout from './Layout'
+import HeroSlider from '../herosection/Slider';
+import CategorySection from './CategorySection';
 import ProductSection from '../ProductSection';
 import Hero from "../herosection/Hero";
 import DiscountSaleHero from "../herosection/DiscountSaleHero";
 
 const Home = () => {
   return (
-    <Layout>
+    <>
         <HeroSlider autoPlay={true} infinite={true}>
         <DiscountSaleHero />
         <Hero
@@ -48,7 +47,7 @@ const Home = () => {
         <ProductSection title='Featured Products' />
         <CategorySection />
         <ProductSection title='Trending Products' />
-    </Layout>   
+    </>   
   )
 }
 

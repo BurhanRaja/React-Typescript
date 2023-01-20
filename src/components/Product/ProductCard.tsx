@@ -75,20 +75,20 @@ const ProductCard = (): JSX.Element => {
               <span className="text-gray-500">Size</span>
               <Select selectOption={["SM", "M", "L", "XL"]} />
             </div>
-            <div className="flex border-t border-b mb-6 border-gray-200 py-2">
+            <div className="flex items-center border-t border-b mb-6 border-gray-200 py-2">
               <span className="text-gray-500">Quantity</span>
               <span className="ml-auto text-gray-900">
                 <button
-                  className="p-1 px-2 bg-gray-300 hover:bg-gray-400 text-lg rounded-l-md"
+                  className="px-2 bg-gray-300 hover:bg-gray-400 text-lg rounded-l-md"
                   onClick={() => setQuantity(quantity + 1)}
                 >
                   +
                 </button>
-                <span className="px-2 p-1 border-t-[0.1rem] border-b-[0.1rem]">
+                <span className="px-2 p-1 border-t border-b">
                   {quantity}
                 </span>
                 <button
-                  className="p-1 px-2 bg-gray-300 hover:bg-gray-400 text-lg rounded-r-md"
+                  className="px-2 bg-gray-300 hover:bg-gray-400 text-lg rounded-r-md"
                   onClick={() => quantity > 1 && setQuantity(quantity - 1)}
                 >
                   -
