@@ -1,3 +1,4 @@
+import { FiChevronDown } from "react-icons/fi";
 import { IoCloseOutline } from "react-icons/io5";
 
 type SideMenuProps = {
@@ -25,13 +26,16 @@ const SideMenu = ({ setBar }: SideMenuProps): JSX.Element => {
             <span className="text-sm font-medium"> General </span>
           </a>
 
+          {/* Team */}
           <details className="group [&_summary::-webkit-details-marker]:hidden">
             <summary className="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700">
               <div className="flex items-center gap-2">
                 <span className="text-sm font-medium"> Teams </span>
               </div>
 
-              <span className="shrink-0 transition duration-300 group-open:-rotate-180"></span>
+              <span className="shrink-0 transition duration-300 group-open:-rotate-180">
+                <FiChevronDown />
+              </span>
             </summary>
             <nav aria-label="Teams Nav" className="mt-2 flex flex-col px-4">
               <a
@@ -41,15 +45,18 @@ const SideMenu = ({ setBar }: SideMenuProps): JSX.Element => {
                 <span className="text-sm font-medium"> Banned Users </span>
               </a>
 
-              <details className="group [&_summary::-webkit-details-marker]:hidden">
+              {/* Team 2 */}
+              <details className="group/nested [&_summary::-webkit-details-marker]:hidden">
                 <summary className="flex cursor-pointer items-center justify-between rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700">
                   <div className="flex items-center gap-2">
-                    <span className="text-sm font-medium"> Teams </span>
+                    <span className="text-sm font-medium"> Hello </span>
                   </div>
 
-                  <span className="shrink-0 transition duration-300 group-open:-rotate-180"></span>
+                  <span className="shrink-0 transition duration-300 group-open/nested:-rotate-180">
+                    <FiChevronDown />
+                  </span>
                 </summary>
-                <nav aria-label="Teams Nav" className="mt-2 flex flex-col px-4">
+                <nav aria-label="Hello Nav" className="mt-2 flex flex-col px-4">
                   <a
                     href="/"
                     className="flex items-center gap-2 rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
@@ -66,6 +73,7 @@ const SideMenu = ({ setBar }: SideMenuProps): JSX.Element => {
                 </nav>
               </details>
 
+              {/* Team 2 */}
               <a
                 href="/"
                 className="flex items-center gap-2 rounded-lg px-4 py-2 text-gray-500 hover:bg-gray-100 hover:text-gray-700"
@@ -110,7 +118,9 @@ const SideMenu = ({ setBar }: SideMenuProps): JSX.Element => {
                 <span className="text-sm font-medium"> Account </span>
               </div>
 
-              <span className="shrink-0 transition duration-300 group-open:-rotate-180"></span>
+              <span className="shrink-0 transition duration-300 group-open:-rotate-180">
+                <FiChevronDown />
+              </span>
             </summary>
 
             <nav aria-label="Account Nav" className="mt-2 flex flex-col px-4">

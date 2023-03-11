@@ -21,11 +21,6 @@ const Summary = () => {
             <span className="font-bold">$800</span>
           </p>
         </div>
-        <div>
-          <button className="w-[100%] bg-zinc-800 hover:bg-black text-white rounded-sm py-1">
-            Checkout
-          </button>
-        </div>
       </div>
     </div>
   );

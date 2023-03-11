@@ -1,89 +1,87 @@
-
 type ProductProps = {
-    title: string
-}
+  title: string;
+};
 
-const ProductSection = ({title}: ProductProps): JSX.Element => {
+const ProductSection = ({ title }: ProductProps): JSX.Element => {
   return (
-    <section className="text-gray-600 body-font">
-      <div className="container px-5 py-16 pt-20 mx-auto">
-        <h1 className="text-4xl mb-8 font-bold text-gray-800">{title}</h1>
-        <div className="flex flex-wrap -m-4">
-          <div className="lg:w-1/4 md:w-1/2 p-4 w-full">
-            <a className="block relative h-72 rounded overflow-hidden">
+      <div className="lg:col-span-3">
+        <ul className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+          <li>
+            <a href="#" className="group block overflow-hidden">
               <img
-                alt="ecommerce"
-                className="object-cover object-center w-full h-full block"
-                src="https://dummyimage.com/420x260"
+                src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+                alt=""
+                className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
               />
+
+              <div className="relative bg-white pt-3">
+                <h3 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4">
+                  Basic Tee
+                </h3>
+
+                <p className="mt-2">
+                  <span className="sr-only"> Regular Price </span>
+
+                  <span className="tracking-wider text-gray-900">
+                    {" "}
+                    £24.00 GBP{" "}
+                  </span>
+                </p>
+              </div>
             </a>
-            <div className="mt-4">
-              <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">
-                CATEGORY
-              </h3>
-              <h2 className="text-gray-900 title-font text-lg font-medium">
-                The Catalyzer
-              </h2>
-              <p className="mt-1">$16.00</p>
-            </div>
-          </div>
-          <div className="lg:w-1/4 md:w-1/2 p-4 w-full">
-            <a className="block relative h-72 rounded overflow-hidden">
+          </li>
+
+          <li>
+            <a href="#" className="group block overflow-hidden">
               <img
-                alt="ecommerce"
-                className="object-cover object-center w-full h-full block"
-                src="https://dummyimage.com/421x261"
+                src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+                alt=""
+                className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
               />
+
+              <div className="relative bg-white pt-3">
+                <h3 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4">
+                  Basic Tee
+                </h3>
+
+                <p className="mt-2">
+                  <span className="sr-only"> Regular Price </span>
+
+                  <span className="tracking-wider text-gray-900">
+                    {" "}
+                    £24.00 GBP{" "}
+                  </span>
+                </p>
+              </div>
             </a>
-            <div className="mt-4">
-              <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">
-                CATEGORY
-              </h3>
-              <h2 className="text-gray-900 title-font text-lg font-medium">
-                Shooting Stars
-              </h2>
-              <p className="mt-1">$21.15</p>
-            </div>
-          </div>
-          <div className="lg:w-1/4 md:w-1/2 p-4 w-full">
-            <a className="block relative h-72 rounded overflow-hidden">
+          </li>
+
+          <li>
+            <a href="#" className="group block overflow-hidden">
               <img
-                alt="ecommerce"
-                className="object-cover object-center w-full h-full block"
-                src="https://dummyimage.com/422x262"
+                src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1770&q=80"
+                alt=""
+                className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
               />
+
+              <div className="relative bg-white pt-3">
+                <h3 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4">
+                  Basic Tee
+                </h3>
+
+                <p className="mt-2">
+                  <span className="sr-only"> Regular Price </span>
+
+                  <span className="tracking-wider text-gray-900">
+                    {" "}
+                    £24.00 GBP{" "}
+                  </span>
+                </p>
+              </div>
             </a>
-            <div className="mt-4">
-              <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">
-                CATEGORY
-              </h3>
-              <h2 className="text-gray-900 title-font text-lg font-medium">
-                Neptune
-              </h2>
-              <p className="mt-1">$12.00</p>
-            </div>
-          </div>
-          <div className="lg:w-1/4 md:w-1/2 p-4 w-full">
-            <a className="block relative h-72 rounded overflow-hidden">
-              <img
-                alt="ecommerce"
-                className="object-cover object-center w-full h-full block"
-                src="https://dummyimage.com/423x263"
-              />
-            </a>
-            <div className="mt-4">
-              <h3 className="text-gray-500 text-xs tracking-widest title-font mb-1">
-                CATEGORY
-              </h3>
-              <h2 className="text-gray-900 title-font text-lg font-medium">
-                The 400 Blows
-              </h2>
-              <p className="mt-1">$18.40</p>
-            </div>
-          </div>
-        </div>
+          </li>
+        </ul>
       </div>
-    </section>
   );
 };
 
