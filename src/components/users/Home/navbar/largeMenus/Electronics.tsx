@@ -1,4 +1,4 @@
-import { electronicData } from "../../../../utils/menuData";
+import { electronicData } from "../../../../../utils/menuData";
 
 type ElectronicProps = {
   openCheck: boolean;

@@ -1,4 +1,4 @@
-import { fashionData } from "../../../../utils/menuData";
+import { fashionData } from "../../../../../utils/menuData";
 
 type FashionProps = {
     openCheck: boolean
@@ -6,7 +6,7 @@ type FashionProps = {
 
 const Fashion = ({openCheck}: FashionProps): JSX.Element => {
   return (
-    <div className={`absolute z-50 w-[60rem] h-auto bg-gray-100 border-[0.15rem] rounded-md top-[3.2rem] left-[-120px] flex justify-between items-center py-5 px-10 ${openCheck ? "block" : "hidden"}`}>
+    <div className={`absolute z-50 w-[60rem] h-auto bg-gray-100 border-[0.15rem] rounded-md top-[3.2rem] left-[-30px] flex justify-between items-center py-5 px-10 ${openCheck ? "block" : "hidden"}`}>
       <div className="px-4 w-[35%] pl-8">
         <p className="text-xl text-start mb-3 font-bold text-gray-900">Mens</p>
         <div className="flex justify-between text-sm w-[100%] mr-3 mb-4 text-gray-600">

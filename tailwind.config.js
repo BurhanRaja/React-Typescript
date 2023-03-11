@@ -6,12 +6,12 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        "roboto": ['Roboto', 'sans-serif']
+        roboto: ["Roboto", "sans-serif"],
       },
       grayscale: {
-        10: "10%"
-      }
+        10: "10%",
+      },
     },
   },
   plugins: [],
-}
+};
