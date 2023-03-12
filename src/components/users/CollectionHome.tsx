@@ -1,5 +1,5 @@
 import FilterBoard from "./FilterBoard";
-import ProductSection from "./ProductSection";
+import ProductSection from "./ProductsCollection";
 
 const CollectionHome = () => {
   return (

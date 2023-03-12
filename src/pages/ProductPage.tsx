@@ -1,4 +1,4 @@
-import ProductCard from "./ProductCard"
+import ProductCard from "../components/users/Product/ProductCard"
 
 
 const ProductPage = () => {
