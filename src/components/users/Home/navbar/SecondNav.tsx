@@ -32,7 +32,7 @@ const SecondNav = (): JSX.Element => {
         <span>All</span>
       </button>
 
-      {sideBar && <SideMenu setBar={(val: boolean) => setSideBar(val)} />}
+      <SideMenu setBar={(val: boolean) => setSideBar(val)} toggleBar={sideBar} />
 
       <ul className="flex justify-evenly w-[16rem] items-center">
         <li className="relative lg:hidden md:block">

@@ -11,7 +11,7 @@ const Home = () => {
         <Hero
           fTitle="Fashion"
           lTitle="Collections"
-          link="#"
+          link="/shop/fashion"
           mainImg="/images/womenfashion.jpg"
           oneImg="/images/glasses.avif"
           twoImg="/images/shoes.webp"
@@ -20,7 +20,7 @@ const Home = () => {
         <Hero
           fTitle="Electronic"
           lTitle="Products"
-          link="#"
+          link="/shop/electronic"
           mainImg="/images/mobile-image.jpg"
           oneImg="/images/laptops.jpg"
           twoImg="/images/headphones-image.jpg"
@@ -29,7 +29,7 @@ const Home = () => {
         <Hero
           fTitle="Beauty"
           lTitle="Products"
-          link="#"
+          link="/shop/beauty-products"
           mainImg="/images/beauty-1.jpg"
           oneImg="/images/beauty-2.jpg"
           twoImg="/images/beauty-3.jpg"
@@ -38,7 +38,7 @@ const Home = () => {
         <Hero
           fTitle="Home Decor"
           lTitle="& Furniture"
-          link="#"
+          link="/shop/home-products"
           mainImg="/images/furniture.jpg"
           oneImg="/images/smart-app.jpg"
           twoImg="/images/home-decor.jpg"

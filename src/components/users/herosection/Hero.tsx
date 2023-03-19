@@ -1,4 +1,5 @@
 import { BsArrowRight } from "react-icons/bs";
+import { Link } from "react-router-dom";
 
 type HeroProps = {
   fTitle: string;
@@ -31,8 +32,8 @@ const Hero = ({
             </h2>
           </div>
           <div>
-            <a
-              href="/"
+            <Link
+              to={link}
               aria-label=""
               className="inline-flex items-center font-semibold transition-colors duration-200 text-deep-purple-accent-400 hover:text-deep-purple-800"
             >
@@ -45,7 +46,7 @@ const Hero = ({
                   <BsArrowRight />
                 </span>
               </button>
-            </a>
+            </Link>
           </div>
         </div>
         <div className="flex items-center justify-center -mx-4 lg:pl-8">

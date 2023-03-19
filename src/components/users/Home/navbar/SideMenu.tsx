@@ -3,11 +3,12 @@ import { IoCloseOutline } from "react-icons/io5";
 
 type SideMenuProps = {
   setBar: (val: boolean) => void;
+  toggleBar: boolean
 };
 
-const SideMenu = ({ setBar }: SideMenuProps): JSX.Element => {
+const SideMenu = ({ setBar, toggleBar }: SideMenuProps): JSX.Element => {
   return (
-    <div className="flex h-screen flex-col justify-between border-r bg-white fixed top-0 left-0 z-50 w-[20%]">
+    <div className={`flex h-screen flex-col justify-between border-r bg-white fixed top-0 left-0 z-50 w-[20%] ${toggleBar ? "transition-all duration-300 translate-x-[0%]" : "transition-all duration-300 translate-x-[-100%]"}`}>
       <div className="px-4 py-6">
         <div className="flex justify-between items-center">
           <h2 className="font-extrabold uppercase lg:block text-black">
