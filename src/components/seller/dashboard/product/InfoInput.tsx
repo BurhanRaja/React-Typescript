@@ -15,23 +15,24 @@ const InfoInput = () => {
     <div className="my-8 p-8 bg-gray-100">
       <form>
         <h3 className="text-2xl font-bold">
-          Different Available Product Information
+          Different Available Product Information Based on Images
         </h3>
-        <div className="mb-3">
-          <label htmlFor="color" className="leading-7 text-sm text-gray-600">
-            Color
-          </label>
-          <input
-            type="text"
-            id="color"
-            name="color"
-            className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-          />
-        </div>
-        <div className="grid grid-cols-2 gap-4">
+        <h5 className="mt-5 mb-2">Choose Any Two from Color, Size or Product Info</h5>
+        <div className="grid grid-cols-3 gap-4">
+          <div className="relative">
+            <label htmlFor="color" className="leading-7 text-sm text-gray-600">
+              Color
+            </label>
+            <input
+              type="text"
+              id="color"
+              name="color"
+              className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+            />
+          </div>
           <div className="relative">
             <label htmlFor="size" className="leading-7 text-sm text-gray-600">
-              Size (Optional)
+              Size (should be multiple)
             </label>
             <input
               type="text"
@@ -45,7 +46,7 @@ const InfoInput = () => {
               htmlFor="product_type"
               className="leading-7 text-sm text-gray-600"
             >
-              Product Type (Optional)
+              Product Info (should be multiple)
             </label>
             <input
               type="text"
@@ -56,7 +57,6 @@ const InfoInput = () => {
             <small>For Example: In mobile - 16GB RAM</small>
           </div>
         </div>
-
         <div className="grid grid-cols-2 gap-4 mb-3">
           <div className="relative mb-2">
             <label
@@ -86,10 +86,7 @@ const InfoInput = () => {
         </div>
 
         <div className="mb-3">
-          <label
-            htmlFor="image"
-            className="block text-sm text-black"
-          >
+          <label htmlFor="image" className="block text-sm text-black">
             Add Images
           </label>
           <input

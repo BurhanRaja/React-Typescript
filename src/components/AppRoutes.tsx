@@ -8,11 +8,12 @@ import ProductCard from "./users/Product/ProductCard";
 import Register from "./users/Register";
 import Cart from "./users/cart/Cart";
 
+// Seller
 import SellerLogin from "./seller/Login";
 import SellerRegister from "./seller/Register";
-
 import SellerLayout from "./seller/Layout";
 import CreateProduct from "../pages/seller/CreateProduct";
+import AddDiscount from "../pages/seller/AddDiscount";
 
 const AppRoutes = () => {
   return (
@@ -42,14 +43,14 @@ const AppRoutes = () => {
             <Route element={<SellerLayout />}>
               <Route path="dashboard" />
               {/* Products */}
-              <Route path="create/product" element={<CreateProduct />} />
+              <Route path="add/product" element={<CreateProduct />} />
               <Route path="edit/product" />
               <Route path="product/list" />
               <Route path="product/:id" />
               {/* Discounts */}
               <Route path="discount/list" />
               <Route path="discount/:id" />
-              <Route path="add/discount" />
+              <Route path="add/discount" element={<AddDiscount />} />
               <Route path="edit/discount" />
               {/* Orders */}
               <Route path="pending/orders" />
