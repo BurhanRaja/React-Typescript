@@ -9,11 +9,13 @@ import Register from "./users/Register";
 import Cart from "./users/cart/Cart";
 
 // Seller
+import AddDiscount from "../pages/seller/AddDiscount";
+import CreateProduct from "../pages/seller/CreateProduct";
+import DeliveredOrder from "../pages/seller/order/DeliveredOrder";
+import PendingOrder from "../pages/seller/order/PendingOrder";
+import SellerLayout from "./seller/Layout";
 import SellerLogin from "./seller/Login";
 import SellerRegister from "./seller/Register";
-import SellerLayout from "./seller/Layout";
-import CreateProduct from "../pages/seller/CreateProduct";
-import AddDiscount from "../pages/seller/AddDiscount";
 
 const AppRoutes = () => {
   return (
@@ -53,8 +55,12 @@ const AppRoutes = () => {
               <Route path="add/discount" element={<AddDiscount />} />
               <Route path="edit/discount" />
               {/* Orders */}
-              <Route path="pending/orders" />
-              <Route path="completed/orders" />
+              <Route path="pending/orders" element={<PendingOrder />} />
+              <Route path="completed/orders" element={<DeliveredOrder />} />
+              {/* SellerInfo */}
+              <Route path="info/profile" />
+              {/* Seller */}
+              <Route path="profile" />
             </Route>
           </Route>
         </Routes>

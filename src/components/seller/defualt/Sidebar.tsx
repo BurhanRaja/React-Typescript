@@ -8,6 +8,8 @@ import { MdDashboard, MdLogout, MdOutlinePendingActions } from "react-icons/md";
 import { RiProfileLine } from "react-icons/ri";
 import { TbDiscount2 } from "react-icons/tb";
 
+import {Link} from "react-router-dom";
+
 const Sidebar = (): JSX.Element => {
   return (
     <div
@@ -16,20 +18,20 @@ const Sidebar = (): JSX.Element => {
     >
       <div className="px-4 py-6">
           <h2 className="font-extrabold uppercase text-2xl lg:block ">
-            <a href="/">Company</a>
+            <Link to="/seller/dashboard">Company</Link>
           </h2>
 
         <nav
           aria-label="Main Nav"
           className="mt-6 flex flex-col space-y-1 text-white"
         >
-          <a
-            href="/"
+          <Link
+            to="/seller/dashboard"
             className="flex items-center gap-2 rounded-lg px-4 py-3 text-base"
           >
             <MdDashboard />
             <span className="font-medium"> Dashboard </span>
-          </a>
+          </Link>
 
           {/* Product */}
           <details className="group [&_summary::-webkit-details-marker]:hidden">
@@ -38,19 +40,19 @@ const Sidebar = (): JSX.Element => {
                 <BiGift />
                 <span className="font-medium"> Products </span>
               </div>
-
               <span className="shrink-0 transition duration-300 group-open:-rotate-180">
                 <FiChevronDown />
               </span>
             </summary>
             <nav aria-label="Teams Nav" className="mt-2 flex flex-col px-4">
-              <a
-                href="/"
+              {/* Add Product */}
+              <Link
+                to="/add/product"
                 className="flex items-center gap-2 rounded-lg px-4 py-3 hover:bg-gray-100 hover:text-gray-700"
               >
                 <AiOutlinePlus />
                 <span className="text-sm font-medium"> Add Product </span>
-              </a>
+              </Link>
 
               {/* Team 2
               <details className="group/nested [&_summary::-webkit-details-marker]:hidden">
@@ -80,14 +82,14 @@ const Sidebar = (): JSX.Element => {
                 </nav>
               </details> */}
 
-              {/* Team 2 */}
-              <a
-                href="/"
+              {/* Product Listing */}
+              <Link
+                to="/product/list"
                 className="flex items-center gap-2 rounded-lg px-4 py-3 hover:bg-gray-100 hover:text-gray-700"
               >
                 <BsListUl />
                 <span className="text-sm font-medium"> Product Listing </span>
-              </a>
+              </Link>
             </nav>
           </details>
 
@@ -104,20 +106,20 @@ const Sidebar = (): JSX.Element => {
               </span>
             </summary>
             <nav aria-label="Teams Nav" className="mt-2 flex flex-col px-4">
-              <a
-                href="/"
+              <Link
+                to="/seller/add/discount"
                 className="flex items-center gap-2 rounded-lg px-4 py-3  hover:bg-gray-100 hover:text-gray-700 text-base"
               >
                 <AiOutlinePlus />
                 <span className="text-sm font-medium"> Add Discount </span>
-              </a>
-              <a
-                href="/"
+              </Link>
+              <Link
+                to="/seller/discount/list"
                 className="flex items-center gap-2 rounded-lg px-4 py-3  hover:bg-gray-100 hover:text-gray-700 text-base"
               >
                 <BsListUl />
                 <span className="text-sm font-medium"> Discount Listing </span>
-              </a>
+              </Link>
             </nav>
           </details>
 
@@ -134,20 +136,20 @@ const Sidebar = (): JSX.Element => {
               </span>
             </summary>
             <nav aria-label="Teams Nav" className="mt-2 flex flex-col px-4">
-              <a
-                href="/"
+              <Link
+                to="/seller/pending/orders"
                 className="flex items-center gap-2 rounded-lg px-4 py-3  hover:bg-gray-100 hover:text-gray-700 text-base"
               >
                 <MdOutlinePendingActions />
                 <span className="text-sm font-medium"> Pending Orders </span>
-              </a>
-              <a
-                href="/"
+              </Link>
+              <Link
+                to="/seller/completed/orders"
                 className="flex items-center gap-2 rounded-lg px-4 py-3  hover:bg-gray-100 hover:text-gray-700 text-base"
               >
                 <BsListUl />
                 <span className="text-sm font-medium"> Completed Orders </span>
-              </a>
+              </Link>
             </nav>
           </details>
 
