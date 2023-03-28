@@ -1,9 +1,13 @@
 import { useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
+import { registerSellerThunk } from "../../features/seller/auth";
+import useAppDispatch from "../../hooks/useAppDispatch";
+import useAppSelector from "../../hooks/useAppSelector";
+import { AiFillEye, AiFillEyeInvisible } from "react-icons/ai";
 
-const FIRSTNAME_REGEX = /^[A-z0-9-_\s]{4,40}$/;
-const LASTNAME_REGEX = /^[A-z0-9-_\s]{4,40}$/;
+const FIRSTNAME_REGEX = /^[A-z0-9]{4,20}$/;
+const LASTNAME_REGEX = /^[A-z0-9]{4,20}$/;
 const EMAIL_REGEX = /^\w+@[a-zA-Z_]+?\.[a-zA-Z]{2,5}$/;
 const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
@@ -14,22 +18,54 @@ const Register = () => {
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
+  // Show Password
+  const [showPassword, setShowPassword] = useState(false);
+
   // Error Message
   const [errorMsg, setErrorMsg] = useState("");
 
   // Register Seller
-  const {token, isLoading, isError} = useSelector((state: any) => state.sellerAuth);
-  const dispatch = useDispatch();
+  const { token, isLoading, isError } = useAppSelector(
+    (state: any) => state.sellerAuth
+  );
+  const dispatch = useAppDispatch();
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
 
-    if (fname === "" || lname === "" || email === "" || password === "" || confirmPassword === "") {
+    if (
+      fname === "" ||
+      lname === "" ||
+      email === "" || 
+      password === "" ||
+      confirmPassword === ""
+    ) {
       setErrorMsg("Please fill the above field.");
       return;
+    }
+
+    const c1: boolean = FIRSTNAME_REGEX.test(fname);
+    const c2: boolean = LASTNAME_REGEX.test(lname);
+    const c3: boolean = EMAIL_REGEX.test(email);
+    const c4: boolean = PASSWORD_REGEX.test(password);
+    const c5: boolean = password === confirmPassword;
+
+    if (!c1 || !c2 || !c3 || !c4 || !c5) {
+      toast.warning("Invalid Credentials");
+      return;
+    }
+
+    let data = {
+      fname,
+      lname,
+      email,
+      password,
     };
 
+    console.log(data);
+    // return;
 
+    dispatch(registerSellerThunk(data)).then((data) => console.log(data));
   };
 
   return (
@@ -61,7 +97,6 @@ const Register = () => {
                 value={fname}
                 onChange={(e) => setFname(e.target.value)}
               />
-              <span className="absolute inset-y-0 right-0 grid place-content-center px-4"></span>
             </div>
           </div>
 
@@ -79,7 +114,6 @@ const Register = () => {
                 value={lname}
                 onChange={(e) => setLname(e.target.value)}
               />
-              <span className="absolute inset-y-0 right-0 grid place-content-center px-4"></span>
             </div>
           </div>
 
@@ -96,7 +130,6 @@ const Register = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
-              <span className="absolute inset-y-0 right-0 grid place-content-center px-4"></span>
             </div>
           </div>
 
@@ -107,14 +140,26 @@ const Register = () => {
 
             <div className="relative">
               <input
-                type="password"
+                type={showPassword ? "text" : "password"}
                 id="password"
                 className="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm focus:outline-0"
                 placeholder="Enter password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
-              <span className="absolute inset-y-0 right-0 grid place-content-center px-4"></span>
+              <span className="absolute inset-y-0 right-0 grid place-content-center px-4">
+                {!showPassword ? (
+                  <AiFillEye
+                    onClick={() => setShowPassword(true)}
+                    className="hover:cursor-pointer"
+                  />
+                ) : (
+                  <AiFillEyeInvisible
+                    onClick={() => setShowPassword(false)}
+                    className="hover:cursor-pointer"
+                  />
+                )}
+              </span>
             </div>
           </div>
 
