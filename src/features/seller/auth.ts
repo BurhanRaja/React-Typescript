@@ -5,14 +5,12 @@ const initialState = {
   token: "",
   isLoading: false,
   isError: false,
-  error: {}
 };
 
 export const registerSellerThunk = createAsyncThunk(
   "auth/sellerRegister",
   async (data: Object) => {
     let response = await registerSeller(data);
-    console.log(response);
     return response;
   }
 );
@@ -38,10 +36,7 @@ const authSlice = createSlice({
         state.isLoading = false;
         state.token = payload.token;
       })
-      .addCase(registerSellerThunk.rejected, (state, action) => {
-        if (action.payload) {
-          state.error = action.payload;
-        }
+      .addCase(registerSellerThunk.rejected, (state) => {
         state.isLoading = false;
         state.isError = true;
       })

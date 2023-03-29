@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 import { registerSellerThunk } from "../../features/seller/auth";
 import useAppDispatch from "../../hooks/useAppDispatch";
@@ -13,10 +13,45 @@ const PASSWORD_REGEX = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$/;
 
 const Register = () => {
   const [fname, setFname] = useState("");
+  const [isValidFname, setIsValidFname] = useState(false);
+  const [fnameFocus, setFnameFocus] = useState(false);
+  
   const [lname, setLname] = useState("");
+  const [isValidLname, setIsValidLname] = useState(false);
+  const [lnameFocus, setLnameFocus] = useState(false);
+  
   const [email, setEmail] = useState("");
+  const [isValidEmail, setIsValidEmail] = useState(false);
+  const [emailFocus, setEmailFocus] = useState(false);
+  
   const [password, setPassword] = useState("");
+  const [isValidPassword, setIsValidPassword] = useState(false);
+  const [passwordFocus, setPasswordFocus] = useState(false);
+  
   const [confirmPassword, setConfirmPassword] = useState("");
+  const [isValidMatchPass, setIsValidMatchPass] = useState(false);
+  const [cpasswordFocus, setCPasswordFocus] = useState(false);
+
+  // Validation
+  useEffect(() => {
+    setIsValidFname(FIRSTNAME_REGEX.test(fname));
+  }, [fname]);
+
+  useEffect(() => {
+    setIsValidLname(LASTNAME_REGEX.test(lname));
+  }, [lname]);
+
+  useEffect(() => {
+    setIsValidEmail(EMAIL_REGEX.test(email));
+  }, [email]);
+
+  useEffect(() => {
+    setIsValidPassword(PASSWORD_REGEX.test(password));
+  }, [password]);
+
+  useEffect(() => {
+    setIsValidMatchPass(password === confirmPassword);
+  }, [confirmPassword]);
 
   // Show Password
   const [showPassword, setShowPassword] = useState(false);
@@ -24,11 +59,23 @@ const Register = () => {
   // Error Message
   const [errorMsg, setErrorMsg] = useState("");
 
+  // Navigation
+  const navigate = useNavigate();
+
+
   // Register Seller
-  const { token, isLoading, isError } = useAppSelector(
+  const {token, isError, isLoading} = useAppSelector(
     (state: any) => state.sellerAuth
   );
   const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (!isLoading && !isError) {
+      localStorage.setItem("sellerToken", token);
+      localStorage.setItem("sellerinfo", "false");
+      navigate("/add/sellerinfo");
+    }
+  }, [isLoading, isError]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -62,11 +109,16 @@ const Register = () => {
       password,
     };
 
-    console.log(data);
-    // return;
-
-    dispatch(registerSellerThunk(data)).then((data) => console.log(data));
+    dispatch(registerSellerThunk(data)).then((data: any) => {
+        if (data?.error?.code === "ERR_BAD_REQUEST") {
+          toast.warn("User Already Exists.")
+        }
+        if (data?.error?.code === "ERR_NETWORK") {
+          toast.error("Internal Server Error")
+        }
+    });
   };
+
 
   return (
     <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
@@ -90,12 +142,14 @@ const Register = () => {
             <div className="relative">
               <input
                 type="text"
-                className="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm focus:outline-0"
+                className={`w-full rounded-lg border ${fnameFocus && (isValidFname ? "border-gray-200" : "border-red-500")} p-4 pr-12 text-sm shadow-sm focus:outline-0`}
                 placeholder="Enter First Name"
                 name="fname"
                 id="fname"
                 value={fname}
                 onChange={(e) => setFname(e.target.value)}
+                onFocus={() => setFnameFocus(true)}
+                onBlur={() => setFnameFocus(false)}
               />
             </div>
           </div>
@@ -107,12 +161,14 @@ const Register = () => {
             <div className="relative">
               <input
                 type="text"
-                className="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm focus:outline-0"
+                className={`w-full rounded-lg border ${lnameFocus && (isValidLname ? "border-gray-200" : "border-red-500")}  p-4 pr-12 text-sm shadow-sm focus:outline-0`}
                 placeholder="Enter Last Name"
                 name="lname"
                 id="lname"
                 value={lname}
                 onChange={(e) => setLname(e.target.value)}
+                onFocus={() => setLnameFocus(true)}
+                onBlur={() => setLnameFocus(false)}
               />
             </div>
           </div>
@@ -125,10 +181,12 @@ const Register = () => {
               <input
                 type="email"
                 id="email"
-                className="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm focus:outline-0"
+                className={`w-full rounded-lg border ${emailFocus && (isValidEmail ? "border-gray-200" : "border-red-500")}  p-4 pr-12 text-sm shadow-sm focus:outline-0`}
                 placeholder="Enter email"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
+                onFocus={() => setEmailFocus(true)}
+                onBlur={() => setEmailFocus(false)}
               />
             </div>
           </div>
@@ -142,10 +200,12 @@ const Register = () => {
               <input
                 type={showPassword ? "text" : "password"}
                 id="password"
-                className="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm focus:outline-0"
+                className={`w-full rounded-lg border ${passwordFocus && (isValidPassword ? "border-gray-200" : "border-red-500")}  p-4 pr-12 text-sm shadow-sm focus:outline-0`}
                 placeholder="Enter password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                onFocus={() => setPasswordFocus(true)}
+                onBlur={() => setPasswordFocus(false)}
               />
               <span className="absolute inset-y-0 right-0 grid place-content-center px-4">
                 {!showPassword ? (
@@ -172,10 +232,12 @@ const Register = () => {
               <input
                 type="password"
                 id="confimPassword"
-                className="w-full rounded-lg border-gray-200 p-4 pr-12 text-sm shadow-sm focus:outline-0"
+                className={`w-full rounded-lg border ${cpasswordFocus && (isValidMatchPass ? "border-gray-200" : "border-red-500")}  p-4 pr-12 text-sm shadow-sm focus:outline-0`}
                 placeholder="Enter Confirm password"
                 value={confirmPassword}
                 onChange={(e) => setConfirmPassword(e.target.value)}
+                onFocus={() => setCPasswordFocus(true)}
+                onBlur={() => setCPasswordFocus(false)}
               />
               <span className="absolute inset-y-0 right-0 grid place-content-center px-4"></span>
             </div>
@@ -184,7 +246,6 @@ const Register = () => {
           <button className="text-white bg-black border-0 py-2 px-8 focus:outline-none hover:bg-gray-900 rounded text-lg w-[100%]">
             Register
           </button>
-
           <p className="text-center text-sm text-gray-500">
             No account?{" "}
             <Link className="underline" to="/seller/login">
@@ -192,6 +253,7 @@ const Register = () => {
             </Link>
           </p>
         </form>
+
       </div>
     </div>
   );

@@ -47,7 +47,7 @@ const Sidebar = (): JSX.Element => {
             <nav aria-label="Teams Nav" className="mt-2 flex flex-col px-4">
               {/* Add Product */}
               <Link
-                to="/add/product"
+                to="/seller/add/product"
                 className="flex items-center gap-2 rounded-lg px-4 py-3 hover:bg-gray-100 hover:text-gray-700"
               >
                 <AiOutlinePlus />
@@ -84,7 +84,7 @@ const Sidebar = (): JSX.Element => {
 
               {/* Product Listing */}
               <Link
-                to="/product/list"
+                to="/seller/product/list"
                 className="flex items-center gap-2 rounded-lg px-4 py-3 hover:bg-gray-100 hover:text-gray-700"
               >
                 <BsListUl />
