@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 import CheckoutPage from "../pages/CheckoutPage";
 import Home from "../pages/Home";
 import CollectionHome from "./users/CollectionHome";
@@ -16,8 +16,10 @@ import PendingOrder from "../pages/seller/order/PendingOrder";
 import SellerLayout from "./seller/Layout";
 import SellerLogin from "./seller/Login";
 import SellerRegister from "./seller/Register";
+import RequireSellerAuth from "./RequireSellerAuth";
 
 const AppRoutes = () => {
+  let token = localStorage.getItem("sellerToken");
   return (
     <>
       <BrowserRouter>
@@ -42,25 +44,27 @@ const AppRoutes = () => {
             <Route path="login" element={<SellerLogin />} />
             <Route path="register" element={<SellerRegister />} />
             <Route path="add/sellerinfo" />
-            <Route element={<SellerLayout />}>
-              <Route path="dashboard" />
-              {/* Products */}
-              <Route path="add/product" element={<CreateProduct />} />
-              <Route path="edit/product" />
-              <Route path="product/list" />
-              <Route path="product/:id" />
-              {/* Discounts */}
-              <Route path="discount/list" />
-              <Route path="discount/:id" />
-              <Route path="add/discount" element={<AddDiscount />} />
-              <Route path="edit/discount" />
-              {/* Orders */}
-              <Route path="pending/orders" element={<PendingOrder />} />
-              <Route path="completed/orders" element={<DeliveredOrder />} />
-              {/* SellerInfo */}
-              <Route path="info/profile" />
-              {/* Seller */}
-              <Route path="profile" />
+            <Route element={<RequireSellerAuth />}>
+              <Route element={<SellerLayout />}>
+                <Route path="dashboard" />
+                {/* Products */}
+                <Route path="add/product" element={<CreateProduct />} />
+                <Route path="edit/product" />
+                <Route path="product/list" />
+                <Route path="product/:id" />
+                {/* Discounts */}
+                <Route path="discount/list" />
+                <Route path="discount/:id" />
+                <Route path="add/discount" element={<AddDiscount />} />
+                <Route path="edit/discount" />
+                {/* Orders */}
+                <Route path="pending/orders" element={<PendingOrder />} />
+                <Route path="completed/orders" element={<DeliveredOrder />} />
+                {/* SellerInfo */}
+                <Route path="info/profile" />
+                {/* Seller */}
+                <Route path="profile" />
+              </Route>
             </Route>
           </Route>
         </Routes>

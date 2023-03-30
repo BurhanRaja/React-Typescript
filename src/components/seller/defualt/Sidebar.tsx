@@ -3,14 +3,23 @@ import { BiGift } from "react-icons/bi";
 import { BsListUl } from "react-icons/bs";
 import { CgProfile } from "react-icons/cg";
 import { FiChevronDown } from "react-icons/fi";
-import { IoCloseOutline } from "react-icons/io5";
 import { MdDashboard, MdLogout, MdOutlinePendingActions } from "react-icons/md";
 import { RiProfileLine } from "react-icons/ri";
 import { TbDiscount2 } from "react-icons/tb";
 
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Sidebar = (): JSX.Element => {
+
+  const navigate = useNavigate();
+
+  const handleLogout = () => {
+    localStorage.clear();
+    toast.success("Successfully Logged Out!");
+    navigate("/seller/login");
+  }
+
   return (
     <div
       className={`flex h-screen flex-col justify-between border-r fixed top-0 left-0 z-50 w-[20%] transition-all duration-300 translate-x-[0%]
@@ -173,6 +182,7 @@ const Sidebar = (): JSX.Element => {
             <button
               type="submit"
               className="flex w-full items-center gap-2 rounded-lg px-4 py-3 hover:bg-red-500 hover:text-gray-700 text-base"
+              onClick={handleLogout}
             >
               <MdLogout />
               <span className="font-medium"> Logout </span>
