@@ -1,11 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { loginSeller, registerSeller } from "../../api/seller/seller";
 
+interface InitialState {
+  token: string,
+  isLoading: boolean,
+  isError: boolean
+}
+
 const initialState = {
   token: "",
   isLoading: false,
   isError: false,
-};
+} as InitialState;
 
 export const registerSellerThunk = createAsyncThunk(
   "auth/sellerRegister",
@@ -28,11 +34,7 @@ const authSlice = createSlice({
   initialState,
   reducers: {
     clearState: () => {
-      return {
-        token: "",
-        isError: false,
-        isLoading: false
-      }
+      return initialState;
     }
   },
   extraReducers: (build) => {

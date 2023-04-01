@@ -1,8 +1,27 @@
+import { useEffect, useState } from "react";
 import InfoDisplay from "../../components/seller/dashboard/product/InfoDisplay";
 import InfoInput from "../../components/seller/dashboard/product/InfoInput";
 import SelectDropdown from "../../components/seller/dashboard/product/SelectDropdown";
+import { getCategoryThunk } from "../../features/categories/category";
+import { getParentCatThunk } from "../../features/categories/parentCategory";
+import useAppDispatch from "../../hooks/useAppDispatch";
+import useAppSelector from "../../hooks/useAppSelector";
 
 const CreateProduct = () => {
+  const [name, setName] = useState("");
+  const [description, setDescription] = useState("");
+  const [thumbnail, setThumbnail] = useState("");
+
+  const disptach = useAppDispatch();
+
+  const { pCategories } = useAppSelector((state) => state.pCategoriesAction);
+  const { categories } = useAppSelector((state) => state.categoriesAction);
+  const { subCategories } = useAppSelector((state) => state.subCategoryAction);
+
+  useEffect(() => {
+    disptach(getParentCatThunk);
+  }, []);
+
   return (
     <div className="p-10 bg-slate-200">
       <div className="bg-white p-8 rounded-md">
@@ -35,19 +54,21 @@ const CreateProduct = () => {
             className="block w-full px-3 py-2 mt-2 text-sm text-gray-600 bg-white border border-gray-200 rounded-lg file:bg-gray-200 file:text-gray-700 file:text-sm file:px-4 file:py-1 file:border-none file:rounded-full placeholder-gray-400/70 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"
           />
         </div>
+
         <div className="mb-3">
           <SelectDropdown title={"Parent Category"} mappeddata={[]} />
         </div>
         <div className="mb-3">
-        <SelectDropdown title={"Category"} mappeddata={[]} />
+          <SelectDropdown title={"Category"} mappeddata={[]} />
         </div>
         <div className="mb-3">
-        <SelectDropdown title={"Sub-Category"} mappeddata={[]} />
+          <SelectDropdown title={"Sub-Category"} mappeddata={[]} />
         </div>
 
         <InfoDisplay />
+
         <InfoInput />
-        
+
         <button className="text-white bg-black border-0 py-2 px-8 focus:outline-none hover:bg-gray-900 rounded text-lg w-[100%]">
           Create Product
         </button>

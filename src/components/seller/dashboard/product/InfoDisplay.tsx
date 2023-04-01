@@ -1,111 +1,106 @@
+import { IoMdClose } from "react-icons/io";
+import useAppSelector from "../../../../hooks/useAppSelector";
+
 const InfoDisplay = () => {
+  const { images_info, count } = useAppSelector((state) => state.imagesInfo);
+
   return (
     <div>
       <div className="container p-2 mx-auto sm:p-4 dark:text-gray-900">
         <h2 className="mb-4 text-2xl font-semibold leading-tight">
-          All Images with Info
+          All Images with Information
         </h2>
-        <div className="overflow-x-auto">
-          <div className="flex justify-end items-center">
-            <button className="text-red-500 underline">Delete</button>
-          </div>
-          <table className="min-w-full text-xs">
-            <colgroup>
-              <col />
-              <col />
-              <col />
-              <col />
-              <col />
-            </colgroup>
-            <tbody className="border-gray-700">
-              <tr className="border border-opacity-20 border-gray-700">
-                <th className="p-3 text-start border-r border-opacity-20 border-gray-700">
-                  <h4 className="text-xl">Color</h4>
-                </th>
-                <td className="p-3 text-center">
-                  <p className="text-lg">Green</p>
-                </td>
-              </tr>
-              <tr className="border-b border-l border-r border-opacity-20 border-gray-700">
-                <th className="p-3 text-start border-r border-opacity-20 border-gray-700">
-                  <h4 className="text-xl">Size</h4>
-                </th>
-                <td className="p-3 text-center flex justify-evenly items-end">
-                  <p className="text-lg">S</p>
-                  <p className="text-lg">M</p>
-                  <p className="text-lg">L</p>
-                  <p className="text-lg">XL</p>
-                  <p className="text-lg">XXL</p>
-                </td>
-              </tr>
-              <tr className="border-b  border-l border-r border-opacity-20 border-gray-700">
-                <th className="p-3 text-start border-r border-opacity-20 border-gray-700">
-                  <h4 className="text-xl">Product Info Type</h4>
-                </th>
-                <td className="p-3 text-center flex justify-evenly items-end">
-                  <p className="text-lg">4GB RAM</p>
-                  <p className="text-lg">8GB RAM</p>
-                  <p className="text-lg">16GB RAM</p>
-                  <p className="text-lg">24GB RAM</p>
-                  <p className="text-lg">32GB RAM</p>
-                </td>
-              </tr>
-              <tr className="border-b  border-l border-r border-opacity-20 border-gray-700">
-                <th className="p-3 text-start border-r border-opacity-20 border-gray-700">
-                  <h4 className="text-xl">Quantity</h4>
-                </th>
-                <td className="p-3 text-center">
-                  <p className="text-lg">100</p>
-                </td>
-              </tr>
-              <tr className="border-b border-l border-r border-opacity-20 border-gray-700">
-                <th className="p-3 text-start border-r border-opacity-20 border-gray-700">
-                  <h4 className="text-xl">Price</h4>
-                </th>
-                <td className="p-3 text-center">
-                  <p className="text-lg">₹100</p>
-                </td>
-              </tr>
-              <tr className="border-b  border-l border-r border-opacity-20 border-gray-700">
-                <th className="p-3 text-start border-r border-opacity-20 border-gray-700">
-                  <h4 className="text-xl">Images</h4>
-                </th>
-                <td className="p-3 flex justify-evenly items-center">
-                  <img
-                    src="https://images.unsplash.com/photo-1679499163638-a38b6c079595?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=327&q=80"
-                    height={50}
-                    width={50}
-                    alt="anyname"
-                  />
-                  <img
-                    src="https://images.unsplash.com/photo-1679499163638-a38b6c079595?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=327&q=80"
-                    height={50}
-                    width={50}
-                    alt="anyname"
-                  />
-                  <img
-                    src="https://images.unsplash.com/photo-1679499163638-a38b6c079595?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=327&q=80"
-                    height={50}
-                    width={50}
-                    alt="anyname"
-                  />
-                  <img
-                    src="https://images.unsplash.com/photo-1679499163638-a38b6c079595?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=327&q=80"
-                    height={50}
-                    width={50}
-                    alt="anyname"
-                  />
-                  <img
-                    src="https://images.unsplash.com/photo-1679499163638-a38b6c079595?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=327&q=80"
-                    height={50}
-                    width={50}
-                    alt="anyname"
-                  />
-                </td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        {count <= 0 ? (
+          <p className="text-red-500">Currently No Information</p>
+        ) : (
+          images_info?.map((el) => {
+            return (
+              <div className="overflow-x-auto">
+                <div className="flex justify-end items-center">
+                  <button className="underline text-red-500 text-2xl p-2 ">
+                    <IoMdClose />
+                  </button>
+                </div>
+                <table className="min-w-full text-xs">
+                  <colgroup>
+                    <col />
+                    <col />
+                    <col />
+                    <col />
+                    <col />
+                  </colgroup>
+                  <tbody className="border-gray-700">
+                    <tr className="border border-opacity-20 border-gray-700">
+                      <th className="p-3 text-start border-r border-opacity-20 border-gray-700">
+                        <h4 className="text-xl">Color</h4>
+                      </th>
+                      <td className="p-3 text-center">
+                        <p className="text-lg">{el.color}</p>
+                      </td>
+                    </tr>
+                    {el.sizes.length > 0 && (
+                      <tr className="border-b border-l border-r border-opacity-20 border-gray-700">
+                        <th className="p-3 text-start border-r border-opacity-20 border-gray-700">
+                          <h4 className="text-xl">Size</h4>
+                        </th>
+                        <td className="p-3 text-center flex justify-evenly items-end">
+                          {el.sizes?.map((size) => {
+                            return <p className="text-lg">{size}</p>;
+                          })}
+                        </td>
+                      </tr>
+                    )}
+                    {el.info_types.length > 0 && (
+                      <tr className="border-b  border-l border-r border-opacity-20 border-gray-700">
+                        <th className="p-3 text-start border-r border-opacity-20 border-gray-700">
+                          <h4 className="text-xl">Product Info Type</h4>
+                        </th>
+                        <td className="p-3 text-center flex justify-evenly items-end">
+                          {el.info_types?.map((info) => {
+                            return <p className="text-lg">{info}</p>;
+                          })}
+                        </td>
+                      </tr>
+                    )}
+                    <tr className="border-b  border-l border-r border-opacity-20 border-gray-700">
+                      <th className="p-3 text-start border-r border-opacity-20 border-gray-700">
+                        <h4 className="text-xl">Quantity</h4>
+                      </th>
+                      <td className="p-3 text-center">
+                        <p className="text-lg">{el.quantity}</p>
+                      </td>
+                    </tr>
+                    <tr className="border-b border-l border-r border-opacity-20 border-gray-700">
+                      <th className="p-3 text-start border-r border-opacity-20 border-gray-700">
+                        <h4 className="text-xl">Price</h4>
+                      </th>
+                      <td className="p-3 text-center">
+                        <p className="text-lg">₹ {el.price}</p>
+                      </td>
+                    </tr>
+                    <tr className="border-b  border-l border-r border-opacity-20 border-gray-700">
+                      <th className="p-3 text-start border-r border-opacity-20 border-gray-700">
+                        <h4 className="text-xl">Images</h4>
+                      </th>
+                      <td className="p-3 flex justify-evenly items-center">
+                        {el.images?.map((image, index) => {
+                          return (
+                            <img
+                              src={image}
+                              height={50}
+                              width={50}
+                              alt={`anyname-${index + 1}`}
+                            />
+                          );
+                        })}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            );
+          })
+        )}
       </div>
     </div>
   );

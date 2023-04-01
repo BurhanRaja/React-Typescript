@@ -22,7 +22,7 @@ const Layout = (): JSX.Element => {
         <Header />
         <Sidebar />
       </div>
-      <div className="ml-[16rem]">
+      <div className="ml-[18rem]">
         <Outlet />
       </div>
     </>
