@@ -1,11 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getSubCategories } from "../../api/categories";
 
+interface InitialState {
+  isLoading: boolean;
+  subCategories: any[];
+  isError: boolean;
+}
+
 const initialState = {
   isLoading: false,
   subCategories: [],
   isError: false,
-};
+} as InitialState;
 
 export const getSubCatThunk = createAsyncThunk(
   "subCategory/getSubCat",
@@ -26,7 +32,7 @@ const subCategorySlice = createSlice({
       })
       .addCase(getSubCatThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.subCategories = payload;
+        state.subCategories = payload.subCategories;
       })
       .addCase(getSubCatThunk.rejected, (state) => {
         state.isError = true;

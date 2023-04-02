@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { addImageInfo } from "../../../../features/product/seller/productImagesInfo";
 import useAppDispatch from "../../../../hooks/useAppDispatch";
-import { v4 as uuidv4 } from 'uuid';
+import { v4 as uuidv4 } from "uuid";
 
 const InfoInput = () => {
   // Upload Files
@@ -65,238 +65,239 @@ const InfoInput = () => {
     setImages((images) => images?.filter((el) => el !== image));
   }
 
-
   // Add Images Info
   const dispatch = useAppDispatch();
 
   function handleSubmit(e: any) {
     e.preventDefault();
-    dispatch(addImageInfo({
-        id: uuidv4 (),
+    dispatch(
+      addImageInfo({
+        _id: uuidv4().split("-").join(""),
         images,
         color,
         sizes,
         info_types: infoTypes,
         price,
-        quantity
-    }))
+        quantity,
+      })
+    );
+
+    setImages([]);
+    setInfoTypes([]);
+    setSizes([]);
   }
 
   return (
     <div className="my-8 p-8 bg-gray-100">
-      <form onSubmit={handleSubmit}>
-        <h3 className="text-2xl font-bold">
-          Different Available Product Information Based on Images
-        </h3>
-        <h5 className="mt-5 mb-2">
-          Choose Any Two from Color, Size or Product Info
-        </h5>
-        <div className="grid grid-cols-3 gap-4">
-          {/* Color */}
-          <div className="relative">
-            <label htmlFor="color" className="leading-7 text-sm text-gray-600">
-              Color
-            </label>
-            <input
-              type="text"
-              id="color"
-              name="color"
-              className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-              value={color}
-              onChange={(e) => setColor(e.target.value)}
-            />
-          </div>
-          {/* Color */}
-
-          {/* Size */}
-          <div className="relative">
-            <label htmlFor="size" className="leading-7 text-sm text-gray-600">
-              <span className="font-semibold">Size</span> (could be multiple and
-              based on colors)
-            </label>
-            <div className="flex justify-center items-center">
-              <input
-                type="text"
-                id="size"
-                name="size"
-                className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                value={oneSize}
-                onChange={(e) => setOneSize(e.target.value)}
-              />
-              <button
-                className="bg-black text-white p-2 px-4 rounded-r"
-                onClick={addSize}
-              >
-                Add
-              </button>
-            </div>
-            <div className="flex items-center mt-3">
-              {sizes?.map((el) => {
-                return (
-                  <>
-                    <div
-                      className="flex bg-black text-white p-2 rounded mr-2"
-                      key={el}
-                    >
-                      <small>{el}</small>{" "}
-                      <button
-                        className="text-red-400 ml-2 text-xs"
-                        onClick={() => deleteSize(el)}
-                      >
-                        X
-                      </button>
-                    </div>
-                  </>
-                );
-              })}
-            </div>
-          </div>
-          {/* Size */}
-
-          {/* Product Info */}
-          <div className="relative">
-            <label
-              htmlFor="product_type"
-              className="leading-7 text-sm text-gray-600"
-            >
-              <span className="font-semibold">Product Info</span> (could be
-              multiple and based on colors)
-            </label>
-            <div className="flex justify-center items-center">
-              <input
-                type="text"
-                id="product_type"
-                name="product_type"
-                className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-                value={oneInfo}
-                onChange={(e) => setOneInfo(e.target.value)}
-              />
-              <button
-                className="bg-black text-white p-2 px-4 rounded-r mr-2"
-                onClick={addInfo}
-              >
-                Add
-              </button>
-            </div>
-            <div className="flex items-center mt-3">
-              {infoTypes?.map((el) => {
-                return (
-                  <>
-                    <div
-                      className="flex bg-black text-white p-2 rounded"
-                      key={el}
-                    >
-                      <small>{el}</small>{" "}
-                      <button
-                        className="text-red-400 ml-2 text-xs"
-                        onClick={() => deleteInfo(el)}
-                      >
-                        X
-                      </button>
-                    </div>
-                  </>
-                );
-              })}
-            </div>
-            {infoTypes.length === 0 && (
-              <small>For Example: In mobile - 16GB RAM</small>
-            )}
-          </div>
+      <h3 className="text-2xl font-bold">
+        Different Available Product Information Based on Images
+      </h3>
+      <h5 className="mt-5 mb-2">
+        Choose Any Two from Color, Size or Product Info
+      </h5>
+      <div className="grid grid-cols-3 gap-4">
+        {/* Color */}
+        <div className="relative">
+          <label htmlFor="color" className="leading-7 text-sm text-gray-600">
+            Color
+          </label>
+          <input
+            type="text"
+            id="color"
+            name="color"
+            className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+            value={color}
+            onChange={(e) => setColor(e.target.value)}
+          />
         </div>
-        {/* Product Info */}
+        {/* Color */}
 
-        <div className="grid grid-cols-2 gap-4 mb-3">
-          {/* Quantity */}
-          <div className="relative mb-2">
-            <label
-              htmlFor="quantity"
-              className="leading-7 text-sm text-gray-600"
-            >
-              Quantity
-            </label>
-            <input
-              type="number"
-              id="quantity"
-              name="quantity"
-              className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-              value={quantity}
-              onChange={(e) => setQuantity(e.target.value)}
-            />
-          </div>
-          {/* Quantity */}
-
-          {/* Price */}
-          <div className="relative mb-2">
-            <label htmlFor="price" className="leading-7 text-sm text-gray-600">
-              Price
-            </label>
-            <input
-              type="number"
-              id="price"
-              name="price"
-              className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-              value={price}
-              onChange={(e) => setPrice(e.target.value)}
-            />
-          </div>
-          {/* Price */}
-        </div>
-
-        {/* Images */}
-        <div className="mb-3">
-          <label htmlFor="image" className="block text-sm text-black">
-            Add Images
+        {/* Size */}
+        <div className="relative">
+          <label htmlFor="size" className="leading-7 text-sm text-gray-600">
+            <span className="font-semibold">Size</span> (could be multiple and
+            based on colors)
           </label>
           <div className="flex justify-center items-center">
             <input
               type="text"
-              id="images"
-              name="images"
+              id="size"
+              name="size"
               className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
-              value={oneImage}
-              onChange={(e) => setOneImage(e.target.value)}
+              value={oneSize}
+              onChange={(e) => setOneSize(e.target.value)}
             />
             <button
               className="bg-black text-white p-2 px-4 rounded-r"
-              onClick={addImages}
+              onClick={addSize}
             >
               Add
             </button>
           </div>
-          <div className="flex items-center mt-5">
-            {images?.map((el, index) => {
+          <div className="flex items-center mt-3 flex-wrap">
+            {sizes?.map((el) => {
               return (
-                <div key={el}>
-                  <img
-                    id={`image-${index}`}
-                    className="mr-4"
-                    src={el}
-                    alt=""
-                    width="100"
-                    height="100"
-                  />
-                  <button
-                    onClick={() => deleteImage(el)}
-                    className="text-xs p-0 border-0 text-red-600 underline"
+                <>
+                  <div
+                    className="flex bg-black text-white p-2 rounded mr-2 mb-2"
+                    key={el}
                   >
-                    Delete
-                  </button>
-                </div>
+                    <small>{el}</small>{" "}
+                    <button
+                      className="text-red-400 ml-2 text-xs"
+                      onClick={() => deleteSize(el)}
+                    >
+                      X
+                    </button>
+                  </div>
+                </>
               );
             })}
           </div>
-          {images?.length === 0 && (
-            <small>Add Images Based on Information Given Above</small>
+        </div>
+        {/* Size */}
+
+        {/* Product Info */}
+        <div className="relative">
+          <label
+            htmlFor="product_type"
+            className="leading-7 text-sm text-gray-600"
+          >
+            <span className="font-semibold">Product Info</span> (could be
+            multiple and based on colors)
+          </label>
+          <div className="flex justify-center items-center">
+            <input
+              type="text"
+              id="product_type"
+              name="product_type"
+              className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+              value={oneInfo}
+              onChange={(e) => setOneInfo(e.target.value)}
+            />
+            <button
+              className="bg-black text-white p-2 px-4 rounded-r mr-2"
+              onClick={addInfo}
+            >
+              Add
+            </button>
+          </div>
+          <div className="flex items-center mt-3 flex-wrap">
+            {infoTypes?.map((el) => {
+              return (
+                <>
+                  <div
+                    className="flex bg-black text-white p-2 rounded mr-2 mb-2"
+                    key={el}
+                  >
+                    <small>{el}</small>{" "}
+                    <button
+                      className="text-red-400 ml-2 text-xs"
+                      onClick={() => deleteInfo(el)}
+                    >
+                      X
+                    </button>
+                  </div>
+                </>
+              );
+            })}
+          </div>
+          {infoTypes.length === 0 && (
+            <small>For Example: In mobile - 16GB RAM</small>
           )}
         </div>
-        {/* Images */}
-        <button
-          type="submit"
-          className="text-white bg-black border-0 py-2 px-8 focus:outline-none hover:bg-gray-900 rounded text-lg w-[20%]"
-        >
-          Add
-        </button>
-      </form>
+      </div>
+      {/* Product Info */}
+
+      <div className="grid grid-cols-2 gap-4 mb-3">
+        {/* Quantity */}
+        <div className="relative mb-2">
+          <label htmlFor="quantity" className="leading-7 text-sm text-gray-600">
+            Quantity
+          </label>
+          <input
+            type="number"
+            id="quantity"
+            name="quantity"
+            className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+            value={quantity}
+            onChange={(e) => setQuantity(e.target.value)}
+          />
+        </div>
+        {/* Quantity */}
+
+        {/* Price */}
+        <div className="relative mb-2">
+          <label htmlFor="price" className="leading-7 text-sm text-gray-600">
+            Price
+          </label>
+          <input
+            type="number"
+            id="price"
+            name="price"
+            className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+            value={price}
+            onChange={(e) => setPrice(e.target.value)}
+          />
+        </div>
+        {/* Price */}
+      </div>
+
+      {/* Images */}
+      <div className="mb-3">
+        <label htmlFor="image" className="block text-sm text-black">
+          Add Images
+        </label>
+        <div className="flex justify-center items-center">
+          <input
+            type="text"
+            id="images"
+            name="images"
+            className="w-full bg-white rounded border border-gray-300 focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-gray-700 py-1 px-3 leading-8 transition-colors duration-200 ease-in-out"
+            value={oneImage}
+            onChange={(e) => setOneImage(e.target.value)}
+          />
+          <button
+            className="bg-black text-white p-2 px-4 rounded-r"
+            onClick={addImages}
+          >
+            Add
+          </button>
+        </div>
+        <div className="flex items-center mt-5">
+          {images?.map((el, index) => {
+            return (
+              <div key={el}>
+                <img
+                  id={`image-${index}`}
+                  className="mr-4"
+                  src={el}
+                  alt=""
+                  width="100"
+                  height="100"
+                />
+                <button
+                  onClick={() => deleteImage(el)}
+                  className="text-xs p-0 border-0 text-red-600 underline"
+                >
+                  Delete
+                </button>
+              </div>
+            );
+          })}
+        </div>
+        {images?.length === 0 && (
+          <small>Add Images Based on Information Given Above</small>
+        )}
+      </div>
+      {/* Images */}
+      <button
+        type="submit"
+        className="text-white bg-black border-0 py-2 px-8 focus:outline-none hover:bg-gray-900 rounded text-lg w-[20%]"
+        onClick={handleSubmit}
+      >
+        Add
+      </button>
     </div>
   );
 };

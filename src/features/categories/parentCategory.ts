@@ -1,11 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getPCategories } from "../../api/categories";
 
+interface InitialState {
+  isLoading: boolean,
+  pCategories: any[],
+  isError: boolean
+}
+
 const initialState = {
   isLoading: false,
   pCategories: [],
   isError: false,
-};
+} as InitialState;
 
 export const getParentCatThunk = createAsyncThunk(
   "parentCategory/getPC",
@@ -26,7 +32,7 @@ const parentCategorySlice = createSlice({
       })
       .addCase(getParentCatThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.pCategories = payload;
+        state.pCategories = payload.pCategories;
       })
       .addCase(getParentCatThunk.rejected, (state) => {
         state.isError = true;

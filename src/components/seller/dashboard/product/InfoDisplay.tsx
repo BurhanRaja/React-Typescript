@@ -1,8 +1,16 @@
 import { IoMdClose } from "react-icons/io";
 import useAppSelector from "../../../../hooks/useAppSelector";
+import useAppDispatch from "../../../../hooks/useAppDispatch";
+import { deleteImageInfo } from "../../../../features/product/seller/productImagesInfo";
 
 const InfoDisplay = () => {
   const { images_info, count } = useAppSelector((state) => state.imagesInfo);
+
+  const dispatch = useAppDispatch();
+
+  function handleDelete(id: string) {
+    dispatch(deleteImageInfo({ id }));
+  }
 
   return (
     <div>
@@ -17,7 +25,10 @@ const InfoDisplay = () => {
             return (
               <div className="overflow-x-auto">
                 <div className="flex justify-end items-center">
-                  <button className="underline text-red-500 text-2xl p-2 ">
+                  <button
+                    className="underline text-red-500 text-2xl p-2"
+                    onClick={() => handleDelete(el._id ?? "")}
+                  >
                     <IoMdClose />
                   </button>
                 </div>

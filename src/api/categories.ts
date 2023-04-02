@@ -18,7 +18,7 @@ export const getCategories = async (parentId: string) => {
 
 export const getSubCategories = async (id: string) => {
     let response = await instance({
-        url: `/api/category/parentcategory/${id}`,
+        url: `/api/subcategory/category/${id}`,
     });
 
     return response.data;
