@@ -12,17 +12,6 @@ export const getAllProducts = async () => {
   return response.data;
 };
 
-export const getSingleProduct = async () => {
-  let token = localStorage.getItem("sellerToken");
-  let response = await instance({
-    url: "/api/product/:id",
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-  });
-  return response.data;
-};
-
 export const addProduct = async (data: Object) => {
   let token = localStorage.getItem("sellerToken");
   let response = await instance({

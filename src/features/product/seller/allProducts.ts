@@ -1,1 +1,42 @@
-export default {};
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
+import { getAllProducts } from "../../../api/seller/products";
+
+interface InitialState {
+  isLoading: boolean;
+  isError: boolean;
+  isSuccess: boolean;
+  products: any;
+}
+
+const initialState = {
+  isLoading: false,
+  isError: false,
+  isSuccess: false,
+  products: {},
+} as InitialState;
+
+export const getAllSellerProductsThunk = createAsyncThunk("sellerProducts/allProducts", async () => {
+  let response = await getAllProducts();
+  return response;
+});
+
+const allProductSlice = createSlice({
+  name: "sellerProducts",
+  initialState,
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      .addCase(getAllSellerProductsThunk.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(getAllSellerProductsThunk.fulfilled, (state, action) => {
+        state.isLoading = false;
+        state.products = action.payload;
+        state.isSuccess = true;
+      })
+      .addCase(getAllSellerProductsThunk.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
+      });
+  },
+});

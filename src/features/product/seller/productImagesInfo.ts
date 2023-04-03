@@ -35,8 +35,8 @@ const imageInfoSlice = createSlice({
       state.images_info = filteredAns;
       state.count -= 1;
     },
-    clearImagesInfo: (state) => {
-      state = initialState;
+    clearImagesInfo: () => {
+      return initialState;
     }
   },
 });
