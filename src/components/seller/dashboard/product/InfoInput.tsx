@@ -26,6 +26,9 @@ const InfoInput = () => {
   const [quantity, setQuantity] = useState("");
   const [price, setPrice] = useState("");
 
+  // Error Msg
+  const [errorMsg, setErroMsg] = useState("");
+
   // Sizes
   function addSize(e: any) {
     e.preventDefault();
@@ -70,6 +73,17 @@ const InfoInput = () => {
 
   function handleSubmit(e: any) {
     e.preventDefault();
+
+    if (
+      color === "" ||
+      images?.length === 0 ||
+      quantity === "" ||
+      price === ""
+    ) {
+      setErroMsg("Please fill the above field");
+      return;
+    }
+
     dispatch(
       addImageInfo({
         _id: uuidv4().split("-").join(""),
@@ -85,6 +99,11 @@ const InfoInput = () => {
     setImages([]);
     setInfoTypes([]);
     setSizes([]);
+    setQuantity("");
+    setPrice("");
+    setOneImage("");
+    setOneInfo("");
+    setOneSize("");
   }
 
   return (
@@ -109,6 +128,13 @@ const InfoInput = () => {
             value={color}
             onChange={(e) => setColor(e.target.value)}
           />
+          <small
+            className={
+              errorMsg && color.length === 0 ? "text-red-500" : "hidden"
+            }
+          >
+            {errorMsg}
+          </small>
         </div>
         {/* Color */}
 
@@ -134,6 +160,13 @@ const InfoInput = () => {
               Add
             </button>
           </div>
+          <small
+            className={
+              errorMsg && sizes.length === 0 ? "text-red-500" : "hidden"
+            }
+          >
+            {errorMsg}
+          </small>
           <div className="flex items-center mt-3 flex-wrap">
             {sizes?.map((el) => {
               return (
@@ -182,6 +215,13 @@ const InfoInput = () => {
               Add
             </button>
           </div>
+          <small
+            className={
+              errorMsg && infoTypes.length === 0 ? "text-red-500" : "hidden"
+            }
+          >
+            {errorMsg}
+          </small>
           <div className="flex items-center mt-3 flex-wrap">
             {infoTypes?.map((el) => {
               return (
@@ -223,6 +263,13 @@ const InfoInput = () => {
             value={quantity}
             onChange={(e) => setQuantity(e.target.value)}
           />
+          <small
+            className={
+              errorMsg && quantity.length === 0 ? "text-red-500" : "hidden"
+            }
+          >
+            {errorMsg}
+          </small>
         </div>
         {/* Quantity */}
 
@@ -239,6 +286,13 @@ const InfoInput = () => {
             value={price}
             onChange={(e) => setPrice(e.target.value)}
           />
+          <small
+            className={
+              errorMsg && price.length === 0 ? "text-red-500" : "hidden"
+            }
+          >
+            {errorMsg}
+          </small>
         </div>
         {/* Price */}
       </div>
@@ -264,6 +318,13 @@ const InfoInput = () => {
             Add
           </button>
         </div>
+        <small
+          className={
+            errorMsg && images?.length === 0 ? "text-red-500" : "hidden"
+          }
+        >
+          {errorMsg}
+        </small>
         <div className="flex items-center mt-5">
           {images?.map((el, index) => {
             return (

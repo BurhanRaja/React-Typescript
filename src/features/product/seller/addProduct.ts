@@ -4,8 +4,7 @@ import { addProduct } from "../../../api/seller/products";
 let initialState = {
   isLoading: false,
   isError: false,
-  success: false,
-  message: "",
+  isSuccess: false,
 };
 
 export const addProductThunk = createAsyncThunk("", async (data: Object) => {
@@ -17,7 +16,7 @@ const addProductSlice = createSlice({
   name: "addproduct",
   initialState,
   reducers: {
-    clearState: () => {
+    clearProductState: () => {
       return initialState;
     },
   },
@@ -28,8 +27,7 @@ const addProductSlice = createSlice({
       })
       .addCase(addProductThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
-        state.success = true;
-        state.message = payload.message;
+        state.isSuccess = true;
       })
       .addCase(addProductThunk.rejected, (state) => {
         state.isLoading = false;
@@ -38,6 +36,6 @@ const addProductSlice = createSlice({
   },
 });
 
-export const { clearState } = addProductSlice.actions;
+export const { clearProductState } = addProductSlice.actions;
 
 export default addProductSlice.reducer;

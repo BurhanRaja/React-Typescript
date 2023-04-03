@@ -1,13 +1,18 @@
 import { useEffect, useState } from "react";
-import InfoDisplay from "../../components/seller/dashboard/product/InfoDisplay";
-import InfoInput from "../../components/seller/dashboard/product/InfoInput";
-import SelectDropdown from "../../components/seller/dashboard/product/SelectDropdown";
-import { getCategoryThunk } from "../../features/categories/category";
-import { getParentCatThunk } from "../../features/categories/parentCategory";
-import useAppDispatch from "../../hooks/useAppDispatch";
-import useAppSelector from "../../hooks/useAppSelector";
-import { getSubCatThunk } from "../../features/categories/subcategory";
-import { addProductThunk } from "../../features/product/seller/addProduct";
+import InfoDisplay from "../../../components/seller/dashboard/product/InfoDisplay";
+import InfoInput from "../../../components/seller/dashboard/product/InfoInput";
+import SelectDropdown from "../../../components/seller/dashboard/product/SelectDropdown";
+import { getCategoryThunk } from "../../../features/categories/category";
+import { getParentCatThunk } from "../../../features/categories/parentCategory";
+import useAppDispatch from "../../../hooks/useAppDispatch";
+import useAppSelector from "../../../hooks/useAppSelector";
+import { getSubCatThunk } from "../../../features/categories/subcategory";
+import {
+  addProductThunk,
+  clearProductState,
+} from "../../../features/product/seller/addProduct";
+import { toast } from "react-toastify";
+import { clearImagesInfo } from "../../../features/product/seller/productImagesInfo";
 
 const CreateProduct = () => {
   const [name, setName] = useState("");
@@ -17,28 +22,52 @@ const CreateProduct = () => {
   const [category, setCategory] = useState("");
   const [subcategory, setSubcategory] = useState("");
 
+  // Error Msg
+  const [errorMsg, setErrorMsg] = useState("");
+
   const disptach = useAppDispatch();
 
   const { pCategories } = useAppSelector((state) => state.pCategoriesAction);
   const { categories } = useAppSelector((state) => state.categoriesAction);
   const { subCategories } = useAppSelector((state) => state.subCategoryAction);
-  const {images_info} = useAppSelector((state) => state.imagesInfo);
+  const { images_info } = useAppSelector((state) => state.imagesInfo);
 
+  // Add Product
+  const { isLoading, isSuccess, isError } = useAppSelector(
+    (state) => state.addProduct
+  );
+
+  // Get Category
   function handleCat(parentId: string) {
     disptach(getCategoryThunk(parentId));
   }
 
+  // Get Sub-category
   function handleSubCat(catId: string) {
     disptach(getSubCatThunk(catId));
   }
 
+  // Get Parent Category
   useEffect(() => {
     disptach(getParentCatThunk());
   }, []);
 
-
+  // Handle Submit Product
   function handleSubmit(e: any) {
     e.preventDefault();
+
+    if (
+      name === "" ||
+      description === "" ||
+      thumbnail === "" ||
+      parentCatId === "" ||
+      category === "" ||
+      subcategory === "" ||
+      !images_info
+    ) {
+      setErrorMsg("Please fill the above field.");
+      return;
+    }
 
     let data = {
       name,
@@ -47,12 +76,37 @@ const CreateProduct = () => {
       parent_category_id: parentCatId,
       category_id: category,
       sub_category_id: subcategory,
-      images_info
+      images_info,
+    };
+
+    disptach(addProductThunk(data)).then((data: any) => {
+      if (data?.error?.code === "ERR_BAD_REQUEST") {
+        toast.warn("User Already Exists.");
+      }
+      if (data?.error?.code === "ERR_NETWORK") {
+        toast.error("Internal Server Error");
+      }
+    });
+
+    if (isSuccess) {
+      toast.success("Successfully Product Created");
+      setName("");
+      setDescription("");
+      setThumbnail("");
+      setParentCatId("");
+      setCategory("");
+      setSubcategory("");
+
+      disptach(clearImagesInfo());
+      disptach(clearProductState());
     }
 
-    disptach(addProductThunk(data));
     return;
   }
+
+  console.log(isSuccess);
+  console.log(isLoading);
+  console.log(isError);
 
   return (
     <div className="p-10 bg-slate-200">
@@ -73,6 +127,13 @@ const CreateProduct = () => {
               value={name}
               onChange={(e) => setName(e.target.value)}
             />
+            <small
+              className={
+                errorMsg && name.length === 0 ? "text-red-500" : "hidden"
+              }
+            >
+              {errorMsg}
+            </small>
           </div>
           <div className="mb-3">
             <label htmlFor="color" className="leading-7 text-sm text-gray-600">
@@ -83,6 +144,13 @@ const CreateProduct = () => {
               value={description}
               onChange={(e) => setDescription(e.target.value)}
             ></textarea>
+            <small
+              className={
+                errorMsg && description.length === 0 ? "text-red-500" : "hidden"
+              }
+            >
+              {errorMsg}
+            </small>
           </div>
           <div className="mb-3">
             <label htmlFor="thumbnail" className="block text-sm text-black">
@@ -100,6 +168,13 @@ const CreateProduct = () => {
               value={thumbnail}
               onChange={(e) => setThumbnail(e.target.value)}
             />
+            <small
+              className={
+                errorMsg && thumbnail.length === 0 ? "text-red-500" : "hidden"
+              }
+            >
+              {errorMsg}
+            </small>
           </div>
 
           <div className="mb-3">
@@ -115,13 +190,24 @@ const CreateProduct = () => {
                     Please select Parent Category
                   </option>
                   {pCategories?.map((el) => {
-                    return <option key={el._id} value={el._id}>{el.name}</option>;
+                    return (
+                      <option key={el._id} value={el._id}>
+                        {el.name}
+                      </option>
+                    );
                   })}
                 </>
               }
               handleChange={(val) => handleCat(val)}
               setId={(val) => setParentCatId(val)}
             />
+            <small
+              className={
+                errorMsg && parentCatId.length === 0 ? "text-red-500" : "hidden"
+              }
+            >
+              {errorMsg}
+            </small>
           </div>
           <div className="mb-3">
             <SelectDropdown
@@ -136,13 +222,24 @@ const CreateProduct = () => {
                     Please select Parent Category
                   </option>
                   {categories?.map((el) => {
-                    return <option key={el._id} value={el._id}>{el.name}</option>;
+                    return (
+                      <option key={el._id} value={el._id}>
+                        {el.name}
+                      </option>
+                    );
                   })}
                 </>
               }
               handleChange={(val) => handleSubCat(val)}
               setId={(val) => setCategory(val)}
             />
+            <small
+              className={
+                errorMsg && category.length === 0 ? "text-red-500" : "hidden"
+              }
+            >
+              {errorMsg}
+            </small>
           </div>
           <div className="mb-3">
             <SelectDropdown
@@ -157,13 +254,24 @@ const CreateProduct = () => {
                     Please select Parent Category
                   </option>
                   {subCategories?.map((el) => {
-                    return <option key={el._id} value={el._id}>{el.name}</option>;
+                    return (
+                      <option key={el._id} value={el._id}>
+                        {el.name}
+                      </option>
+                    );
                   })}
                 </>
               }
               handleChange={() => {}}
               setId={(val) => setSubcategory(val)}
             />
+            <small
+              className={
+                errorMsg && subcategory.length === 0 ? "text-red-500" : "hidden"
+              }
+            >
+              {errorMsg}
+            </small>
           </div>
 
           <InfoDisplay />

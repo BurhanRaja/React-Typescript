@@ -6,7 +6,7 @@ interface ImagesInfo {
   color: string;
   sizes: Array<string | number>;
   info_types: Array<string | number>;
-  price: number;
+  price: any;
   quantity: number;
 }
 
@@ -35,9 +35,12 @@ const imageInfoSlice = createSlice({
       state.images_info = filteredAns;
       state.count -= 1;
     },
+    clearImagesInfo: (state) => {
+      state = initialState;
+    }
   },
 });
 
-export const { addImageInfo, deleteImageInfo } = imageInfoSlice.actions;
+export const { addImageInfo, deleteImageInfo, clearImagesInfo } = imageInfoSlice.actions;
 
 export default imageInfoSlice.reducer;

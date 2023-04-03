@@ -10,13 +10,14 @@ import Cart from "./users/cart/Cart";
 
 // Seller
 import AddDiscount from "../pages/seller/AddDiscount";
-import CreateProduct from "../pages/seller/CreateProduct";
+import CreateProduct from "../pages/seller/product/CreateProduct";
 import DeliveredOrder from "../pages/seller/order/DeliveredOrder";
 import PendingOrder from "../pages/seller/order/PendingOrder";
 import SellerLayout from "./seller/Layout";
 import SellerLogin from "./seller/Login";
 import SellerRegister from "./seller/Register";
 import RequireSellerAuth from "./RequireSellerAuth";
+import ProductListing from "../pages/seller/product/ProductListing";
 
 const AppRoutes = () => {
   let token = localStorage.getItem("sellerToken");
@@ -50,7 +51,7 @@ const AppRoutes = () => {
                 {/* Products */}
                 <Route path="add/product" element={<CreateProduct />} />
                 <Route path="edit/product" />
-                <Route path="product/list" />
+                <Route path="product/list" element={<ProductListing />} />
                 <Route path="product/:id" />
                 {/* Discounts */}
                 <Route path="discount/list" />
