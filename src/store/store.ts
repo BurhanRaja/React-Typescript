@@ -6,6 +6,7 @@ import addProductReducer from "../features/product/seller/addProduct";
 import parentCategoryReducer from "../features/categories/parentCategory";
 import categoryReducer from "../features/categories/category";
 import subCategoryReducer from "../features/categories/subcategory";
+import allSellerProductsReducer from "../features/product/seller/allProducts";
 
 // state Manage
 import imagesInfoReducer from "../features/product/seller/productImagesInfo";
@@ -18,6 +19,7 @@ const store = configureStore({
     pCategoriesAction: parentCategoryReducer,
     categoriesAction: categoryReducer,
     subCategoryAction: subCategoryReducer,
+    sellerProducts: allSellerProductsReducer,
 
     // state Manage
     imagesInfo: imagesInfoReducer,

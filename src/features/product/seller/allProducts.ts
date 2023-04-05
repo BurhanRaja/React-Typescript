@@ -31,8 +31,8 @@ const allProductSlice = createSlice({
       })
       .addCase(getAllSellerProductsThunk.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.products = action.payload;
-        state.isSuccess = true;
+        state.products = action.payload?.products;
+        state.isSuccess = action.payload?.success;
       })
       .addCase(getAllSellerProductsThunk.rejected, (state) => {
         state.isLoading = false;
@@ -40,3 +40,6 @@ const allProductSlice = createSlice({
       });
   },
 });
+
+
+export default allProductSlice.reducer;
