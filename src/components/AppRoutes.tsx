@@ -18,6 +18,9 @@ import SellerLogin from "./seller/Login";
 import SellerRegister from "./seller/Register";
 import RequireSellerAuth from "./RequireSellerAuth";
 import ProductListing from "../pages/seller/product/ProductListing";
+import EditProduct from "../pages/seller/product/EditProduct";
+import ProductDetails from "../pages/seller/product/ProductDetails";
+import SellerInfo from "../pages/seller/SellerInfo";
 
 const AppRoutes = () => {
   let token = localStorage.getItem("sellerToken");
@@ -44,15 +47,15 @@ const AppRoutes = () => {
           <Route path="/seller">
             <Route path="login" element={<SellerLogin />} />
             <Route path="register" element={<SellerRegister />} />
-            <Route path="add/sellerinfo" />
+            <Route path="add/sellerinfo" element={<SellerInfo />} />
             <Route element={<RequireSellerAuth />}>
               <Route element={<SellerLayout />}>
                 <Route path="dashboard" />
                 {/* Products */}
                 <Route path="add/product" element={<CreateProduct />} />
-                <Route path="edit/product" />
+                <Route path="edit/product/:id" element={<EditProduct />} />
                 <Route path="product/list" element={<ProductListing />} />
-                <Route path="product/:id" />
+                <Route path="product/:id" element={<ProductDetails />} />
                 {/* Discounts */}
                 <Route path="discount/list" />
                 <Route path="discount/:id" />

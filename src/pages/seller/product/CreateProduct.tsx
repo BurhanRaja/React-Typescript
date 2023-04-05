@@ -10,7 +10,7 @@ import { getSubCatThunk } from "../../../features/categories/subcategory";
 import {
   addProductThunk,
   clearProductState,
-} from "../../../features/product/seller/addProduct";
+} from "../../../features/product/seller/crudProduct";
 import { toast } from "react-toastify";
 import { clearImagesInfo } from "../../../features/product/seller/productImagesInfo";
 
@@ -18,7 +18,6 @@ const CreateProduct = () => {
   const [name, setName] = useState("");
   const [description, setDescription] = useState("");
   const [thumbnail, setThumbnail] = useState("");
-  const [parentCatId, setParentCatId] = useState("");
   const [category, setCategory] = useState("");
   const [subcategory, setSubcategory] = useState("");
 
@@ -27,29 +26,25 @@ const CreateProduct = () => {
 
   const disptach = useAppDispatch();
 
-  const { pCategories } = useAppSelector((state) => state.pCategoriesAction);
   const { categories } = useAppSelector((state) => state.categoriesAction);
   const { subCategories } = useAppSelector((state) => state.subCategoryAction);
   const { images_info } = useAppSelector((state) => state.imagesInfo);
 
+  const { sellerInfo } = useAppSelector((state) => state.getSellerinfoAction);
+
   // Add Product
-  const { isLoading, isSuccess, isError } = useAppSelector(
+  const { isSuccess } = useAppSelector(
     (state) => state.addProduct
   );
-
-  // Get Category
-  function handleCat(parentId: string) {
-    disptach(getCategoryThunk(parentId));
-  }
 
   // Get Sub-category
   function handleSubCat(catId: string) {
     disptach(getSubCatThunk(catId));
   }
 
-  // Get Parent Category
+  // Get Category
   useEffect(() => {
-    disptach(getParentCatThunk());
+    disptach(getCategoryThunk(sellerInfo?.company_type));
   }, []);
 
   // Handle Submit Product
@@ -60,7 +55,6 @@ const CreateProduct = () => {
       name === "" ||
       description === "" ||
       thumbnail === "" ||
-      parentCatId === "" ||
       category === "" ||
       subcategory === "" ||
       !images_info
@@ -73,7 +67,7 @@ const CreateProduct = () => {
       name,
       description,
       thumbnail,
-      parent_category_id: parentCatId,
+      parent_category_id: sellerInfo?.company_type,
       category_id: category,
       sub_category_id: subcategory,
       images_info,
@@ -93,7 +87,6 @@ const CreateProduct = () => {
       setName("");
       setDescription("");
       setThumbnail("");
-      setParentCatId("");
       setCategory("");
       setSubcategory("");
 
@@ -103,10 +96,6 @@ const CreateProduct = () => {
 
     return;
   }
-
-  console.log(isSuccess);
-  console.log(isLoading);
-  console.log(isError);
 
   return (
     <div className="p-10 bg-slate-200">
@@ -179,38 +168,6 @@ const CreateProduct = () => {
 
           <div className="mb-3">
             <SelectDropdown
-              title={"Parent Category"}
-              mappeddata={
-                <>
-                  <option
-                    selected
-                    value={""}
-                    className="font-bold text-gray-400"
-                  >
-                    Please select Parent Category
-                  </option>
-                  {pCategories?.map((el) => {
-                    return (
-                      <option key={el._id} value={el._id}>
-                        {el.name}
-                      </option>
-                    );
-                  })}
-                </>
-              }
-              handleChange={(val) => handleCat(val)}
-              setId={(val) => setParentCatId(val)}
-            />
-            <small
-              className={
-                errorMsg && parentCatId.length === 0 ? "text-red-500" : "hidden"
-              }
-            >
-              {errorMsg}
-            </small>
-          </div>
-          <div className="mb-3">
-            <SelectDropdown
               title={"Category"}
               mappeddata={
                 <>
@@ -232,6 +189,7 @@ const CreateProduct = () => {
               }
               handleChange={(val) => handleSubCat(val)}
               setId={(val) => setCategory(val)}
+              val={category}
             />
             <small
               className={
@@ -264,6 +222,7 @@ const CreateProduct = () => {
               }
               handleChange={() => {}}
               setId={(val) => setSubcategory(val)}
+              val={subcategory}
             />
             <small
               className={

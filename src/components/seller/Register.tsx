@@ -75,7 +75,7 @@ const Register = () => {
       sessionStorage.setItem("loggedin", "1");
       toast.success("Successfully Registered");
       dispatch(clearState());
-      navigate("/add/sellerinfo");
+      navigate("/seller/add/sellerinfo");
     }
   }, [isLoading, isError]);
 

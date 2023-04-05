@@ -1,7 +1,12 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import useAppSelector from "../../../hooks/useAppSelector";
 import useAppDispatch from "../../../hooks/useAppDispatch";
 import { getAllSellerProductsThunk } from "../../../features/product/seller/allProducts";
+import { FiChevronDown } from "react-icons/fi";
+import { RiDeleteBin6Line } from "react-icons/ri";
+import { BiEditAlt } from "react-icons/bi";
+import { AiFillEye } from "react-icons/ai";
+import { Link } from "react-router-dom";
 
 const ProductListing = () => {
   const { products, isSuccess } = useAppSelector(
@@ -9,15 +14,15 @@ const ProductListing = () => {
   );
   const dispatch = useAppDispatch();
 
-  console.log(products);
-
   useEffect(() => {
     dispatch(getAllSellerProductsThunk());
   }, []);
 
+  const [dropDown, setDropDown] = useState(false);
+
   return (
     <>
-      <div className="overflow-hidden rounded-lg border border-gray-200 shadow-md m-5">
+      <div className="rounded-lg border border-gray-200 shadow-md w-[98%] mx-auto mt-5">
         <table className="w-full border-collapse bg-white text-left text-sm text-gray-500">
           <thead className="bg-gray-50">
             <tr>
@@ -55,7 +60,8 @@ const ProductListing = () => {
             {isSuccess &&
               products?.map((el: any) => {
                 return (
-                  <tr key={el._id} className="hover:bg-gray-50">
+                  <tr key={el._id}>
+                    {/* Thumbnail */}
                     <td className="flex gap-3 px-6 py-4 font-normal text-gray-900">
                       <img
                         className="rounded-sm object-cover object-center"
@@ -64,9 +70,11 @@ const ProductListing = () => {
                         width={"30"}
                       />
                     </td>
+                    {/* Name */}
                     <td className="px-4 py-4 w-52">
                       <p>{el?.name?.substr(0, 30)}...</p>
                     </td>
+                    {/* Category */}
                     <td className="px-4 py-4">
                       <p className="text-xs mb-2">
                         PC:{" "}
@@ -87,6 +95,7 @@ const ProductListing = () => {
                         </span>
                       </p>
                     </td>
+                    {/* Prices */}
                     <td className="px-4 py-4 w-24">
                       <p className="text-xs mb-2">
                         Avg:{" "}
@@ -107,6 +116,7 @@ const ProductListing = () => {
                         </span>
                       </p>
                     </td>
+                    {/* Sizes */}
                     <td className="px-6 py-4 w-52">
                       <div className="flex gap-2 flex-wrap">
                         {el?.sizes?.map((size: string) => {
@@ -118,6 +128,7 @@ const ProductListing = () => {
                         })}
                       </div>
                     </td>
+                    {/* Colors */}
                     <td className="px-6 py-4">
                       <div className="flex gap-2 flex-wrap">
                         {el?.colors?.map((color: string) => {
@@ -129,13 +140,64 @@ const ProductListing = () => {
                         })}
                       </div>
                     </td>
+                    {/* Total Quantity */}
+                    <td className="px-6 py-4">{el?.quantity}</td>
+
+                    {/* Action Button */}
                     <td className="px-6 py-4">
-                      {el?.quantity}
-                    </td>
-                    <td className="px-6 py-4">
-                      <button>
-                        Action
-                      </button>
+                      <div className="relative">
+                        <div className="inline-flex items-center divide-x divide-gray-100 overflow-hidden rounded-md border bg-white">
+                          <a
+                            href="#"
+                            className="px-4 py-2 text-sm leading-none text-gray-600 hover:bg-gray-50 hover:text-gray-700"
+                          >
+                            Action
+                          </a>
+
+                          <button
+                            className="h-full p-2 text-gray-600 hover:bg-gray-50 hover:text-gray-700"
+                            onClick={() => setDropDown(!dropDown)}
+                          >
+                            <span className="sr-only">Menu</span>
+                            <FiChevronDown />
+                          </button>
+                        </div>
+
+                        <div
+                          className={`absolute right-0 z-10 mt-2 w-56 rounded-md border border-gray-100 bg-white shadow-lg transition-all duration-150 ${
+                            dropDown ? "opacity-100 block" : "opacity-0 hidden"
+                          }`}
+                          role="menu"
+                        >
+                          <div className="p-2">
+                            <Link to={`/seller/product/${el?._id}`}>
+                              <button
+                                className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm hover:bg-gray-50"
+                                role="menuitem"
+                              >
+                                <AiFillEye />
+                                Product Details
+                              </button>
+                            </Link>
+                            <Link to={`/seller/edit/product/${el?._id}`}>
+                              <button
+                                className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm hover:bg-gray-50"
+                                role="menuitem"
+                              >
+                                <BiEditAlt />
+                                Edit Product
+                              </button>
+                            </Link>
+                            <button
+                              className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-red-700 hover:bg-red-50"
+                              role="menuitem"
+                            >
+                              <RiDeleteBin6Line />
+                              Delete Product
+                            </button>
+                          </div>
+                        </div>
+                      </div>
                     </td>
                   </tr>
                 );
