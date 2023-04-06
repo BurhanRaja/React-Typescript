@@ -12,7 +12,10 @@ import {
   clearProductState,
 } from "../../../features/product/seller/crudProduct";
 import { toast } from "react-toastify";
-import { clearImagesInfo } from "../../../features/product/seller/productImagesInfo";
+import {
+  clearImagesInfo,
+  deleteImageInfo,
+} from "../../../features/product/seller/productImagesInfo";
 
 const CreateProduct = () => {
   const [name, setName] = useState("");
@@ -28,14 +31,12 @@ const CreateProduct = () => {
 
   const { categories } = useAppSelector((state) => state.categoriesAction);
   const { subCategories } = useAppSelector((state) => state.subCategoryAction);
-  const { images_info } = useAppSelector((state) => state.imagesInfo);
+  const { images_info, count } = useAppSelector((state) => state.imagesInfo);
 
   const { sellerInfo } = useAppSelector((state) => state.getSellerinfoAction);
 
   // Add Product
-  const { isSuccess } = useAppSelector(
-    (state) => state.addProduct
-  );
+  const { isSuccess } = useAppSelector((state) => state.addProduct);
 
   // Get Sub-category
   function handleSubCat(catId: string) {
@@ -233,8 +234,12 @@ const CreateProduct = () => {
             </small>
           </div>
 
-          <InfoDisplay />
-
+          <InfoDisplay
+            imagesInfo={count > 0 ? images_info : []}
+            deleteInfo={(val) => disptach(deleteImageInfo(val))}
+            count={count}
+          />
+          
           <InfoInput />
 
           <button className="text-white bg-black border-0 py-2 px-8 focus:outline-none hover:bg-gray-900 rounded text-lg w-[100%]">

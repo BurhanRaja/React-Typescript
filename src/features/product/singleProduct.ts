@@ -2,17 +2,17 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getSingleProduct } from "../../api/product";
 
 interface InitialState {
-    isLoading: boolean,
-    isError: boolean,
-    isSuccess: boolean,
-    product: any,
+  isLoading: boolean;
+  isError: boolean;
+  isSuccess: boolean;
+  product: any;
 }
 
 const initialState = {
   isLoading: false,
   isError: false,
   isSuccess: false,
-  product: {}
+  product: {},
 } as InitialState;
 
 export const getSingleProductThunk = createAsyncThunk(
@@ -28,8 +28,8 @@ const singleProductSlice = createSlice({
   initialState,
   reducers: {
     clearSingleProduct: () => {
-        return initialState;
-    }
+      return initialState;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -39,7 +39,7 @@ const singleProductSlice = createSlice({
       .addCase(getSingleProductThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.product = action.payload;
+        state.product = action.payload?.product[0];
       })
       .addCase(getSingleProductThunk.rejected, (state, action) => {
         state.isLoading = false;
@@ -48,7 +48,6 @@ const singleProductSlice = createSlice({
   },
 });
 
-
-
+export const { clearSingleProduct } = singleProductSlice.actions;
 
 export default singleProductSlice.reducer;

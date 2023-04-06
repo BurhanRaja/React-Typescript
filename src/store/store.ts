@@ -8,6 +8,7 @@ import categoryReducer from "../features/categories/category";
 import subCategoryReducer from "../features/categories/subcategory";
 import allSellerProductsReducer from "../features/product/seller/allProducts";
 import sellerInfoReducer from "../features/seller/sellerInfo";
+import getSingleProductReducer from "../features/product/singleProduct";
 
 // state Manage
 import imagesInfoReducer from "../features/product/seller/productImagesInfo";
@@ -15,13 +16,22 @@ import imagesInfoReducer from "../features/product/seller/productImagesInfo";
 const store = configureStore({
   reducer: {
     // Thunk Manage
+
+    // authentication
     sellerAuth: authSliceReducer,
+
+    // Seller Info
+    getSellerinfoAction: sellerInfoReducer,
+
+    // Product
     addProduct: addProductReducer,
+    sellerProducts: allSellerProductsReducer,
+    singleProductAction: getSingleProductReducer,
+
+    // Category
     pCategoriesAction: parentCategoryReducer,
     categoriesAction: categoryReducer,
     subCategoryAction: subCategoryReducer,
-    sellerProducts: allSellerProductsReducer,
-    getSellerinfoAction: sellerInfoReducer,
 
     // state Manage
     imagesInfo: imagesInfoReducer,

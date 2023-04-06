@@ -7,6 +7,7 @@ import { RiDeleteBin6Line } from "react-icons/ri";
 import { BiEditAlt } from "react-icons/bi";
 import { AiFillEye } from "react-icons/ai";
 import { Link } from "react-router-dom";
+import { clearSingleProduct } from "../../../features/product/singleProduct";
 
 const ProductListing = () => {
   const { products, isSuccess } = useAppSelector(
@@ -15,6 +16,7 @@ const ProductListing = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    dispatch(clearSingleProduct());
     dispatch(getAllSellerProductsThunk());
   }, []);
 

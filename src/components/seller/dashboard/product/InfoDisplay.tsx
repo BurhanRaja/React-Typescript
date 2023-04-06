@@ -1,27 +1,27 @@
 import { IoMdClose } from "react-icons/io";
-import useAppSelector from "../../../../hooks/useAppSelector";
-import useAppDispatch from "../../../../hooks/useAppDispatch";
-import { deleteImageInfo } from "../../../../features/product/seller/productImagesInfo";
 
-const InfoDisplay = () => {
-  const { images_info, count } = useAppSelector((state) => state.imagesInfo);
+type InfoDisplayProps = {
+  imagesInfo: Array<any>;
+  deleteInfo: (val: any) => void;
+  count: number;
+};
 
-  const dispatch = useAppDispatch();
+const InfoDisplay = ({ imagesInfo, deleteInfo, count }: InfoDisplayProps) => {
 
   function handleDelete(id: string) {
-    dispatch(deleteImageInfo({ id }));
+    deleteInfo(id);
   }
 
   return (
     <div>
       <div className="container p-2 mx-auto sm:p-4 dark:text-gray-900">
-        <h2 className="mb-4 text-2xl font-semibold leading-tight">
-          All Images with Information
+        <h2 className="mb-1 text-2xl font-semibold leading-tight">
+          All Information
         </h2>
         {count <= 0 ? (
           <p className="text-red-500">Currently No Information</p>
         ) : (
-          images_info?.map((el) => {
+          imagesInfo?.map((el) => {
             return (
               <div className="overflow-x-auto">
                 <div className="flex justify-end items-center">
@@ -55,7 +55,7 @@ const InfoDisplay = () => {
                           <h4 className="text-xl">Size</h4>
                         </th>
                         <td className="p-3 text-center flex justify-evenly items-end">
-                          {el.sizes?.map((size) => {
+                          {el.sizes?.map((size: string) => {
                             return <p className="text-lg">{size}</p>;
                           })}
                         </td>
@@ -67,7 +67,7 @@ const InfoDisplay = () => {
                           <h4 className="text-xl">Product Info Type</h4>
                         </th>
                         <td className="p-3 text-center flex justify-evenly items-end">
-                          {el.info_types?.map((info) => {
+                          {el.info_types?.map((info: string) => {
                             return <p className="text-lg">{info}</p>;
                           })}
                         </td>
@@ -94,7 +94,7 @@ const InfoDisplay = () => {
                         <h4 className="text-xl">Images</h4>
                       </th>
                       <td className="p-3 flex justify-evenly items-center">
-                        {el.images?.map((image, index) => {
+                        {el.images?.map((image: string, index: number) => {
                           return (
                             <img
                               src={image}
