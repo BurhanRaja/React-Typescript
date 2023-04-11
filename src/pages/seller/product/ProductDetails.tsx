@@ -68,8 +68,8 @@ const ProductDetails = () => {
                   </div>
 
                   <div className="mt-4">
-                    <div className="prose max-w-none">
-                      <p>{product?.description}</p>
+                    <div className="prose max-w-none" >
+                      <p dangerouslySetInnerHTML={{__html: product?.description}}></p>
                     </div>
                   </div>
                   <div className="mt-5 mb-3 flex gap-4">

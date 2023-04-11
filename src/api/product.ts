@@ -7,3 +7,13 @@ export const getSingleProduct = async (id: string) => {
   });
   return response.data;
 };
+
+
+export const getAllHomeProducts = async () => {
+  let response = await instance({
+    url: "/api/product/all/products",
+  });
+
+  return response.data;
+}
+

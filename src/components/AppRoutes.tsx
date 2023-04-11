@@ -20,7 +20,7 @@ import RequireSellerAuth from "./RequireSellerAuth";
 import ProductListing from "../pages/seller/product/ProductListing";
 import EditProduct from "../pages/seller/product/EditProduct";
 import ProductDetails from "../pages/seller/product/ProductDetails";
-import SellerInfo from "../pages/seller/SellerInfo";
+import SellerInfo from "../pages/seller/AddSellerInfo";
 
 const AppRoutes = () => {
   let token = localStorage.getItem("sellerToken");

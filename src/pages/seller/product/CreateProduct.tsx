@@ -16,6 +16,8 @@ import {
   clearImagesInfo,
   deleteImageInfo,
 } from "../../../features/product/seller/productImagesInfo";
+import RichEditor from "../../../components/seller/dashboard/RichEditor";
+import { getSellerInfoThunk } from "../../../features/seller/sellerInfo";
 
 const CreateProduct = () => {
   const [name, setName] = useState("");
@@ -33,7 +35,9 @@ const CreateProduct = () => {
   const { subCategories } = useAppSelector((state) => state.subCategoryAction);
   const { images_info, count } = useAppSelector((state) => state.imagesInfo);
 
-  const { sellerInfo } = useAppSelector((state) => state.getSellerinfoAction);
+  const { sellerInfo } = useAppSelector(
+    (state) => state.getSellerinfoAction
+  );
 
   // Add Product
   const { isSuccess } = useAppSelector((state) => state.addProduct);
@@ -43,9 +47,10 @@ const CreateProduct = () => {
     disptach(getSubCatThunk(catId));
   }
 
-  // Get Category
   useEffect(() => {
-    disptach(getCategoryThunk(sellerInfo?.company_type));
+    disptach(getSellerInfoThunk()).then((data: any) =>
+      disptach(getCategoryThunk(data?.payload?.info?.company_type))
+    );
   }, []);
 
   // Handle Submit Product
@@ -129,11 +134,15 @@ const CreateProduct = () => {
             <label htmlFor="color" className="leading-7 text-sm text-gray-600">
               Description
             </label>
-            <textarea
+            <RichEditor
+              val={description}
+              setVal={(val) => setDescription(val)}
+            />
+            {/* <textarea
               className="block  mt-2 w-full  placeholder-gray-400/70 dark:placeholder-gray-500 rounded-lg border border-gray-200 bg-white px-4 h-32 py-2.5 text-gray-700 focus:border-blue-400 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-40"
               value={description}
               onChange={(e) => setDescription(e.target.value)}
-            ></textarea>
+            ></textarea> */}
             <small
               className={
                 errorMsg && description.length === 0 ? "text-red-500" : "hidden"
@@ -239,7 +248,7 @@ const CreateProduct = () => {
             deleteInfo={(val) => disptach(deleteImageInfo(val))}
             count={count}
           />
-          
+
           <InfoInput />
 
           <button className="text-white bg-black border-0 py-2 px-8 focus:outline-none hover:bg-gray-900 rounded text-lg w-[100%]">

@@ -1,9 +1,21 @@
+import { getAllHomeProducts } from "../api/product";
 import CategorySection from "../components/users/Home/CategorySection";
 import ProductsLineup from "../components/users/Home/ProductsLineup";
 import Hero from "../components/users/herosection/Hero";
 import HeroSlider from "../components/users/herosection/Slider";
+import { getAllHomeProductsThunk } from "../features/product/user/allProducts";
+import useAppDispatch from "../hooks/useAppDispatch";
+import useAppSelector from "../hooks/useAppSelector";
+import { useEffect } from "react";
 
 const Home = () => {
+  const { products } = useAppSelector((state) => state.allProducts);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getAllHomeProductsThunk());
+  }, []);
+
   return (
     <>
       <HeroSlider autoPlay={true} infinite={true}>
@@ -45,9 +57,39 @@ const Home = () => {
           bgColor="bg-red-300"
         />
       </HeroSlider>
-      <ProductsLineup title="Featured Products" />
+      <ProductsLineup
+        title="Featured Products"
+        mappedProducts={products.map((el) => {
+          return (
+            <li key={el?._id}>
+              <a href="#" className="block overflow-hidden group">
+                <img
+                  src={el?.thumbnail}
+                  alt=""
+                  className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
+                />
+
+                <div className="relative pt-3 bg-white">
+                  <h3 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4">
+                    {el?.name}
+                  </h3>
+
+                  <p className="mt-2">
+                    <span className="sr-only"> Regular Price </span>
+
+                    <span className="tracking-wider text-gray-900">
+                      {" "}
+                      ₹{el?.price}
+                    </span>
+                  </p>
+                </div>
+              </a>
+            </li>
+          );
+        })}
+      />
       <CategorySection />
-      <ProductsLineup title="Trending Products" />
+      {/* <ProductsLineup title="Trending Products" /> */}
     </>
   );
 };

@@ -26,7 +26,7 @@ export const addSellerInfo = async (data: Object) => {
     return response.data;
 }
 
-export const updateSeller = async (data: Object) => {
+export const updateSellerInfo = async (data: Object) => {
     let token = localStorage.getItem("sellerToken");
     let response = await instance({
         url: "/api/seller/info/update",

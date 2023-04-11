@@ -15,7 +15,7 @@ const initialState = {
   sellerInfo: {},
 } as InitialState;
 
-const getSellerInfoThunk = createAsyncThunk("sellerInfo/get", async () => {
+export const getSellerInfoThunk = createAsyncThunk("sellerInfo/get", async () => {
   let response = await getSellerInfo();
   return response;
 });
