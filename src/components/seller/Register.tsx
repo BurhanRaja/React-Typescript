@@ -118,12 +118,15 @@ const Register = () => {
       if (data?.error?.code === "ERR_NETWORK") {
         toast.error("Internal Server Error");
       }
+
     });
   };
 
   let sellerToken = localStorage.getItem("sellerToken");
 
-  return sellerToken ? <Navigate to="/seller/dashboard" /> : (
+  return sellerToken ? (
+    <Navigate to="/seller/dashboard" />
+  ) : (
     <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-lg">
         <h1 className="text-center text-2xl font-bold text-indigo-600 sm:text-3xl">
@@ -157,7 +160,11 @@ const Register = () => {
                 onFocus={() => setFnameFocus(true)}
                 onBlur={() => setFnameFocus(false)}
               />
-              <small className={fname.length === 0 && errorMsg ? "text-red-500" : "hidden"}>
+              <small
+                className={
+                  fname.length === 0 && errorMsg ? "text-red-500" : "hidden"
+                }
+              >
                 {errorMsg}
               </small>
             </div>
@@ -182,7 +189,11 @@ const Register = () => {
                 onFocus={() => setLnameFocus(true)}
                 onBlur={() => setLnameFocus(false)}
               />
-              <small className={lname.length === 0 && errorMsg ? "text-red-500" : "hidden"}>
+              <small
+                className={
+                  lname.length === 0 && errorMsg ? "text-red-500" : "hidden"
+                }
+              >
                 {errorMsg}
               </small>
             </div>
@@ -206,7 +217,11 @@ const Register = () => {
                 onFocus={() => setEmailFocus(true)}
                 onBlur={() => setEmailFocus(false)}
               />
-              <small className={email.length === 0 && errorMsg ? "text-red-500" : "hidden"}>
+              <small
+                className={
+                  email.length === 0 && errorMsg ? "text-red-500" : "hidden"
+                }
+              >
                 {errorMsg}
               </small>
             </div>
@@ -244,7 +259,11 @@ const Register = () => {
                   />
                 )}
               </span>
-              <small className={password.length === 0 && errorMsg ? "text-red-500" : "hidden"}>
+              <small
+                className={
+                  password.length === 0 && errorMsg ? "text-red-500" : "hidden"
+                }
+              >
                 {errorMsg}
               </small>
             </div>
@@ -269,7 +288,13 @@ const Register = () => {
                 onFocus={() => setCPasswordFocus(true)}
                 onBlur={() => setCPasswordFocus(false)}
               />
-              <small className={confirmPassword.length === 0 && errorMsg ? "text-red-500" : "hidden"}>
+              <small
+                className={
+                  confirmPassword.length === 0 && errorMsg
+                    ? "text-red-500"
+                    : "hidden"
+                }
+              >
                 {errorMsg}
               </small>
             </div>

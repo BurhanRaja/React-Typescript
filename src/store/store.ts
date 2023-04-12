@@ -10,6 +10,7 @@ import allSellerProductsReducer from "../features/product/seller/allProducts";
 import sellerInfoReducer from "../features/seller/sellerInfo";
 import getSingleProductReducer from "../features/product/singleProduct";
 import getAllProductsReducer from "../features/product/user/allProducts";
+import userAuthReducer from "../features/user/auth";
 
 // state Manage
 import imagesInfoReducer from "../features/product/seller/productImagesInfo";
@@ -33,6 +34,9 @@ const store = configureStore({
     pCategoriesAction: parentCategoryReducer,
     categoriesAction: categoryReducer,
     subCategoryAction: subCategoryReducer,
+
+    // User Auth
+    userAuthAction: userAuthReducer,
 
     // User Products
     allProducts: getAllProductsReducer,

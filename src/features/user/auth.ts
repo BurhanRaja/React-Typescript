@@ -38,7 +38,7 @@ const userAuthSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(userRegisterThunk.fulfilled, (state, { payload }) => {
-        state.isLoading = true;
+        state.isLoading = false;
         state.isSuccess = true;
         state.token = payload.token;
       })
@@ -52,7 +52,7 @@ const userAuthSlice = createSlice({
       .addCase(userLoginThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.token = payload.token;
+        state.token = payload;
       })
       .addCase(userLoginThunk.rejected, (state) => {
         state.isLoading = false;

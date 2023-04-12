@@ -2,7 +2,7 @@ import instance from "../../instance";
 
 export const userRegister = async (data: any) => {
   let response = await instance({
-    url: "/api/user/register",
+    url: "/api/client/register",
     method: "POST",
     data,
   });
@@ -12,7 +12,7 @@ export const userRegister = async (data: any) => {
 
 export const userLogin = async (data: any) => {
   let response = await instance({
-    url: "/api/user/login",
+    url: "/api/client/login",
     method: "POST",
     data,
   });

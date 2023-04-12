@@ -1,7 +1,20 @@
 import { Link } from "react-router-dom";
+import { CgProfile } from "react-icons/cg";
+import { useEffect, useState } from "react";
 
 const RightHalf = (): JSX.Element => {
-  return (
+
+  let token = localStorage.getItem("userToken");
+  
+  const [name, setName] = useState("");
+
+  
+
+  useEffect(() => {
+
+  }, [])
+
+  return !token ? (
     <ul className="flex justify-center w-[16rem] items-center">
       <li>
         <Link to="/register">
@@ -18,6 +31,17 @@ const RightHalf = (): JSX.Element => {
         </Link>
       </li>
     </ul>
+  ) : (
+    <>
+      <div className="flex items-center gap-x-2">
+        <CgProfile className="object-cover w-8 h-8 rounded-full" />
+        <div>
+          <h1 className="text-lg font-semibold text-gray-700 capitalize ">
+            Mia John
+          </h1>
+        </div>
+      </div>
+    </>
   );
 };
 

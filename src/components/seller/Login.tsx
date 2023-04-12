@@ -86,6 +86,13 @@ const Login = () => {
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
               />
+              <small
+                className={
+                  email.length === 0 && errorMsg ? "text-red-500" : "hidden"
+                }
+              >
+                {errorMsg}
+              </small>
             </div>
           </div>
 
@@ -103,6 +110,13 @@ const Login = () => {
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
+              <small
+                className={
+                  password.length === 0 && errorMsg ? "text-red-500" : "hidden"
+                }
+              >
+                {errorMsg}
+              </small>
             </div>
           </div>
 

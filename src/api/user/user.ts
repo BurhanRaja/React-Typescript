@@ -9,3 +9,16 @@ export const updateUser = async (data: any) => {
 
   return response.data;
 };
+
+export const getUser = async () => {
+  let token = localStorage.getItem("userToken");
+  let response = await instance({
+    url: "/api/user",
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+};
