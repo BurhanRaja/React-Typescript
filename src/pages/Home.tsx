@@ -1,3 +1,4 @@
+import { Link } from "react-router-dom";
 import CategorySection from "../components/users/Home/CategorySection";
 import ProductsLineup from "../components/users/Home/ProductsLineup";
 import Hero from "../components/users/herosection/Hero";
@@ -60,8 +61,12 @@ const Home = () => {
         title="Featured Products"
         mappedProducts={products.map((el) => {
           return (
-            <li key={el?._id}>
-              <a href="#" className="block overflow-hidden group">
+            <li>
+              <Link
+                to={`/product/${el?._id}`}
+                key={el?._id}
+                className="block overflow-hidden group"
+              >
                 <img
                   src={el?.thumbnail}
                   alt=""
@@ -82,7 +87,7 @@ const Home = () => {
                     </span>
                   </p>
                 </div>
-              </a>
+              </Link>
             </li>
           );
         })}
@@ -92,8 +97,12 @@ const Home = () => {
         title="Trending Products"
         mappedProducts={products.map((el) => {
           return (
-            <li key={el?._id}>
-              <a href="#" className="block overflow-hidden group">
+            <li>
+              <Link
+                to={`/product/${el?._id}`}
+                key={el?._id}
+                className="block overflow-hidden group"
+              >
                 <img
                   src={el?.thumbnail}
                   alt=""
@@ -114,7 +123,7 @@ const Home = () => {
                     </span>
                   </p>
                 </div>
-              </a>
+              </Link>
             </li>
           );
         })}

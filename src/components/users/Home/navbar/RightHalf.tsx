@@ -1,18 +1,22 @@
 import { Link } from "react-router-dom";
 import { CgProfile } from "react-icons/cg";
 import { useEffect, useState } from "react";
+import useAppDispatch from "../../../../hooks/useAppDispatch";
+import useAppSelector from "../../../../hooks/useAppSelector";
+import { getUserThunk } from "../../../../features/user/user";
 
 const RightHalf = (): JSX.Element => {
-
   let token = localStorage.getItem("userToken");
-  
+
   const [name, setName] = useState("");
 
-  
+  const { user } = useAppSelector((state) => state.userCrudAction);
+
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-
-  }, [])
+    dispatch(getUserThunk());
+  }, []);
 
   return !token ? (
     <ul className="flex justify-center w-[16rem] items-center">
@@ -37,7 +41,7 @@ const RightHalf = (): JSX.Element => {
         <CgProfile className="object-cover w-8 h-8 rounded-full" />
         <div>
           <h1 className="text-lg font-semibold text-gray-700 capitalize ">
-            Mia John
+            {user?.first_name + " " + user?.last_name}
           </h1>
         </div>
       </div>

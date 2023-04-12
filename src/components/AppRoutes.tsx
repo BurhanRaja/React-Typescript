@@ -4,7 +4,6 @@ import Home from "../pages/Home";
 import CollectionHome from "./users/CollectionHome";
 import Layout from "./users/Home/Layout";
 import Login from "./users/Login";
-import ProductCard from "./users/Product/ProductCard";
 import Register from "./users/Register";
 import Cart from "./users/cart/Cart";
 
@@ -21,6 +20,7 @@ import ProductListing from "../pages/seller/product/ProductListing";
 import EditProduct from "../pages/seller/product/EditProduct";
 import ProductDetails from "../pages/seller/product/ProductDetails";
 import SellerInfo from "../pages/seller/AddSellerInfo";
+import ProductPage from "../pages/ProductPage";
 
 const AppRoutes = () => {
   let token = localStorage.getItem("sellerToken");
@@ -42,7 +42,7 @@ const AppRoutes = () => {
             <Route path="/wishlist" />
             <Route path="/add/address" />
             <Route path="/profile/:id" />
-            <Route path="/product/:id" element={<ProductCard />} />
+            <Route path="/product/:id" element={<ProductPage />} />
           </Route>
           <Route path="/seller">
             <Route path="login" element={<SellerLogin />} />
