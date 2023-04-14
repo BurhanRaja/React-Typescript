@@ -12,6 +12,7 @@ import getSingleProductReducer from "../features/product/singleProduct";
 import getAllProductsReducer from "../features/product/user/allProducts";
 import userAuthReducer from "../features/user/auth";
 import userCrudReducer from "../features/user/user";
+import imagesInfoFilterReducer from "../features/product/imagesInfo";
 
 // state Manage
 import imagesInfoReducer from "../features/product/seller/productImagesInfo";
@@ -30,6 +31,9 @@ const store = configureStore({
     addProduct: addProductReducer,
     sellerProducts: allSellerProductsReducer,
     singleProductAction: getSingleProductReducer,
+
+    // Product Filters
+    imagesFilterAction: imagesInfoFilterReducer,
 
     // Category
     pCategoriesAction: parentCategoryReducer,

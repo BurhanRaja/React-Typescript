@@ -15,17 +15,22 @@ const initialState = {
   data: [],
 } as InitialState;
 
+type ImagesInfoFilterProps = {
+  id: string;
+  color: string;
+  itemId: string
+};
 
-export const getImagesInfoThunk = createAsyncThunk(
-  "imagesInfo/get",
-  async (id: string, color: any) => {
-    let response = await getfilteredImages(color, id);
+export const getImagesInfoFilterThunk = createAsyncThunk(
+  "imagesInfoFilter/get",
+  async ({ id, color, itemId }: ImagesInfoFilterProps) => {
+    let response = await getfilteredImages(color, id, itemId);
     return response;
   }
 );
 
 const imagesInfoSlice = createSlice({
-  name: "imagesInfo",
+  name: "imagesInfoFilter",
   initialState,
   reducers: {
     clearImageInfoState: () => {
@@ -34,15 +39,15 @@ const imagesInfoSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(getImagesInfoThunk.pending, (state) => {
+      .addCase(getImagesInfoFilterThunk.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(getImagesInfoThunk.fulfilled, (state, { payload }) => {
+      .addCase(getImagesInfoFilterThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.data = payload.images_info;
+        state.data = payload?.imageInfo?.images_info;
       })
-      .addCase(getImagesInfoThunk.rejected, (state) => {
+      .addCase(getImagesInfoFilterThunk.rejected, (state) => {
         state.isLoading = false;
         state.isError = true;
       });

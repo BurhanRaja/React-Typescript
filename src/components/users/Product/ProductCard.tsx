@@ -1,5 +1,11 @@
 import { useEffect, useState } from "react";
 import ProductImageSlider from "./ProductImageSlider";
+import useAppSelector from "../../../hooks/useAppSelector";
+import useAppDispatch from "../../../hooks/useAppDispatch";
+import {
+  clearImageInfoState,
+  getImagesInfoFilterThunk,
+} from "../../../features/product/imagesInfo";
 
 const DownArrowSvg = (): JSX.Element => {
   return (
@@ -21,12 +27,18 @@ const DownArrowSvg = (): JSX.Element => {
 
 type SelectProps = {
   selectOption: Array<string> | Array<number>;
+  val: string;
+  setVal: (val: string) => void;
 };
 
-const Select = ({ selectOption }: SelectProps): JSX.Element => {
+const Select = ({ selectOption, val, setVal }: SelectProps): JSX.Element => {
   return (
     <div className="relative">
-      <select className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10">
+      <select
+        className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10"
+        value={val}
+        onChange={(e) => setVal(e.target.value)}
+      >
         {selectOption?.map((el) => {
           return <option key={el}>{el}</option>;
         })}
@@ -45,7 +57,8 @@ type ProductCardProps = {
   sizes: Array<any>;
   colors: Array<any>;
   info_types: Array<any>;
-  images_info: Array<any>;
+  allImagesInfo: Array<any>;
+  image_info: any;
   id: string;
 };
 
@@ -56,19 +69,33 @@ const ProductCard = ({
   sizes,
   colors,
   info_types,
-  images_info,
+  image_info,
+  allImagesInfo,
   id,
 }: ProductCardProps): JSX.Element => {
   const [quantity, setQuantity] = useState(1);
   const [info, setInfo] = useState<any>({});
+  const [colorInfo, setColorInfo] = useState("");
   const [infoType, setInfoType] = useState("");
   const [size, setSize] = useState("");
 
+  const { data, isLoading } = useAppSelector(
+    (state) => state.imagesFilterAction
+  );
+  const dispatch = useAppDispatch();
+
+  function handleImagesInfoFilter(val: string) {
+    const splitVal = val.split("+");
+    setColorInfo(val);
+    dispatch(clearImageInfoState());
+    dispatch(getImagesInfoFilterThunk({ id, color: splitVal[0], itemId: splitVal[1] }));
+  }
+
   useEffect(() => {
-    if (images_info?.length > 0) {
-      setInfo(images_info[0]);
+    if (!isLoading) {
+      setInfo(data[0]);
     }
-  }, [images_info]);
+  }, [isLoading]);
 
   return (
     <section className="text-gray-600 body-font overflow-hidden">
@@ -97,19 +124,47 @@ const ProductCard = ({
             {colors?.length !== 0 && (
               <div className="flex justify-between items-center border-t border-gray-200 py-2">
                 <span className="text-gray-500">Color</span>
-                <Select selectOption={colors} />
+                <div className="relative">
+                  <select
+                    className="rounded border appearance-none border-gray-300 py-2 focus:outline-none focus:ring-2 focus:ring-indigo-200 focus:border-indigo-500 text-base pl-3 pr-10"
+                    value={colorInfo}
+                    onChange={(e) => handleImagesInfoFilter(e.target.value)}
+                  >
+                    {colors?.map((el, index) => {
+                      return (
+                        <option
+                          key={el}
+                          value={el + "+" + allImagesInfo[index]?._id}
+                        >
+                          {el}
+                        </option>
+                      );
+                    })}
+                  </select>
+                  <span className="absolute right-0 top-0 h-full w-10 text-center text-gray-600 pointer-events-none flex items-center justify-center">
+                    <DownArrowSvg />
+                  </span>
+                </div>
               </div>
             )}
             {sizes?.length !== 0 && (
               <div className="flex justify-between items-center border-t border-gray-200 py-2">
                 <span className="text-gray-500">Size</span>
-                <Select selectOption={sizes} />
+                <Select
+                  selectOption={sizes}
+                  val={size}
+                  setVal={(val) => setSize(val)}
+                />
               </div>
             )}
             {info_types?.length !== 0 && (
               <div className="flex justify-between items-center border-t border-gray-200 py-2">
                 <span className="text-gray-500">Product Type</span>
-                <Select selectOption={info_types} />
+                <Select
+                  selectOption={info_types}
+                  val={infoType}
+                  setVal={(val) => setInfoType(val)}
+                />
               </div>
             )}
             <div className="flex items-center border-t border-b mb-6 border-gray-200 py-2">
@@ -132,7 +187,7 @@ const ProductCard = ({
             </div>
             <div className="flex">
               <span className="title-font font-medium text-2xl text-gray-900">
-                ₹{info?.price}
+                ₹{info ? info?.price : image_info?.price}
               </span>
               <button className="flex ml-auto text-white bg-orange-500 border-0 py-2 px-6 focus:outline-none hover:bg-orange-600 rounded">
                 Add to Cart
@@ -142,7 +197,9 @@ const ProductCard = ({
               </button>
             </div>
           </div>
-          <ProductImageSlider images={info?.images} />
+          <ProductImageSlider
+            images={info ? info?.images : image_info?.images}
+          />
         </div>
       </div>
     </section>

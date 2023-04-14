@@ -4,32 +4,39 @@ import { AiFillStar } from "react-icons/ai";
 import useAppSelector from "../hooks/useAppSelector";
 import useAppDispatch from "../hooks/useAppDispatch";
 import { useEffect } from "react";
-import { clearSingleProduct, getSingleProductThunk } from "../features/product/singleProduct";
+import {
+  clearSingleProduct,
+  getSingleProductThunk,
+} from "../features/product/singleProduct";
 
 const ProductPage = () => {
+  const { id } = useParams();
 
-  const {id} = useParams();
-
-  const {product} = useAppSelector((state) => state.singleProductAction);
+  const { product, isLoading } = useAppSelector((state) => state.singleProductAction);
   const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(clearSingleProduct());
     dispatch(getSingleProductThunk(id));
-  }, [])
+  }, []);
 
   return (
     <>
-      <ProductCard 
-        id={product?._id}
-        name={product?.name}
-        description={product?.description}
-        sizes={product?.sizes}
-        colors={product?.colors}
-        images_info={product?.images_info}
-        company={product?.sellerinfo?.company_name}
-        info_types={product?.info_types}
-      />
+      {!isLoading && (
+        <ProductCard
+          id={product?._id}
+          name={product?.name}
+          description={product?.description}
+          sizes={product?.sizes}
+          colors={product?.colors}
+          image_info={
+            product?.images_info?.length > 0 ? product?.images_info[0] : {}
+          }
+          allImagesInfo={product?.images_info}
+          company={product?.sellerinfo?.company_name}
+          info_types={product?.info_types}
+        />
+      )}
 
       <div className="container flex flex-col w-[90%] p-6 mx-auto rounded-md">
         <h1 className="text-3xl mb-10">Add Reviews</h1>

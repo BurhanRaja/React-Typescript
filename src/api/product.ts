@@ -16,9 +16,9 @@ export const getAllHomeProducts = async () => {
   return response.data;
 };
 
-export const getfilteredImages = async (color: any, id: string) => {
+export const getfilteredImages = async (color: string, id: string, itemId: string) => {
   let response = await instance({
-    url: `/api/product/filter/images/${id}?color=${color}`,
+    url: `/api/product/filter/images/${itemId}/${id}?color=${color}`,
     method: "GET",
   });
 

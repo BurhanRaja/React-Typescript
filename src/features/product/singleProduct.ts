@@ -27,8 +27,8 @@ const singleProductSlice = createSlice({
   name: "singleProduct",
   initialState,
   reducers: {
-    clearSingleProduct: () => {
-      return initialState;
+    clearSingleProduct: (state) => {
+      state = initialState;
     },
   },
   extraReducers: (builder) => {
