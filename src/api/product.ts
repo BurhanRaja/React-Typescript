@@ -1,6 +1,6 @@
 import instance from "../instance";
 
-export const getSingleProduct = async (id: string) => {
+export const getSingleProduct = async (id: string | undefined) => {
   let token = localStorage.getItem("sellerToken");
   let response = await instance({
     url: `/api/product/${id}`,

@@ -1,7 +1,25 @@
+import { useParams } from "react-router";
 import ProductCard from "../components/users/Product/ProductCard";
 import { AiFillStar } from "react-icons/ai";
+import useAppSelector from "../hooks/useAppSelector";
+import useAppDispatch from "../hooks/useAppDispatch";
+import { useEffect } from "react";
+import { getSingleProductThunk } from "../features/product/singleProduct";
 
 const ProductPage = () => {
+
+  const {id} = useParams();
+
+  const {product} = useAppSelector((state) => state.singleProductAction);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getSingleProductThunk(id));
+  }, [])
+  
+  console.log(product);
+
+
   return (
     <>
       <ProductCard />

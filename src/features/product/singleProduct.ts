@@ -17,7 +17,7 @@ const initialState = {
 
 export const getSingleProductThunk = createAsyncThunk(
   "singleProduct/getSingleProduct",
-  async (id: string) => {
+  async (id: string | undefined) => {
     let response = await getSingleProduct(id);
     return response;
   }
