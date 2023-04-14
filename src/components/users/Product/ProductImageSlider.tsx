@@ -1,20 +1,19 @@
 import HeroSlider from "../herosection/Slider";
 
-const ProductImageSlider = () => {
+type ImageSliderProps = {
+  images: Array<any>;
+};
+
+const ProductImageSlider = ({ images }: ImageSliderProps): JSX.Element => {
   return (
     <>
       <div className="w-[50%]">
         <HeroSlider autoPlay={false} infinite={false}>
-          <img
-            alt="ecommerce"
-            className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded"
-            src="https://dummyimage.com/400x400"
-          />
-          <img
-            alt="ecommerce"
-            className="lg:w-1/2 w-full lg:h-auto h-64 object-cover object-center rounded"
-            src="https://dummyimage.com/400x400"
-          />
+          {images?.map((image, index) => {
+            return (
+                <img key={index} className="w-[100%] h-[700px] object-cover object-top" src={image} alt={image} />
+            );
+          })}
         </HeroSlider>
       </div>
     </>

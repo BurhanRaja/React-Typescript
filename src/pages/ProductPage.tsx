@@ -4,7 +4,7 @@ import { AiFillStar } from "react-icons/ai";
 import useAppSelector from "../hooks/useAppSelector";
 import useAppDispatch from "../hooks/useAppDispatch";
 import { useEffect } from "react";
-import { getSingleProductThunk } from "../features/product/singleProduct";
+import { clearSingleProduct, getSingleProductThunk } from "../features/product/singleProduct";
 
 const ProductPage = () => {
 
@@ -14,15 +14,22 @@ const ProductPage = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    dispatch(clearSingleProduct());
     dispatch(getSingleProductThunk(id));
   }, [])
-  
-  console.log(product);
-
 
   return (
     <>
-      <ProductCard />
+      <ProductCard 
+        id={product?._id}
+        name={product?.name}
+        description={product?.description}
+        sizes={product?.sizes}
+        colors={product?.colors}
+        images_info={product?.images_info}
+        company={product?.sellerinfo?.company_name}
+        info_types={product?.info_types}
+      />
 
       <div className="container flex flex-col w-[90%] p-6 mx-auto rounded-md">
         <h1 className="text-3xl mb-10">Add Reviews</h1>
