@@ -5,7 +5,6 @@ import CollectionHome from "./users/CollectionHome";
 import Layout from "./users/Home/Layout";
 import Login from "./users/Login";
 import Register from "./users/Register";
-import Cart from "./users/cart/Cart";
 
 // Seller
 import AddDiscount from "../pages/seller/AddDiscount";
@@ -21,6 +20,7 @@ import EditProduct from "../pages/seller/product/EditProduct";
 import ProductDetails from "../pages/seller/product/ProductDetails";
 import SellerInfo from "../pages/seller/AddSellerInfo";
 import ProductPage from "../pages/ProductPage";
+import Cart from "../pages/Cart";
 
 const AppRoutes = () => {
   let token = localStorage.getItem("sellerToken");
