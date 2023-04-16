@@ -97,6 +97,12 @@ const ProductCard = ({
     }
   }, [isLoading]);
 
+  useEffect(() => {
+    if (image_info) {
+      setInfo(image_info);
+    }
+  }, [image_info]);
+
   return (
     <section className="text-gray-600 body-font overflow-hidden">
       <div className="container px-5 py-24 mx-auto text-start">
@@ -198,7 +204,7 @@ const ProductCard = ({
             </div>
           </div>
           <ProductImageSlider
-            images={info ? info?.images : image_info?.images}
+            images={info?.images}
           />
         </div>
       </div>

@@ -24,7 +24,7 @@ export const getSingleDiscount = async (id: String) => {
     return response.data;
 }
 
-export const addDiscount = async (data: Object) => {
+export const addDiscount = async (data: any) => {
     let token = localStorage.getItem("sellerToken");
     let response = await instance({
         url: `/api/discount/create`,
@@ -38,7 +38,7 @@ export const addDiscount = async (data: Object) => {
     return response.data;
 }
 
-export const updateDiscount = async (id:String, data: Object) => {
+export const updateDiscount = async (id:String, data: any) => {
     let token = localStorage.getItem("sellerToken");
     let response = await instance({
         url: `/api/discount/update/${id}`,
