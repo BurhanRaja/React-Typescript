@@ -1,12 +1,19 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { userLogin, userRegister } from "../../api/user/auth";
 
+interface InitialState {
+  isLoading: boolean;
+  isError: boolean;
+  isSuccess: boolean;
+  token: any;
+}
+
 const initialState = {
   isLoading: false,
   isError: false,
   isSuccess: false,
   token: "",
-};
+} as InitialState;
 
 export const userRegisterThunk = createAsyncThunk(
   "userAuth/register",
@@ -18,7 +25,7 @@ export const userRegisterThunk = createAsyncThunk(
 
 export const userLoginThunk = createAsyncThunk(
   "userAuth/login",
-  async (data) => {
+  async (data: any) => {
     let response = await userLogin(data);
     return response;
   }
@@ -52,7 +59,7 @@ const userAuthSlice = createSlice({
       .addCase(userLoginThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.token = payload;
+        state.token = payload.token;
       })
       .addCase(userLoginThunk.rejected, (state) => {
         state.isLoading = false;

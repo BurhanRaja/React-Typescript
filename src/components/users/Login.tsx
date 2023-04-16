@@ -1,6 +1,10 @@
 import { useEffect, useState } from "react";
 import { Link, Navigate, useNavigate } from "react-router-dom";
 import { GrClose } from "react-icons/gr";
+import useAppSelector from "../../hooks/useAppSelector";
+import useAppDispatch from "../../hooks/useAppDispatch";
+import { clearUserAuthState, userLoginThunk } from "../../features/user/auth";
+import { toast } from "react-toastify";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -10,6 +14,21 @@ const Login = () => {
   const [errorMsg, setErrorMsg] = useState("");
 
   const navigate = useNavigate();
+
+  const { token, isLoading, isError } = useAppSelector(
+    (state) => state.userAuthAction
+  );
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (!isLoading && !isError && token !== "") {
+      localStorage.setItem("userToken", token);
+      sessionStorage.setItem("userloggedin", "1");
+      toast.success("Successfully Registered");
+      navigate("/");
+      dispatch(clearUserAuthState());
+    }
+  }, [isLoading, isError, token]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -23,11 +42,22 @@ const Login = () => {
       email,
       password,
     };
+
+    dispatch(userLoginThunk(data)).then((data: any) => {
+      if (data?.error?.code === "ERR_BAD_REQUEST") {
+        toast.warn("Invalid Credentials.");
+      }
+      if (data?.error?.code === "ERR_NETWORK") {
+        toast.error("Internal Server Error");
+      }
+    });
   };
 
-  let sellerToken = localStorage.getItem("sellerToken");
+  let userToken = localStorage.getItem("userToken");
 
-  return (
+  return userToken ? (
+    <Navigate to="/" />
+  ) : (
     <>
       <div className="flex justify-end pr-10 items-center mt-10">
         <Link to="/">
@@ -45,7 +75,7 @@ const Login = () => {
         <div className="w-[50%]">
           <div className="w-[75%] mx-auto rounded-lg p-8 flex flex-col mt-10 md:mt-0">
             <h2 className="text-3xl font-medium title-font mb-5">Login</h2>
-            <form className="text-start">
+            <form className="text-start" onSubmit={handleSubmit}>
               <div className="relative mb-4">
                 <label
                   htmlFor="email"

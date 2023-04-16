@@ -126,7 +126,7 @@ const Register = () => {
       if (data?.error?.code === "ERR_NETWORK") {
         toast.error("Internal Server Error");
       }
-      
+
       console.log(data);
     });
   };
