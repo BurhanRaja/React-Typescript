@@ -12,11 +12,9 @@ const Cart = () => {
     dispatch(getUserCartThunk());
   }, []);
 
-  console.log(cart);
-
   return (
     <div className="h-[100%]">
-      <UserCart cartProducts={cart?.cartItems} />
+      <UserCart cartProducts={cart?.cartItems} cartId={cart?._id} />
     </div>
   );
 };

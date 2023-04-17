@@ -150,7 +150,7 @@ const ProductCard = ({
         toast.error("Internal Server Error");
       }
 
-      toast.success("Item Added to Cart.");
+      toast.success(`Item Added to Cart.`);
     });
   }
 
