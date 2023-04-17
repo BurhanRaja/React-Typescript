@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { addToCart } from "../../api/cart";
-import { removeFromCart } from "../../api/cart";
+import { addToCart } from "../../api/user/cart";
+import { removeFromCart } from "../../api/user/cart";
 
 interface InitialState {
   isLoading: boolean;

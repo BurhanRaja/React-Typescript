@@ -4,9 +4,10 @@ import CartProduct from "./CartProduct";
 
 type CartPorps = {
   cartProducts: Array<any>;
+  cartId: string
 };
 
-const UserCart = ({ cartProducts }: CartPorps): JSX.Element => {
+const UserCart = ({ cartProducts, cartId }: CartPorps): JSX.Element => {
   return (
     <>
       <div className="text-5xl font-bold text-start p-10 px-10">
@@ -16,7 +17,14 @@ const UserCart = ({ cartProducts }: CartPorps): JSX.Element => {
         <div className="flex flex-col w-[80%] p-6 space-y-4 sm:p-10 dark:bg-gray-50 dark:text-gray-900">
           <ul className="flex flex-col divide-y divide-gray-700">
             {cartProducts?.length > 0 ? cartProducts?.map((el, index) => (
-              <CartProduct />
+              <CartProduct 
+                productInfo={el?.product_info}
+                productQuantity={el?.quantity}
+                price={el?.price}
+                name={el?.product?.name}
+                cartid={cartId}
+                id={el?._id}
+              />
             )) : <li>No Products in Cart</li>}
           </ul>
           <div className="space-y-1 text-right">

@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { getCart } from "../../api/cart";
+import { getCart } from "../../api/user/cart";
 
 interface InitialState {
   cart: any;
