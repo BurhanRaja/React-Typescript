@@ -39,3 +39,17 @@ export const getCart = async () => {
 
   return response.data;
 };
+
+
+export const getCartTotal = async () => {
+  let token = localStorage.getItem("userToken");
+  let response = await instance({
+    url: "/api/cart/add/total",
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`
+    }
+  });
+
+  return response.data;
+}

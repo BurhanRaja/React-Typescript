@@ -53,7 +53,7 @@ const UserCart = ({ cartProducts, cartId }: CartPorps): JSX.Element => {
                 className="px-6 py-2 border rounded-md bg-black text-white"
               >
                 <span className="sr-only sm:not-sr-only">Continue to</span>
-                Checkout
+                {" "}Checkout
               </button>
             </Link>
           </div>

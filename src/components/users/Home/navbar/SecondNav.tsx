@@ -1,15 +1,12 @@
 import { useState } from "react";
 import { BsCart, BsSearch } from "react-icons/bs";
 import { GiHamburgerMenu } from "react-icons/gi";
-import { IoMdNotificationsOutline } from "react-icons/io";
 import Menu from "./Menu";
 import SideMenu from "./SideMenu";
 import Cart from "./customizedMenus/Cart";
-import Notification from "./customizedMenus/Notification";
 import Search from "./customizedMenus/Search";
 
 const SecondNav = (): JSX.Element => {
-  const [notifyOpen, setNotifyOpen] = useState(false);
   const [cartOpen, setCartOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [sideBar, setSideBar] = useState(false);
@@ -48,20 +45,7 @@ const SecondNav = (): JSX.Element => {
           <button
             className="text-2xl flex"
             onClick={() => {
-              setNotifyOpen(!notifyOpen);
-              setCartOpen(false);
-            }}
-          >
-            <IoMdNotificationsOutline />
-          </button>
-          {notifyOpen && <Menu children={<Notification />} />}
-        </li>
-        <li className="relative">
-          <button
-            className="text-2xl flex"
-            onClick={() => {
               setCartOpen(!cartOpen);
-              setNotifyOpen(false);
             }}
           >
             <BsCart />

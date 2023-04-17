@@ -14,6 +14,11 @@ import userAuthReducer from "../features/user/auth";
 import userCrudReducer from "../features/user/user";
 import imagesInfoFilterReducer from "../features/product/imagesInfo";
 import userCartReducer from "../features/cart/userCart";
+import cartTotalReducer from "../features/cart/getTotal";
+
+// Orders
+import allOrdersReducer from "../features/order/allOrders";
+import crudOrdersReducer from "../features/order/crudOrder";
 
 // state Manage
 import imagesInfoReducer from "../features/product/seller/productImagesInfo";
@@ -43,8 +48,6 @@ const store = configureStore({
 
     // User Auth
     userAuthAction: userAuthReducer,
-
-    // User
     userCrudAction: userCrudReducer,
 
     // User Products
@@ -52,6 +55,13 @@ const store = configureStore({
 
     // Cart
     singleUserCartAction: userCartReducer,
+
+    // Orders
+    allOrdersAction: allOrdersReducer,
+    crudOrdersAction: crudOrdersReducer,
+
+    // Total
+    cartTotalAction: cartTotalReducer,
 
     // state Manage
     imagesInfo: imagesInfoReducer,
