@@ -1,5 +1,4 @@
 import { useEffect } from "react";
-import CartProducts from "../components/users/cart/CartProduct";
 import UserCart from "../components/users/cart/UserCart";
 import useAppSelector from "../hooks/useAppSelector";
 import useAppDispatch from "../hooks/useAppDispatch";
@@ -13,9 +12,11 @@ const Cart = () => {
     dispatch(getUserCartThunk());
   }, []);
 
+  console.log(cart);
+
   return (
     <div className="h-[100%]">
-      <UserCart cartProducts={cart} />
+      <UserCart cartProducts={cart?.cartItems} />
     </div>
   );
 };

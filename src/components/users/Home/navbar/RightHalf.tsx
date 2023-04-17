@@ -13,7 +13,6 @@ const RightHalf = (): JSX.Element => {
   const { user } = useAppSelector((state) => state.userCrudAction);
 
   const dispatch = useAppDispatch();
-  console.log(user);
 
   useEffect(() => {
     dispatch(getUserThunk());

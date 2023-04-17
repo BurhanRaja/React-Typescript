@@ -12,7 +12,9 @@ import {
 const ProductPage = () => {
   const { id } = useParams();
 
-  const { product, isLoading } = useAppSelector((state) => state.singleProductAction);
+  const { product, isLoading } = useAppSelector(
+    (state) => state.singleProductAction
+  );
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -35,6 +37,9 @@ const ProductPage = () => {
           allImagesInfo={product?.images_info}
           company={product?.sellerinfo?.company_name}
           info_types={product?.info_types}
+          sellerId={product?.seller_id}
+          sellerInfoId={product?.sellerinfo?._id}
+          thumbnail={product?.thumbnail}
         />
       )}
 

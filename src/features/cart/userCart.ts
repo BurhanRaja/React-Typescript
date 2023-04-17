@@ -2,7 +2,7 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getCart } from "../../api/cart";
 
 interface InitialState {
-  cart: Array<any>;
+  cart: any;
   isLoading: boolean;
   isError: boolean;
   isSuccess: boolean;

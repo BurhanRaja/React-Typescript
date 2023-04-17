@@ -6,6 +6,11 @@ import {
   clearImageInfoState,
   getImagesInfoFilterThunk,
 } from "../../../features/product/imagesInfo";
+import {
+  addToCartThunk,
+  clearCrudCartState,
+} from "../../../features/cart/crudCart";
+import { toast } from "react-toastify";
 
 const DownArrowSvg = (): JSX.Element => {
   return (
@@ -60,6 +65,9 @@ type ProductCardProps = {
   allImagesInfo: Array<any>;
   image_info: any;
   id: string;
+  sellerId: string;
+  sellerInfoId: string;
+  thumbnail: string;
 };
 
 const ProductCard = ({
@@ -72,6 +80,9 @@ const ProductCard = ({
   image_info,
   allImagesInfo,
   id,
+  sellerId,
+  sellerInfoId,
+  thumbnail,
 }: ProductCardProps): JSX.Element => {
   const [quantity, setQuantity] = useState(1);
   const [info, setInfo] = useState<any>({});
@@ -88,7 +99,9 @@ const ProductCard = ({
     const splitVal = val.split("+");
     setColorInfo(val);
     dispatch(clearImageInfoState());
-    dispatch(getImagesInfoFilterThunk({ id, color: splitVal[0], itemId: splitVal[1] }));
+    dispatch(
+      getImagesInfoFilterThunk({ id, color: splitVal[0], itemId: splitVal[1] })
+    );
   }
 
   useEffect(() => {
@@ -100,8 +113,46 @@ const ProductCard = ({
   useEffect(() => {
     if (image_info) {
       setInfo(image_info);
+      setColorInfo(image_info?.color + "+" + image_info?._id);
+      if (image_info?.info_types?.length > 0) {
+        setInfoType(image_info?.info_types[0]);
+      }
+      if (image_info?.sizes?.length > 0) {
+        setSize(image_info?.sizes[0]);
+      }
     }
   }, [image_info]);
+
+  function handleAddToCart() {
+    if (Number(quantity) > Number(info?.quantity)) {
+      toast.error("The required quantity is greater than available quantity.");
+      return;
+    }
+
+    let data = {
+      size,
+      info_type: infoType,
+      thumbnail,
+      color: colorInfo.split("+")[0],
+      price: info?.price,
+      sellerid: sellerId,
+      seller_info_id: sellerInfoId,
+      productid: id,
+      quantity,
+    };
+
+    dispatch(clearCrudCartState());
+    dispatch(addToCartThunk(data)).then((data: any) => {
+      if (data?.error?.code === "ERR_BAD_REQUEST") {
+        toast.warn("Some Error Occured. Please try again");
+      }
+      if (data?.error?.code === "ERR_NETWORK") {
+        toast.error("Internal Server Error");
+      }
+
+      toast.success("Item Added to Cart.");
+    });
+  }
 
   return (
     <section className="text-gray-600 body-font overflow-hidden">
@@ -153,7 +204,7 @@ const ProductCard = ({
                 </div>
               </div>
             )}
-            {sizes?.length !== 0 && (
+            {info?.sizes?.length !== 0 && (
               <div className="flex justify-between items-center border-t border-gray-200 py-2">
                 <span className="text-gray-500">Size</span>
                 <Select
@@ -163,7 +214,7 @@ const ProductCard = ({
                 />
               </div>
             )}
-            {info_types?.length !== 0 && (
+            {info?.info_types?.length !== 0 && (
               <div className="flex justify-between items-center border-t border-gray-200 py-2">
                 <span className="text-gray-500">Product Type</span>
                 <Select
@@ -193,9 +244,12 @@ const ProductCard = ({
             </div>
             <div className="flex">
               <span className="title-font font-medium text-2xl text-gray-900">
-                ₹{info ? info?.price : image_info?.price}
+                ₹{info?.price}
               </span>
-              <button className="flex ml-auto text-white bg-orange-500 border-0 py-2 px-6 focus:outline-none hover:bg-orange-600 rounded">
+              <button
+                className="flex ml-auto text-white bg-orange-500 border-0 py-2 px-6 focus:outline-none hover:bg-orange-600 rounded"
+                onClick={handleAddToCart}
+              >
                 Add to Cart
               </button>
               <button className="flex ml-4 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
@@ -203,9 +257,7 @@ const ProductCard = ({
               </button>
             </div>
           </div>
-          <ProductImageSlider
-            images={info?.images}
-          />
+          <ProductImageSlider images={info?.images} />
         </div>
       </div>
     </section>
