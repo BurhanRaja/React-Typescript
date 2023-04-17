@@ -59,7 +59,7 @@ const Home = () => {
       </HeroSlider>
       <ProductsLineup
         title="Featured Products"
-        mappedProducts={products.map((el) => {
+        mappedProducts={products?.map((el) => {
           return (
             <li>
               <Link
@@ -95,7 +95,7 @@ const Home = () => {
       <CategorySection />
       <ProductsLineup
         title="Trending Products"
-        mappedProducts={products.map((el) => {
+        mappedProducts={products?.map((el) => {
           return (
             <li>
               <Link

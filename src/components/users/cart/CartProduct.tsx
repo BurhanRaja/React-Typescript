@@ -12,6 +12,7 @@ import {
 } from "../../../features/cart/userCart";
 import useAppSelector from "../../../hooks/useAppSelector";
 import { toast } from "react-toastify";
+import { clearCartTotal, getCartTotalThunk } from "../../../features/cart/getTotal";
 
 type CartProductProps = {
   productInfo: any;
@@ -43,7 +44,10 @@ const CartProduct = ({
           toast.error("Internal Server Error");
         }
         dispatch(clearUserCartState());
+        dispatch(clearCartTotal());
+
         dispatch(getUserCartThunk());
+        dispatch(getCartTotalThunk());
         toast.success("Item removed from cart.");
       }
     );
