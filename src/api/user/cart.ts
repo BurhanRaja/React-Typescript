@@ -17,8 +17,8 @@ export const addToCart = async (data: any) => {
 export const removeFromCart = async (id: any, itemId: any) => {
   let token = localStorage.getItem("userToken");
   let response = await instance({
-    url: `/api/cart/${id}/${itemId}`,
-    method: "POST",
+    url: `/api/cart/remove/${id}/${itemId}`,
+    method: "DELETE",
     headers: {
       Authorization: `Bearer ${token}`,
     },

@@ -8,6 +8,7 @@ type CartPorps = {
 };
 
 const UserCart = ({ cartProducts, cartId }: CartPorps): JSX.Element => {
+
   return (
     <>
       <div className="text-5xl font-bold text-start p-10 px-10">

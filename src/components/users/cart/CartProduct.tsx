@@ -6,9 +6,11 @@ import {
   clearCrudCartState,
   removeFromCartThunk,
 } from "../../../features/cart/crudCart";
+import { clearUserCartState, getUserCartThunk } from "../../../features/cart/userCart";
+import useAppSelector from "../../../hooks/useAppSelector";
 
 type CartProductProps = {
-  productInfo: string;
+  productInfo: any;
   productQuantity: number;
   price: number;
   name: string;
@@ -24,11 +26,15 @@ const CartProduct = ({
   cartid,
   id,
 }: CartProductProps) => {
+
   const dispatch = useAppDispatch();
 
   function handleRemoveFromCart() {
     dispatch(clearCrudCartState());
-    dispatch(removeFromCartThunk({ id: cartid, itemId: id }));
+    dispatch(removeFromCartThunk({ id: cartid, itemId: id })).then(() => {
+      dispatch(clearUserCartState());
+      dispatch(getUserCartThunk());
+    });
   }
 
   return (
@@ -47,30 +53,27 @@ const CartProduct = ({
               </h3>
               {productInfo?.color && (
                 <p className='text-sm dark:text-gray-400'>
-                  {productInfo?.color}
+                  <span className='font-bold'>Color: </span>{" "} {productInfo?.color}
                 </p>
               )}
               {productInfo?.size && (
                 <p className='text-sm dark:text-gray-400'>
-                  {productInfo?.size}
+                  <span className='font-bold'>Size: </span>{" "} {productInfo?.size}
                 </p>
               )}
               {productInfo?.info_type && (
                 <p className='text-sm dark:text-gray-400'>
-                  {productInfo?.info_type}
+                  <span className='font-bold'>Product Type: </span>{" "} {productInfo?.info_type}
                 </p>
               )}
             </div>
-            <div className='flex justify-center items-center'>
+            <div className="">
               <div className='text-right'>
-                <p className='text-lg font-semibold'>{price}</p>
-                {/* <p className='text-sm line-through dark:text-gray-600'>
-                  
-                </p> */}
+                <p className='text-lg font-semibold'>₹{price}</p>
               </div>
               <div className='text-right'>
                 <p>
-                  Quantity:<span className='font-bold'>{productQuantity}</span>
+                  Qty:<span className='font-bold'>{" "}{productQuantity}</span>
                 </p>
               </div>
             </div>
