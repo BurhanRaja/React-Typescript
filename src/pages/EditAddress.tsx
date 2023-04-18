@@ -1,9 +1,14 @@
 import { useState } from "react";
-import { toast } from "react-toastify";
+import { useParams } from "react-router";
 import useAppDispatch from "../hooks/useAppDispatch";
-import { addAddressThunk } from "../features/address/crudaddress";
+import { toast } from "react-toastify";
+import { updateAddressThunk } from "../features/address/crudaddress";
+import useAppSelector from "../hooks/useAppSelector";
 
-const AddAddress = () => {
+const EditAddress = () => {
+
+    const {id} = useParams();
+
   const [addressLine1, setAddressLine1] = useState("");
   const [addressLine2, setAddressLine2] = useState("");
   const [country, setCountry] = useState("");
@@ -16,7 +21,13 @@ const AddAddress = () => {
 
   const dispatch = useAppDispatch();
 
-  function handleAddAddress(e: any) {
+
+  const {addresses} = useAppSelector((state) => state.getAddressAction);
+
+
+  function handleEditAddress(e: any) {
+    e.preventDefault();
+
     e.preventDefault();
     if (
       addressLine1.length < 20 ||
@@ -40,7 +51,7 @@ const AddAddress = () => {
       address_type: addressType,
     };
 
-    dispatch(addAddressThunk(data)).then((data: any) => {
+    dispatch(updateAddressThunk({id, data})).then((data: any) => {
       if (data?.error?.code === "ERR_BAD_REQUEST") {
         toast.warn("Some Error Ocurred. Please Try Again./");
       }
@@ -48,16 +59,16 @@ const AddAddress = () => {
         toast.error("Internal Server Error");
       }
 
-      toast.success("Address Added Successfully.");
-    });
-  }
+      toast.success("Address Updated Successfully.");
+  })
+}
 
   return (
     <>
       <div className="w-[70%] md:max-w-full mx-auto my-10">
         <h1 className="text-4xl my-8 font-bold">Add Address</h1>
         <div className="p-6 border border-gray-300 sm:rounded-md">
-          <form onSubmit={handleAddAddress}>
+          <form onSubmit={handleEditAddress}>
             <div className="relative mb-4">
               <label
                 htmlFor="address_line_1"
@@ -236,4 +247,4 @@ const AddAddress = () => {
   );
 };
 
-export default AddAddress;
+export default EditAddress;

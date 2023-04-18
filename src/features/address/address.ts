@@ -37,7 +37,7 @@ const getAddressSlice = createSlice({
       .addCase(getAddressThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.addresses = payload;
+        state.addresses = payload?.userAddress;
       })
       .addCase(getAddressThunk.rejected, (state) => {
         state.isLoading = false;

@@ -1,8 +1,28 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
+import useAppSelector from "../../../hooks/useAppSelector";
+import useAppDispatch from "../../../hooks/useAppDispatch";
+import { getAddressThunk } from "../../../features/address/address";
 
-const CheckoutForm = () => {
+interface CheckoutFormProps {
+  cartId: string;
+}
+
+const CheckoutForm = ({ cartId }: CheckoutFormProps) => {
   const [paymentType, setPaymentType] = useState("");
+  const [addressId, setAddressId] = useState("");
+
+  const { addresses } = useAppSelector((state) => state.getAddressAction);
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    dispatch(getAddressThunk());
+  }, []);
+
+  function handleDeleteAddress(id: string) {
+    
+  }
 
   return (
     <div className="bg-white py-12 md:py-24">
@@ -19,30 +39,51 @@ const CheckoutForm = () => {
                 </button>
               </Link>
             </div>
-            <div className="mt-4">
-              <div className="flex justify-end items-center">
-                <button className="px-2 py-1 text-sm font-medium tracking-wide capitalize">
-                  Edit
-                </button>
-                <button className="px-2 py-1 text-sm font-medium text-red-500 tracking-wide capitalize">
-                  Delete
-                </button>
-              </div>
-              <input
-                className="peer sr-only"
-                id="option1"
-                type="radio"
-                tabIndex={-1}
-                name="option"
-              />
-              <label
-                htmlFor="option1"
-                className="block w-full rounded-lg border border-gray-200 p-3 hover:border-black peer-checked:border-black peer-checked:bg-black peer-checked:text-white"
-                tabIndex={0}
-              >
-                <span className="text-sm font-medium"> Option 1 </span>
-              </label>
-            </div>
+            {addresses !== undefined ? (
+              addresses?.map((el) => {
+                return (
+                  <div className="mt-4">
+                    <div className="flex justify-end items-center">
+                      <button className="px-2 py-1 text-sm font-medium tracking-wide capitalize">
+                        Edit
+                      </button>
+                      <button className="px-2 py-1 text-sm font-medium text-red-500 tracking-wide capitalize" onClick={() => handleDeleteAddress(el?._id)}>
+                        Delete
+                      </button>
+                    </div>
+                    <input
+                      className="peer sr-only"
+                      id="option1"
+                      type="radio"
+                      tabIndex={-1}
+                      name="option"
+                      value={el?._id}
+                      onChange={(e) => setAddressId(e.target.value)}
+                    />
+                    <label
+                      htmlFor="option1"
+                      className="block w-full rounded-lg border border-gray-200 p-3 hover:border-black peer-checked:border-black peer-checked:bg-black peer-checked:text-white"
+                      tabIndex={0}
+                    >
+                      <span className="text-sm font-medium">
+                        {" "}
+                        {el?.address_type}{" "}
+                      </span>
+                      <p className="text-sm">
+                        {" "}
+                        {el?.address_line_1 +
+                          ", " +
+                          el?.address_line_2 +
+                          ", " +
+                          el?.country}{" "}
+                      </p>
+                    </label>
+                  </div>
+                );
+              })
+            ) : (
+              <small className="text-gray-500">No Address Added</small>
+            )}
           </div>
 
           <div className="payment-option">

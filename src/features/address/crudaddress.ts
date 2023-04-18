@@ -26,7 +26,7 @@ export const addAddressThunk = createAsyncThunk(
 );
 
 interface UpdateAddressProps {
-  id: string;
+  id: string | any;
   data: any;
 }
 
