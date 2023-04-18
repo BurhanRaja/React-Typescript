@@ -20,6 +20,10 @@ import cartTotalReducer from "../features/cart/getTotal";
 import allOrdersReducer from "../features/order/allOrders";
 import crudOrdersReducer from "../features/order/crudOrder";
 
+// Address
+import getAddressReducer from "../features/address/address";
+import crudAddressReducer from "../features/address/crudaddress";
+
 // state Manage
 import imagesInfoReducer from "../features/product/seller/productImagesInfo";
 
@@ -52,6 +56,10 @@ const store = configureStore({
 
     // User Products
     allProducts: getAllProductsReducer,
+
+    // Address
+    getAddressAction: getAddressReducer,
+    crudAddressAction: crudAddressReducer,
 
     // Cart
     singleUserCartAction: userCartReducer,

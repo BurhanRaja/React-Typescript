@@ -21,6 +21,7 @@ import ProductDetails from "../pages/seller/product/ProductDetails";
 import SellerInfo from "../pages/seller/AddSellerInfo";
 import ProductPage from "../pages/ProductPage";
 import Cart from "../pages/Cart";
+import AddAddress from "../pages/AddAddress";
 
 const AppRoutes = () => {
   let token = localStorage.getItem("sellerToken");
@@ -40,7 +41,7 @@ const AppRoutes = () => {
             <Route path="/cart" element={<Cart />} />
             <Route path="/checkout" element={<CheckoutPage />} />
             <Route path="/wishlist" />
-            <Route path="/add/address" />
+            <Route path="/add/address" element={<AddAddress />} />
             <Route path="/profile/:id" />
             <Route path="/product/:id" element={<ProductPage />} />
           </Route>
