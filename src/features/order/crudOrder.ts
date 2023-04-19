@@ -13,7 +13,7 @@ const initialState = {
   isSuccess: false,
 } as InitialState;
 
-export const addOrderThunk = createAsyncThunk("", async (data: string) => {
+export const addOrderThunk = createAsyncThunk("", async (data: any) => {
   let response = await placeOrder(data);
   return response;
 });

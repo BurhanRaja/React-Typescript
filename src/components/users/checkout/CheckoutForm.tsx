@@ -1,33 +1,83 @@
 import { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import useAppSelector from "../../../hooks/useAppSelector";
 import useAppDispatch from "../../../hooks/useAppDispatch";
-import { getAddressThunk } from "../../../features/address/address";
+import {
+  cleargetAddressState,
+  getAddressThunk,
+} from "../../../features/address/address";
+import {
+  clearCrudAddressState,
+  deleteAddressThunk,
+} from "../../../features/address/crudaddress";
+import { toast } from "react-toastify";
+import { addOrderThunk } from "../../../features/order/crudOrder";
 
 interface CheckoutFormProps {
   cartId: string;
+  totalPrice: number;
 }
 
-const CheckoutForm = ({ cartId }: CheckoutFormProps) => {
+const CheckoutForm = ({ cartId, totalPrice }: CheckoutFormProps) => {
   const [paymentType, setPaymentType] = useState("");
   const [addressId, setAddressId] = useState("");
 
   const { addresses } = useAppSelector((state) => state.getAddressAction);
 
+  console.log(addresses[0]);
+
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   useEffect(() => {
+    dispatch(cleargetAddressState());
     dispatch(getAddressThunk());
   }, []);
 
   function handleDeleteAddress(id: string) {
-    
+    dispatch(clearCrudAddressState());
+    dispatch(deleteAddressThunk(id));
+  }
+
+  function handleCheckout(e: any) {
+    e.preventDefault();
+
+    if (addressId === "") {
+      toast.warn("Please Select or Add an Address.");
+      return;
+    }
+    if (paymentType === "") {
+      toast.warn("Please Select Payment Type.");
+      return;
+    }
+
+    let data = {
+      cart_id: cartId,
+      address_id: addressId,
+      payment_type: paymentType,
+      payment_status: paymentType === "card" ? true : false,
+      is_delivered: false,
+      total: totalPrice,
+    };
+
+    dispatch(addOrderThunk(data)).then((data: any) => {
+      if (data?.error?.code === "ERR_BAD_REQUEST") {
+        toast.warn("Some Error Ocurred. Please Try Again.");
+        return;
+      }
+      if (data?.error?.code === "ERR_NETWORK") {
+        toast.error("Internal Server Error");
+        return;
+      }
+      toast.success("Placed Order Successfully.");
+      navigate("/");
+    });
   }
 
   return (
     <div className="bg-white py-12 md:py-24">
       <div className="mx-auto max-w-lg px-4 lg:px-8">
-        <form className="space-y-4">
+        <form className="space-y-4" onSubmit={handleCheckout}>
           <div className="mb-4">
             <div className="flex justify-between items-center">
               <p className="text-sm font-medium text-gray-700">
@@ -39,15 +89,20 @@ const CheckoutForm = ({ cartId }: CheckoutFormProps) => {
                 </button>
               </Link>
             </div>
-            {addresses !== undefined ? (
+            {addresses !== undefined && addresses[0] !== undefined ? (
               addresses?.map((el) => {
                 return (
                   <div className="mt-4">
                     <div className="flex justify-end items-center">
-                      <button className="px-2 py-1 text-sm font-medium tracking-wide capitalize">
-                        Edit
-                      </button>
-                      <button className="px-2 py-1 text-sm font-medium text-red-500 tracking-wide capitalize" onClick={() => handleDeleteAddress(el?._id)}>
+                      <Link to={`/edit/address/${el?._id}`}>
+                        <button className="px-2 py-1 text-sm font-medium tracking-wide capitalize">
+                          Edit
+                        </button>
+                      </Link>
+                      <button
+                        className="px-2 py-1 text-sm font-medium text-red-500 tracking-wide capitalize"
+                        onClick={() => handleDeleteAddress(el?._id)}
+                      >
                         Delete
                       </button>
                     </div>
@@ -82,7 +137,9 @@ const CheckoutForm = ({ cartId }: CheckoutFormProps) => {
                 );
               })
             ) : (
-              <small className="text-gray-500">No Address Added</small>
+              <small className="text-gray-500">
+                No address here. Please add a delivery address
+              </small>
             )}
           </div>
 
@@ -182,7 +239,7 @@ const CheckoutForm = ({ cartId }: CheckoutFormProps) => {
 
           <div className="col-span-6">
             <button className="block w-full rounded-md bg-black p-2.5 text-sm text-white transition hover:shadow-lg">
-              Proceed Now
+              Place Order
             </button>
           </div>
         </form>

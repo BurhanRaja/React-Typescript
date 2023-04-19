@@ -2,6 +2,7 @@ import { useState } from "react";
 import { toast } from "react-toastify";
 import useAppDispatch from "../hooks/useAppDispatch";
 import { addAddressThunk } from "../features/address/crudaddress";
+import { useNavigate } from "react-router";
 
 const AddAddress = () => {
   const [addressLine1, setAddressLine1] = useState("");
@@ -15,6 +16,7 @@ const AddAddress = () => {
   const [errorMsg, setErrorMsg] = useState("");
 
   const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
   function handleAddAddress(e: any) {
     e.preventDefault();
@@ -42,13 +44,15 @@ const AddAddress = () => {
 
     dispatch(addAddressThunk(data)).then((data: any) => {
       if (data?.error?.code === "ERR_BAD_REQUEST") {
-        toast.warn("Some Error Ocurred. Please Try Again./");
+        toast.warn("Some Error Ocurred. Please Try Again.");
+        return;
       }
       if (data?.error?.code === "ERR_NETWORK") {
         toast.error("Internal Server Error");
+        return;
       }
-
       toast.success("Address Added Successfully.");
+      navigate("/checkout");
     });
   }
 

@@ -1,28 +1,34 @@
-import { useState } from "react";
-import { useParams } from "react-router";
+import { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router";
 import useAppDispatch from "../hooks/useAppDispatch";
 import { toast } from "react-toastify";
 import { updateAddressThunk } from "../features/address/crudaddress";
 import useAppSelector from "../hooks/useAppSelector";
+import { clearSingleAddressState, getSingleAddressThunk } from "../features/address/singleAddress";
 
 const EditAddress = () => {
 
     const {id} = useParams();
+    const dispatch = useAppDispatch();
+    const {address} = useAppSelector((state) => state.singleAddressAction);
+    const navigate = useNavigate();
+    
+    useEffect(() => {
+      dispatch(clearSingleAddressState());
+      dispatch(getSingleAddressThunk(id));
+    }, []);
+    
 
-  const [addressLine1, setAddressLine1] = useState("");
-  const [addressLine2, setAddressLine2] = useState("");
-  const [country, setCountry] = useState("");
-  const [state, setState] = useState("");
-  const [city, setCity] = useState("");
-  const [zipcode, setZipCode] = useState("");
-  const [addressType, setAddressType] = useState("");
+  const [addressLine1, setAddressLine1] = useState(address?.address_line_1);
+  const [addressLine2, setAddressLine2] = useState(address?.address_line_2);
+  const [country, setCountry] = useState(address?.country);
+  const [state, setState] = useState(address?.state);
+  const [city, setCity] = useState(address?.city);
+  const [zipcode, setZipCode] = useState(address?.postal_code);
+  const [addressType, setAddressType] = useState(address?.address_type);
 
   const [errorMsg, setErrorMsg] = useState("");
 
-  const dispatch = useAppDispatch();
-
-
-  const {addresses} = useAppSelector((state) => state.getAddressAction);
 
 
   function handleEditAddress(e: any) {
@@ -54,12 +60,14 @@ const EditAddress = () => {
     dispatch(updateAddressThunk({id, data})).then((data: any) => {
       if (data?.error?.code === "ERR_BAD_REQUEST") {
         toast.warn("Some Error Ocurred. Please Try Again./");
+        return;
       }
       if (data?.error?.code === "ERR_NETWORK") {
         toast.error("Internal Server Error");
+        return;
       }
-
       toast.success("Address Updated Successfully.");
+      navigate("/checkout");
   })
 }
 
@@ -86,7 +94,7 @@ const EditAddress = () => {
               />
               <small
                 className={
-                  addressLine1.length === 0 && errorMsg
+                  addressLine1?.length === 0 && errorMsg
                     ? "text-red-500"
                     : "hidden"
                 }
@@ -111,7 +119,7 @@ const EditAddress = () => {
               />
               <small
                 className={
-                  addressLine2.length === 0 && errorMsg
+                  addressLine2?.length === 0 && errorMsg
                     ? "text-red-500"
                     : "hidden"
                 }
@@ -136,7 +144,7 @@ const EditAddress = () => {
               />
               <small
                 className={
-                  country.length === 0 && errorMsg ? "text-red-500" : "hidden"
+                  country?.length === 0 && errorMsg ? "text-red-500" : "hidden"
                 }
               >
                 {errorMsg}
@@ -159,7 +167,7 @@ const EditAddress = () => {
               />
               <small
                 className={
-                  state.length === 0 && errorMsg ? "text-red-500" : "hidden"
+                  state?.length === 0 && errorMsg ? "text-red-500" : "hidden"
                 }
               >
                 {errorMsg}
@@ -179,7 +187,7 @@ const EditAddress = () => {
               />
               <small
                 className={
-                  city.length === 0 && errorMsg ? "text-red-500" : "hidden"
+                  city?.length === 0 && errorMsg ? "text-red-500" : "hidden"
                 }
               >
                 {errorMsg}
@@ -202,7 +210,7 @@ const EditAddress = () => {
               />
               <small
                 className={
-                  zipcode.length === 0 && errorMsg ? "text-red-500" : "hidden"
+                  zipcode?.length === 0 && errorMsg ? "text-red-500" : "hidden"
                 }
               >
                 {errorMsg}
@@ -226,7 +234,7 @@ const EditAddress = () => {
               <small>Home, Work etc.</small>
               <small
                 className={
-                  addressType.length === 0 && errorMsg
+                  addressType?.length === 0 && errorMsg
                     ? "text-red-500"
                     : "hidden"
                 }
@@ -237,7 +245,7 @@ const EditAddress = () => {
 
             <div className="my-6 text-center">
               <button className="text-white bg-black border-0 py-2 px-8 focus:outline-none hover:bg-gray-900 rounded text-lg w-[100%]">
-                Add Address
+                Edit Address
               </button>
             </div>
           </form>

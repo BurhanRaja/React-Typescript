@@ -35,7 +35,7 @@ const CheckoutPage = () => {
       <h1 className="sr-only">Checkout</h1>
       <div className="mx-auto grid max-w-screen-2xl grid-cols-1 md:grid-cols-2">
         <CheckoutProducts totalPrice={totalPrice} cartItems={cart?.cartItems} />
-        <CheckoutForm cartId={cart?._id} />
+        <CheckoutForm cartId={cart?._id} totalPrice={totalPrice} />
       </div>
     </section>
   );

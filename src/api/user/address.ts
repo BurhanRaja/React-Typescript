@@ -13,6 +13,19 @@ export const getAddresses = async () => {
   return response.data;
 };
 
+export const getSingleAddress = async (id: string) => {
+  let token = localStorage.getItem("userToken");
+  let response = await instance({
+    url: `/api/user/address/${id}`,
+    method: "GET",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data
+};
+
 export const addAddress = async (data: any) => {
   let token = localStorage.getItem("userToken");
   let response = await instance({
