@@ -16,7 +16,7 @@ export const getOneOrder = async (id: any) => {
 export const getAllOrders = async () => {
   let token = localStorage.getItem("userToken");
   let response = await instance({
-    url: "/api/orders/all",
+    url: "/api/order/all",
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,
@@ -42,7 +42,7 @@ export const placeOrder = async (data: any) => {
 export const sellerOrders = async () => {
   let token = localStorage.getItem("userToken");
   let response = await instance({
-    url: "/api/orders/seller/order",
+    url: "/api/order/seller/order",
     method: "GET",
     headers: {
       Authorization: `Bearer ${token}`,

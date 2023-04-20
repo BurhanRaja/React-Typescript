@@ -15,7 +15,7 @@ const initialState = {
   orders: [],
 } as InitialState;
 
-export const getAllOrderThunk = createAsyncThunk("", async () => {
+export const getAllOrderThunk = createAsyncThunk("allOrders/getall", async () => {
   let response = await getAllOrders();
   return response;
 });

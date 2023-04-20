@@ -26,6 +26,7 @@ import cartTotalReducer from "../features/cart/getTotal";
 // Orders
 import allOrdersReducer from "../features/order/allOrders";
 import crudOrdersReducer from "../features/order/crudOrder";
+import singleOrderReducer from "../features/order/singleOrder";
 
 // Address
 import getAddressReducer from "../features/address/address";
@@ -76,6 +77,7 @@ const store = configureStore({
     // Orders
     allOrdersAction: allOrdersReducer,
     crudOrdersAction: crudOrdersReducer,
+    singleorderAction: singleOrderReducer,
 
     // Total
     cartTotalAction: cartTotalReducer,

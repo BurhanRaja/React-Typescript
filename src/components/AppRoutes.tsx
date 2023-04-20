@@ -23,6 +23,8 @@ import ProductPage from "../pages/ProductPage";
 import Cart from "../pages/Cart";
 import AddAddress from "../pages/AddAddress";
 import EditAddress from "../pages/EditAddress";
+import SingleOrder from "../pages/SingleOrder";
+import AllOrders from "../pages/AllOrders";
 
 const AppRoutes = () => {
   let token = localStorage.getItem("sellerToken");
@@ -46,6 +48,8 @@ const AppRoutes = () => {
             <Route path="/edit/address/:id" element={<EditAddress />} />
             <Route path="/profile/:id" />
             <Route path="/product/:id" element={<ProductPage />} />
+            <Route path="/all/orders" element={<AllOrders />} />
+            <Route path="/order/:id" element={<SingleOrder />} />
           </Route>
           <Route path="/seller">
             <Route path="login" element={<SellerLogin />} />
