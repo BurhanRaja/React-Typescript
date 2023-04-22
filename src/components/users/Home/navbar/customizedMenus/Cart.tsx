@@ -4,7 +4,10 @@ import { Link } from "react-router-dom";
 import useAppSelector from "../../../../../hooks/useAppSelector";
 import { useEffect } from "react";
 import useAppDispatch from "../../../../../hooks/useAppDispatch";
-import { getUserCartThunk } from "../../../../../features/cart/userCart";
+import {
+  clearUserCartState,
+  getUserCartThunk,
+} from "../../../../../features/cart/userCart";
 
 const Cart = () => {
   const { cart } = useAppSelector((state) => state.singleUserCartAction);
@@ -12,6 +15,7 @@ const Cart = () => {
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    dispatch(clearUserCartState());
     dispatch(getUserCartThunk());
   }, []);
 

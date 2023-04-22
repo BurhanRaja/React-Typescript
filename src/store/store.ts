@@ -28,6 +28,9 @@ import allOrdersReducer from "../features/order/allOrders";
 import crudOrdersReducer from "../features/order/crudOrder";
 import singleOrderReducer from "../features/order/singleOrder";
 
+// Seller Orders
+import allSellerOrderReducer from "../features/sellerorder/allSellerOrder";
+
 // Address
 import getAddressReducer from "../features/address/address";
 import crudAddressReducer from "../features/address/crudaddress";
@@ -78,6 +81,9 @@ const store = configureStore({
     allOrdersAction: allOrdersReducer,
     crudOrdersAction: crudOrdersReducer,
     singleorderAction: singleOrderReducer,
+
+    // Seller Order
+    allSellerOrdersAction: allSellerOrderReducer,
 
     // Total
     cartTotalAction: cartTotalReducer,

@@ -25,6 +25,7 @@ import AddAddress from "../pages/AddAddress";
 import EditAddress from "../pages/EditAddress";
 import SingleOrder from "../pages/SingleOrder";
 import AllOrders from "../pages/AllOrders";
+import NotFound from "../pages/NotFound";
 
 const AppRoutes = () => {
   let token = localStorage.getItem("sellerToken");
@@ -78,6 +79,7 @@ const AppRoutes = () => {
               </Route>
             </Route>
           </Route>
+          <Route path="*" element={<NotFound />} />
         </Routes>
       </BrowserRouter>
     </>
