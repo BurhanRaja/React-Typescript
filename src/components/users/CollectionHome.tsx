@@ -18,7 +18,7 @@ import {
 } from "../../features/categories/category";
 import {
   clearSubCategoriesState,
-  getSubCatThunk,
+  getAllSubCatThunk,
 } from "../../features/categories/subcategory";
 
 const CollectionHome = () => {
@@ -27,6 +27,7 @@ const CollectionHome = () => {
   const { pCat } = useAppSelector((state) => state.singleParentCatAction);
   const { products } = useAppSelector((state) => state.filteredProductsAction);
   const { categories } = useAppSelector((state) => state.categoriesAction);
+  const { subCategories } = useAppSelector((state) => state.subCategoryAction);
 
   const dispatch = useAppDispatch();
 
@@ -57,6 +58,19 @@ const CollectionHome = () => {
     }
   }, [pCat]);
 
+  useEffect(() => {
+    if (pCat?._id) {
+      dispatch(clearSubCategoriesState());
+      dispatch(
+        getAllSubCatThunk({
+          id: pCat?._id,
+          cat: "",
+        })
+      );
+    }
+  }, [pCat]);
+
+  console.log(subCategories);
 
   return (
     <>
@@ -96,7 +110,10 @@ const CollectionHome = () => {
           </div>
 
           <div className="mt-4 lg:mt-8 lg:grid lg:grid-cols-4 lg:items-start lg:gap-8">
-            <FilterBoard />
+            <FilterBoard
+              categories={categories}
+              subcategories={subCategories}
+            />
             <ProductSection products={products} />
           </div>
         </div>
