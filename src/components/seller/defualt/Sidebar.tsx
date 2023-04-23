@@ -152,13 +152,6 @@ const Sidebar = (): JSX.Element => {
                 <MdOutlinePendingActions />
                 <span className="text-sm font-medium"> Pending Orders </span>
               </Link>
-              <Link
-                to="/seller/completed/orders"
-                className="flex items-center gap-2 rounded-lg px-4 py-3  hover:bg-gray-100 hover:text-gray-700 text-base"
-              >
-                <BsListUl />
-                <span className="text-sm font-medium"> Completed Orders </span>
-              </Link>
             </nav>
           </details>
 

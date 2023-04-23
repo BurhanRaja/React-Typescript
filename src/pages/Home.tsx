@@ -23,7 +23,7 @@ const Home = () => {
         <Hero
           fTitle="Fashion"
           lTitle="Collections"
-          link="/shop/fashion"
+          link="/shop/64291ad52ff8d574a51feb97"
           mainImg="/images/womenfashion.jpg"
           oneImg="/images/glasses.avif"
           twoImg="/images/shoes.webp"
@@ -32,7 +32,7 @@ const Home = () => {
         <Hero
           fTitle="Electronic"
           lTitle="Products"
-          link="/shop/electronic"
+          link="/shop/642f8b5ffbf8bd6f12752505"
           mainImg="/images/mobile-image.jpg"
           oneImg="/images/laptops.jpg"
           twoImg="/images/headphones-image.jpg"
@@ -50,7 +50,7 @@ const Home = () => {
         <Hero
           fTitle="Home Decor"
           lTitle="& Furniture"
-          link="/shop/home-products"
+          link="/shop/64302302b666d1135c49fba3"
           mainImg="/images/furniture.jpg"
           oneImg="/images/smart-app.jpg"
           twoImg="/images/home-decor.jpg"

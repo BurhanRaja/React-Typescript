@@ -5,7 +5,7 @@ interface InitialState {
   isLoading: boolean;
   isError: boolean;
   isSuccess: boolean;
-  sellerorders: Array<any>;
+  sellerorders: any;
 }
 
 const initialState = {
@@ -39,7 +39,7 @@ const allSellerOrderSlice = createSlice({
       .addCase(getAllSellerOrderThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.sellerorders = payload.sellerOrders[0];
+        state.sellerorders = payload.sellerOrders;
       })
       .addCase(getAllSellerOrderThunk.rejected, (state) => {
         state.isLoading = false;

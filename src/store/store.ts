@@ -9,6 +9,7 @@ import userCrudReducer from "../features/user/user";
 import parentCategoryReducer from "../features/categories/parentCategory";
 import categoryReducer from "../features/categories/category";
 import subCategoryReducer from "../features/categories/subcategory";
+import singleparentcatReducer from "../features/categories/singleparentcat";
 
 // Products
 import addProductReducer from "../features/product/seller/crudProduct";
@@ -30,6 +31,7 @@ import singleOrderReducer from "../features/order/singleOrder";
 
 // Seller Orders
 import allSellerOrderReducer from "../features/sellerorder/allSellerOrder";
+import singleSellerOrderReducer from "../features/sellerorder/singleSellerOrder";
 
 // Address
 import getAddressReducer from "../features/address/address";
@@ -61,6 +63,7 @@ const store = configureStore({
     pCategoriesAction: parentCategoryReducer,
     categoriesAction: categoryReducer,
     subCategoryAction: subCategoryReducer,
+    singleParentCatAction: singleparentcatReducer,
 
     // User Auth
     userAuthAction: userAuthReducer,
@@ -84,6 +87,7 @@ const store = configureStore({
 
     // Seller Order
     allSellerOrdersAction: allSellerOrderReducer,
+    singleSellerOrderAction: singleSellerOrderReducer,
 
     // Total
     cartTotalAction: cartTotalReducer,

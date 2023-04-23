@@ -5,13 +5,14 @@ import Menu from "./Menu";
 import SideMenu from "./SideMenu";
 import Cart from "./customizedMenus/Cart";
 import Search from "./customizedMenus/Search";
+import { Link } from "react-router-dom";
 
 const SecondNav = (): JSX.Element => {
   const [cartOpen, setCartOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
   const [sideBar, setSideBar] = useState(false);
 
-  console.log(sideBar);
+  let userToken = localStorage.getItem("userToken");
 
   return (
     <div className="flex justify-between items-center p-5 px-8 bg-black text-white">
@@ -41,7 +42,7 @@ const SecondNav = (): JSX.Element => {
           </button>
           {searchOpen && <Search setOpen={(val) => setSearchOpen(val)} />}
         </li>
-        <li className="relative">
+        {userToken && <li className="relative">
           <button
             className="text-2xl flex"
             onClick={() => {
@@ -51,12 +52,14 @@ const SecondNav = (): JSX.Element => {
             <BsCart />
           </button>
           {cartOpen && <Menu children={<Cart />} />}
-        </li>
-        <li>
+        </li>}
+        {userToken && <li>
+          <Link to="/all/orders">
           <button>
             <span className="font-bold">Your Orders</span>
           </button>
-        </li>
+          </Link>
+        </li>}
       </ul>
     </div>
   );

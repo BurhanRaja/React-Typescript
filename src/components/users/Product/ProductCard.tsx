@@ -124,6 +124,8 @@ const ProductCard = ({
   }, [image_info]);
 
   function handleAddToCart() {
+    // let userToken = localStorage.getItem()
+
     if (Number(quantity) > Number(info?.quantity)) {
       toast.error("The required quantity is greater than available quantity.");
       return;
@@ -145,10 +147,18 @@ const ProductCard = ({
     dispatch(addToCartThunk(data)).then((data: any) => {
       if (data?.error?.code === "ERR_BAD_REQUEST") {
         toast.warn("Some Error Occured. Please try again");
+        return;
       }
       if (data?.error?.code === "ERR_NETWORK") {
         toast.error("Internal Server Error");
+        return;
       }
+      if (data?.error?.code === "ERR_BAD_RESPONSE") {
+        toast.error("Please Login to add to cart.");
+        return;
+      }
+
+      console.log(data);
 
       toast.success(`Item Added to Cart.`);
     });

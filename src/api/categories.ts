@@ -8,6 +8,14 @@ export const getPCategories = async () => {
     return response.data;
 }
 
+export const getSingleParentCat = async (id: string | undefined) => {
+    let response = await instance({
+        url: `/api/parentcategory/${id}`,
+    });
+
+    return response.data;
+}
+
 export const getCategories = async (parentId: string) => {
     let response = await instance({
         url: `/api/category/parentcategory/${parentId}`,

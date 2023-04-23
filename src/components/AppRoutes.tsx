@@ -1,4 +1,4 @@
-import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import CheckoutPage from "../pages/CheckoutPage";
 import Home from "../pages/Home";
 import CollectionHome from "./users/CollectionHome";
@@ -26,6 +26,8 @@ import EditAddress from "../pages/EditAddress";
 import SingleOrder from "../pages/SingleOrder";
 import AllOrders from "../pages/AllOrders";
 import NotFound from "../pages/NotFound";
+import OrderDetails from "../pages/seller/order/OrderDetails";
+import Dashboard from "../pages/seller/Dashboard";
 
 const AppRoutes = () => {
   let token = localStorage.getItem("sellerToken");
@@ -58,7 +60,7 @@ const AppRoutes = () => {
             <Route path="add/sellerinfo" element={<SellerInfo />} />
             <Route element={<RequireSellerAuth />}>
               <Route element={<SellerLayout />}>
-                <Route path="dashboard" />
+                <Route path="dashboard" element={<Dashboard />} />
                 {/* Products */}
                 <Route path="add/product" element={<CreateProduct />} />
                 <Route path="edit/product/:id" element={<EditProduct />} />
@@ -71,6 +73,7 @@ const AppRoutes = () => {
                 <Route path="edit/discount" />
                 {/* Orders */}
                 <Route path="pending/orders" element={<PendingOrder />} />
+                <Route path="order/:id" element={<OrderDetails />} />
                 <Route path="completed/orders" element={<DeliveredOrder />} />
                 {/* SellerInfo */}
                 <Route path="info/profile" />

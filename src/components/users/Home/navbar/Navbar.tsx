@@ -10,7 +10,7 @@ const Navbar = (): JSX.Element => {
           <Link to="/">Company</Link>
         </h2>
       </div>
-      <form className="flex justify-center items-center w-[60%] lg:flex max-lg:hidden">
+      {/* <form className="flex justify-center items-center w-[60%] lg:flex max-lg:hidden">
         <input
           type="text"
           className="w-[100%] border-[0.1rem] rounded-l-sm p-1 focus:outline-none focus:border-[0.1rem] focus:border-black border-gray-400"
@@ -18,7 +18,7 @@ const Navbar = (): JSX.Element => {
         <button className="text-lg flex bg-black text-white py-[0.55rem] px-2 rounded-r-sm">
           <BsSearch />
         </button>
-      </form>
+      </form> */}
       <RightHalf />
     </nav>
   );
