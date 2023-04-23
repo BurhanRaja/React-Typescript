@@ -40,4 +40,18 @@ export const getfilteredImages = async (
   return response.data;
 };
 
+export const getAllProducts = async (
+  pCat: string,
+  cat?: string,
+  subcat?: string,
+  price?: string,
+  ratings?: string,
+  company?: string
+) => {
+  let response = await instance({
+    url: `/api/product/all/products?seller_info=${company}&parentcategory=${pCat}&category=${cat}&subcategory=${subcat}&price=${price}&ratings=${ratings}`,
+    method: "GET",
+  });
 
+  return response.data;
+};

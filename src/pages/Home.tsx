@@ -41,7 +41,7 @@ const Home = () => {
         <Hero
           fTitle="Beauty"
           lTitle="Products"
-          link="/shop/beauty-products"
+          link="/shop/64451b23f9916a9ed221bdfe"
           mainImg="/images/beauty-1.jpg"
           oneImg="/images/beauty-2.jpg"
           twoImg="/images/beauty-3.jpg"
@@ -59,73 +59,77 @@ const Home = () => {
       </HeroSlider>
       <ProductsLineup
         title="Featured Products"
-        mappedProducts={products?.map((el) => {
-          return (
-            <li>
-              <Link
-                to={`/product/${el?._id}`}
-                key={el?._id}
-                className="block overflow-hidden group"
-              >
-                <img
-                  src={el?.thumbnail}
-                  alt=""
-                  className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
-                />
+        mappedProducts={products?.map((el, index) => {
+          if (index <= 3) {
+            return (
+              <li>
+                <Link
+                  to={`/product/${el?._id}`}
+                  key={el?._id}
+                  className="block overflow-hidden group"
+                >
+                  <img
+                    src={el?.thumbnail}
+                    alt=""
+                    className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
+                  />
 
-                <div className="relative pt-3 bg-white">
-                  <h3 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4">
-                    {el?.name}
-                  </h3>
+                  <div className="relative pt-3 bg-white">
+                    <h3 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4">
+                      {el?.name}
+                    </h3>
 
-                  <p className="mt-2">
-                    <span className="sr-only"> Regular Price </span>
+                    <p className="mt-2">
+                      <span className="sr-only"> Regular Price </span>
 
-                    <span className="tracking-wider text-gray-900">
-                      {" "}
-                      ₹{el?.price}
-                    </span>
-                  </p>
-                </div>
-              </Link>
-            </li>
-          );
+                      <span className="tracking-wider text-gray-900">
+                        {" "}
+                        ₹{el?.images_info[0]?.price}
+                      </span>
+                    </p>
+                  </div>
+                </Link>
+              </li>
+            );
+          }
         })}
       />
       <CategorySection />
       <ProductsLineup
         title="Trending Products"
-        mappedProducts={products?.map((el) => {
-          return (
-            <li>
-              <Link
-                to={`/product/${el?._id}`}
-                key={el?._id}
-                className="block overflow-hidden group"
-              >
-                <img
-                  src={el?.thumbnail}
-                  alt=""
-                  className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
-                />
+        mappedProducts={products?.map((el, index) => {
+          if (index <= 3) {
+            return (
+              <li>
+                <Link
+                  to={`/product/${el?._id}`}
+                  key={el?._id}
+                  className="block overflow-hidden group"
+                >
+                  <img
+                    src={el?.thumbnail}
+                    alt=""
+                    className="h-[350px] w-full object-cover transition duration-500 group-hover:scale-105 sm:h-[450px]"
+                  />
 
-                <div className="relative pt-3 bg-white">
-                  <h3 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4">
-                    {el?.name}
-                  </h3>
+                  <div className="relative pt-3 bg-white">
+                    <h3 className="text-xs text-gray-700 group-hover:underline group-hover:underline-offset-4">
+                      {el?.name}
+                    </h3>
 
-                  <p className="mt-2">
-                    <span className="sr-only"> Regular Price </span>
+                    <p className="mt-2">
+                      <span className="sr-only"> Regular Price </span>
 
-                    <span className="tracking-wider text-gray-900">
-                      {" "}
-                      ₹{el?.price}
-                    </span>
-                  </p>
-                </div>
-              </Link>
-            </li>
-          );
+                      <span className="tracking-wider text-gray-900">
+                        {" "}
+                        ₹{el?.images_info[0]?.price}
+                      </span>
+                    </p>
+                  </div>
+                </Link>
+              </li>
+            );
+          }
         })}
       />
     </>

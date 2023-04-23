@@ -15,6 +15,7 @@ import singleparentcatReducer from "../features/categories/singleparentcat";
 import addProductReducer from "../features/product/seller/crudProduct";
 import allSellerProductsReducer from "../features/product/seller/allProducts";
 import sellerInfoReducer from "../features/seller/sellerInfo";
+import filterproductsReducer from "../features/product/filterproducts";
 
 import getSingleProductReducer from "../features/product/singleProduct";
 import getAllProductsReducer from "../features/product/user/allProducts";
@@ -71,6 +72,7 @@ const store = configureStore({
 
     // User Products
     allProducts: getAllProductsReducer,
+    filteredProductsAction: filterproductsReducer,
 
     // Address
     getAddressAction: getAddressReducer,

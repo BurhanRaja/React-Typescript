@@ -158,8 +158,6 @@ const ProductCard = ({
         return;
       }
 
-      console.log(data);
-
       toast.success(`Item Added to Cart.`);
     });
   }

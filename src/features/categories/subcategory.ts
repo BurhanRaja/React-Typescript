@@ -24,7 +24,9 @@ export const getSubCatThunk = createAsyncThunk(
 const subCategorySlice = createSlice({
   name: "subCategory",
   initialState,
-  reducers: {},
+  reducers: {
+    clearSubCategoriesState: () => initialState,
+  },
   extraReducers: (build) => {
     build
       .addCase(getSubCatThunk.pending, (state) => {
@@ -40,5 +42,7 @@ const subCategorySlice = createSlice({
       });
   },
 });
+
+export const { clearSubCategoriesState } = subCategorySlice.actions;
 
 export default subCategorySlice.reducer;

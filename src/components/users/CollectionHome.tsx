@@ -4,13 +4,30 @@ import ProductSection from "./ProductsCollection";
 import { useEffect, useState } from "react";
 import useAppSelector from "../../hooks/useAppSelector";
 import useAppDispatch from "../../hooks/useAppDispatch";
-import { clearSingleParentCatState, getSingleParentCatThunk } from "../../features/categories/singleparentcat";
+import {
+  clearSingleParentCatState,
+  getSingleParentCatThunk,
+} from "../../features/categories/singleparentcat";
+import {
+  clearFilteredProductState,
+  getFilteredProductsThunk,
+} from "../../features/product/filterproducts";
+import {
+  clearCategoryState,
+  getCategoryThunk,
+} from "../../features/categories/category";
+import {
+  clearSubCategoriesState,
+  getSubCatThunk,
+} from "../../features/categories/subcategory";
 
 const CollectionHome = () => {
   const { parentcategory } = useParams();
 
   const { pCat } = useAppSelector((state) => state.singleParentCatAction);
-  // const {} = useAppSelector()
+  const { products } = useAppSelector((state) => state.filteredProductsAction);
+  const { categories } = useAppSelector((state) => state.categoriesAction);
+
   const dispatch = useAppDispatch();
 
   useEffect(() => {
@@ -18,6 +35,27 @@ const CollectionHome = () => {
     dispatch(getSingleParentCatThunk(parentcategory));
   }, []);
 
+  useEffect(() => {
+    if (pCat?._id) {
+      dispatch(clearFilteredProductState());
+      dispatch(
+        getFilteredProductsThunk({
+          pCat: pCat?._id,
+          cat: "",
+          subcat: "",
+          price: "",
+          ratings: "",
+        })
+      );
+    }
+  }, [pCat]);
+
+  useEffect(() => {
+    if (pCat?._id) {
+      dispatch(clearCategoryState());
+      dispatch(getCategoryThunk(pCat?._id));
+    }
+  }, [pCat]);
 
 
   return (
@@ -59,8 +97,7 @@ const CollectionHome = () => {
 
           <div className="mt-4 lg:mt-8 lg:grid lg:grid-cols-4 lg:items-start lg:gap-8">
             <FilterBoard />
-
-            <ProductSection title="Women Collection" />
+            <ProductSection products={products} />
           </div>
         </div>
       </section>
