@@ -49,7 +49,7 @@ export const getAllProducts = async (
   company?: string
 ) => {
   let response = await instance({
-    url: `/api/product/all/products?seller_info=${company}&parentcategory=${pCat}&category=${cat}&subcategory=${subcat}&price=${price}&ratings=${ratings}`,
+    url: `/api/product/all/products?company=${company}&parentcategory=${pCat}&category=${cat}&subcategory=${subcat}&price=${price}&ratings=${ratings}`,
     method: "GET",
   });
 

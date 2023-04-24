@@ -53,12 +53,12 @@ const CollectionHome = () => {
           cat: filteredCat.join(","),
           subcat: "",
           price: priceFrom + "," + priceTo,
-          ratings: filteredRating,
+          ratings: filteredRating.toString(),
           company: filteredCompany.join(","),
         })
       );
     }
-  }, [pCat, priceFrom, priceTo]);
+  }, [pCat, priceFrom, priceTo, filteredCat, filteredCompany, filteredRating]);
 
   useEffect(() => {
     if (pCat?._id) {
@@ -95,6 +95,9 @@ const CollectionHome = () => {
               companies={allCompanies}
               priceFrom={priceFrom}
               priceTo={priceTo}
+              filteredCat={filteredCat}
+              filteredCompany={filteredCompany}
+              filteredRating={filteredRating}
               setFilteredCat={(val) => setFilteredCat(val)}
               setFilteredCompany={(val) => setFilteredComapny(val)}
               setPriceFrom={(val) => setPriceFrom(val)}

@@ -4,7 +4,10 @@ type FilterBoardProps = {
   categories: Array<any>;
   companies: Array<any>;
   priceFrom: string;
-  priceTo: string
+  priceTo: string;
+  filteredCat: Array<any>;
+  filteredRating: string;
+  filteredCompany: Array<any>;
   setFilteredCat: (val: any) => void;
   setFilteredCompany: (val: any) => void;
   setPriceFrom: (val: any) => void;
@@ -17,16 +20,34 @@ const FilterBoard = ({
   companies,
   priceFrom,
   priceTo,
+  filteredCat,
   setFilteredCat,
+  filteredCompany,
   setFilteredCompany,
+  filteredRating,
   setPriceFrom,
   setPriceTo,
   setFilteredRating,
 }: FilterBoardProps) => {
+  const handleCategories = (e: any) => {
+    const isChecked = e.target.checked;
+    if (isChecked) {
+      setFilteredCat([...filteredCat, e.target.value]);
+    } else {
+      let filterArr = filteredCat.filter((el) => el !== e.target.value);
+      setFilteredCat(filterArr);
+    }
+  };
 
-  const handleCategories = () => {
-    
-  }
+  const handleCompanies = (e: any) => {
+    const isChecked = e.target.checked;
+    if (isChecked) {
+      setFilteredCompany([...filteredCompany, e.target.value]);
+    } else {
+      let filterArr = filteredCompany.filter((el) => el !== e.target.value);
+      setFilteredCompany(filterArr);
+    }
+  };
 
   return (
     <div className="hidden space-y-4 lg:block">
@@ -50,6 +71,7 @@ const FilterBoard = ({
                 <button
                   type="button"
                   className="text-sm text-gray-900 underline underline-offset-4"
+                  onClick={() => setFilteredCat([])}
                 >
                   Reset
                 </button>
@@ -70,6 +92,7 @@ const FilterBoard = ({
                           value={el?._id}
                           name="categories"
                           onChange={handleCategories}
+                          checked={filteredCat.includes(el?._id)}
                         />
                         <span className="text-sm font-medium text-gray-700">
                           {el?.name}
@@ -100,6 +123,10 @@ const FilterBoard = ({
                 <button
                   type="button"
                   className="text-sm text-gray-900 underline underline-offset-4"
+                  onClick={() => {
+                    setPriceFrom("");
+                    setPriceTo("");
+                  }}
                 >
                   Reset
                 </button>
@@ -158,6 +185,7 @@ const FilterBoard = ({
                 <button
                   type="button"
                   className="text-sm text-gray-900 underline underline-offset-4"
+                  onClick={() => setFilteredCompany([])}
                 >
                   Reset
                 </button>
@@ -176,6 +204,8 @@ const FilterBoard = ({
                           id="FilterTeal"
                           className="h-5 w-5 rounded border-gray-300"
                           value={el?._id}
+                          onChange={handleCompanies}
+                          checked={filteredCompany.includes(el?._id)}
                         />
 
                         <span className="text-sm font-medium text-gray-700">
@@ -205,6 +235,7 @@ const FilterBoard = ({
                 <button
                   type="button"
                   className="text-sm text-gray-900 underline underline-offset-4"
+                  onClick={() => setFilteredRating("")}
                 >
                   Reset
                 </button>
@@ -225,14 +256,13 @@ const FilterBoard = ({
                     min={1}
                     max={5}
                     className="w-full h-2 bg-gray-200 rounded-lg appearance-none cursor-pointer"
+                    value={filteredRating}
+                    onChange={(e) => setFilteredRating(e.target.value)}
                   />
                 </li>
               </ul>
             </div>
           </details>
-          <button className="bg-black text-white p-4 py-2 rounded">
-            Filter
-          </button>
         </div>
       </div>
     </div>
