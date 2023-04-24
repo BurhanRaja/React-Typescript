@@ -16,10 +16,7 @@ import {
   clearCategoryState,
   getCategoryThunk,
 } from "../../features/categories/category";
-import {
-  clearSubCategoriesState,
-  getAllSubCatThunk,
-} from "../../features/categories/subcategory";
+import { getAllSellerInfo } from "../../api/seller/sellerinfo";
 
 const CollectionHome = () => {
   const { parentcategory } = useParams();
@@ -27,9 +24,20 @@ const CollectionHome = () => {
   const { pCat } = useAppSelector((state) => state.singleParentCatAction);
   const { products } = useAppSelector((state) => state.filteredProductsAction);
   const { categories } = useAppSelector((state) => state.categoriesAction);
-  const { subCategories } = useAppSelector((state) => state.subCategoryAction);
+
+  const [allCompanies, setAllCompanies] = useState([]);
+  const [filteredCat, setFilteredCat] = useState([]);
+  const [priceFrom, setPriceFrom] = useState("");
+  const [priceTo, setPriceTo] = useState("");
+  const [filteredCompany, setFilteredComapny] = useState([]);
+  const [filteredRating, setFilteredRating] = useState("");
 
   const dispatch = useAppDispatch();
+
+  async function getAllSeller(parentId: string) {
+    let response = await getAllSellerInfo(parentId);
+    setAllCompanies(response.companies);
+  }
 
   useEffect(() => {
     dispatch(clearSingleParentCatState());
@@ -42,14 +50,15 @@ const CollectionHome = () => {
       dispatch(
         getFilteredProductsThunk({
           pCat: pCat?._id,
-          cat: "",
+          cat: filteredCat.join(","),
           subcat: "",
-          price: "",
-          ratings: "",
+          price: priceFrom + "," + priceTo,
+          ratings: filteredRating,
+          company: filteredCompany.join(","),
         })
       );
     }
-  }, [pCat]);
+  }, [pCat, priceFrom, priceTo]);
 
   useEffect(() => {
     if (pCat?._id) {
@@ -60,17 +69,9 @@ const CollectionHome = () => {
 
   useEffect(() => {
     if (pCat?._id) {
-      dispatch(clearSubCategoriesState());
-      dispatch(
-        getAllSubCatThunk({
-          id: pCat?._id,
-          cat: "",
-        })
-      );
+      getAllSeller(pCat?._id);
     }
   }, [pCat]);
-
-  console.log(subCategories);
 
   return (
     <>
@@ -88,31 +89,17 @@ const CollectionHome = () => {
             </p>
           </header>
 
-          <div className="mt-8 block lg:hidden">
-            <button className="flex cursor-pointer items-center gap-2 border-b border-gray-400 pb-1 text-gray-900 transition hover:border-gray-600">
-              <span className="text-sm font-medium"> Filters & Sorting </span>
-
-              <svg
-                xmlns="http://www.w3.org/2000/svg"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke-width="1.5"
-                stroke="currentColor"
-                className="h-4 w-4"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  d="M8.25 4.5l7.5 7.5-7.5 7.5"
-                />
-              </svg>
-            </button>
-          </div>
-
           <div className="mt-4 lg:mt-8 lg:grid lg:grid-cols-4 lg:items-start lg:gap-8">
             <FilterBoard
               categories={categories}
-              subcategories={subCategories}
+              companies={allCompanies}
+              priceFrom={priceFrom}
+              priceTo={priceTo}
+              setFilteredCat={(val) => setFilteredCat(val)}
+              setFilteredCompany={(val) => setFilteredComapny(val)}
+              setPriceFrom={(val) => setPriceFrom(val)}
+              setPriceTo={(val) => setPriceTo(val)}
+              setFilteredRating={(val) => setFilteredRating(val)}
             />
             <ProductSection products={products} />
           </div>
