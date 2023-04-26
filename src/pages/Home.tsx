@@ -120,10 +120,10 @@ const Home = () => {
                     <p className="mt-2">
                       <span className="sr-only"> Regular Price </span>
 
-                      <span className="tracking-wider text-gray-900">
+                      {<span className="tracking-wider text-gray-900">
                         {" "}
                         ₹{el?.images_info[0]?.price}
-                      </span>
+                      </span>}
                     </p>
                   </div>
                 </Link>

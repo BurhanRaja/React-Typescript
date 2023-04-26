@@ -114,17 +114,19 @@ const Register = () => {
     dispatch(registerSellerThunk(data)).then((data: any) => {
       if (data?.error?.code === "ERR_BAD_REQUEST") {
         toast.warn("User Already Exists.");
+        return;
       }
       if (data?.error?.code === "ERR_NETWORK") {
         toast.error("Internal Server Error");
+        return;
       }
-
     });
   };
 
   let sellerToken = localStorage.getItem("sellerToken");
+  let address = localStorage.getItem("address");
 
-  return sellerToken ? (
+  return sellerToken && address ? (
     <Navigate to="/seller/dashboard" />
   ) : (
     <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">

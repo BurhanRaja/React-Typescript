@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 import CartProduct from "./CartProduct";
 import useAppSelector from "../../../hooks/useAppSelector";
 import useAppDispatch from "../../../hooks/useAppDispatch";
-import { getCartTotalThunk } from "../../../features/cart/getTotal";
+import {
+  clearCartTotal,
+  getCartTotalThunk,
+} from "../../../features/cart/getTotal";
 
 type CartPorps = {
   cartProducts: Array<any>;
@@ -11,14 +14,16 @@ type CartPorps = {
 };
 
 const UserCart = ({ cartProducts, cartId }: CartPorps): JSX.Element => {
-
-  const {totalPrice} = useAppSelector((state) => state.cartTotalAction);
+  const { totalPrice } = useAppSelector((state) => state.cartTotalAction);
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
+    dispatch(clearCartTotal());
     dispatch(getCartTotalThunk());
   }, []);
+
+  console.log(totalPrice);
 
   return (
     <>

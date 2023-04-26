@@ -14,8 +14,11 @@ import singleparentcatReducer from "../features/categories/singleparentcat";
 // Products
 import addProductReducer from "../features/product/seller/crudProduct";
 import allSellerProductsReducer from "../features/product/seller/allProducts";
-import sellerInfoReducer from "../features/seller/sellerInfo";
 import filterproductsReducer from "../features/product/filterproducts";
+
+// Seller Info
+import sellerInfoReducer from "../features/seller/sellerInfo";
+import crudsellerinfoReducer from "../features/seller/crudsellerinfo";
 
 import getSingleProductReducer from "../features/product/singleProduct";
 import getAllProductsReducer from "../features/product/user/allProducts";
@@ -51,6 +54,7 @@ const store = configureStore({
 
     // Seller Info
     getSellerinfoAction: sellerInfoReducer,
+    crudSellerInfoAction: crudsellerinfoReducer,
 
     // Product
     addProduct: addProductReducer,

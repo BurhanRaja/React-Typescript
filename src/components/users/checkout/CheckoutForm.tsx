@@ -108,7 +108,7 @@ const CheckoutForm = ({ cartId, totalPrice }: CheckoutFormProps) => {
                     </div>
                     <input
                       className="peer sr-only"
-                      id="option1"
+                      id={el?.address_type}
                       type="radio"
                       tabIndex={-1}
                       name="option"
@@ -116,7 +116,7 @@ const CheckoutForm = ({ cartId, totalPrice }: CheckoutFormProps) => {
                       onChange={(e) => setAddressId(e.target.value)}
                     />
                     <label
-                      htmlFor="option1"
+                      htmlFor={el?.address_type}
                       className="block w-full rounded-lg border border-gray-200 p-3 hover:border-black peer-checked:border-black peer-checked:bg-black peer-checked:text-white"
                       tabIndex={0}
                     >

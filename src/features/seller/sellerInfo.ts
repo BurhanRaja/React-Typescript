@@ -2,10 +2,10 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getSellerInfo } from "../../api/seller/sellerinfo";
 
 interface InitialState {
-    isLoading: boolean,
-    isError: boolean,
-    isSuccess: boolean,
-    sellerInfo: any,
+  isLoading: boolean;
+  isError: boolean;
+  isSuccess: boolean;
+  sellerInfo: any;
 }
 
 const initialState = {
@@ -15,15 +15,20 @@ const initialState = {
   sellerInfo: {},
 } as InitialState;
 
-export const getSellerInfoThunk = createAsyncThunk("sellerInfo/get", async () => {
-  let response = await getSellerInfo();
-  return response;
-});
+export const getSellerInfoThunk = createAsyncThunk(
+  "sellerInfo/get",
+  async () => {
+    let response = await getSellerInfo();
+    return response;
+  }
+);
 
 const sellerInfoSlice = createSlice({
   name: "sellerInfo",
   initialState,
-  reducers: {},
+  reducers: {
+    clearSellerInfo: () => initialState,
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getSellerInfoThunk.pending, (state) => {
