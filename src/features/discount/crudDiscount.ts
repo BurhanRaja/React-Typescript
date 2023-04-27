@@ -19,7 +19,7 @@ const initialState = {
 
 export const addDiscountThunk = createAsyncThunk(
   "crudDicount/add",
-  async (data: string) => {
+  async (data: any) => {
     const response = await addDiscount(data);
     return response;
   }

@@ -16,7 +16,7 @@ const SecondNav = (): JSX.Element => {
 
   return (
     <div className="flex justify-between items-center p-5 px-8 bg-black text-white">
-      <button
+      {/* <button
         className="mr-5 flex items-center justify-center font-medium rounded-lg text-sm px-5 py-2.5"
         type="button"
         data-drawer-target="drawer-navigation"
@@ -28,7 +28,8 @@ const SecondNav = (): JSX.Element => {
           <GiHamburgerMenu className="text-lg" />
         </span>
         <span>All</span>
-      </button>
+      </button> */}
+      <div></div>
 
       <SideMenu setBar={(val: boolean) => setSideBar(val)} toggleBar={sideBar} />
 

@@ -5,7 +5,7 @@ const Header = (): JSX.Element => {
   return (
     <div className=" w-[100%]">
         <Navbar />
-        <SecondNav />
+        {/* <SecondNav /> */}
     </div>
   )
 }

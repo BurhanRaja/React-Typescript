@@ -23,6 +23,7 @@ const Login = () => {
     if (!isError && !isLoading && token !== "") {
       localStorage.setItem("sellerToken", token);
       sessionStorage.setItem("loggedin", "1");
+      sessionStorage.setItem("address", "true");
       toast.success("Successfully Logged In");
       dispatch(clearState());
       navigate("/seller/dashboard");

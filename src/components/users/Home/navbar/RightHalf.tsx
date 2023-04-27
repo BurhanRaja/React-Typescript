@@ -4,11 +4,18 @@ import { useEffect, useState } from "react";
 import useAppDispatch from "../../../../hooks/useAppDispatch";
 import useAppSelector from "../../../../hooks/useAppSelector";
 import { getUserThunk } from "../../../../features/user/user";
+import { BsCart, BsSearch } from "react-icons/bs";
+import Menu from "./Menu";
+import Cart from "./customizedMenus/Cart";
+import Search from "./customizedMenus/Search";
 
 const RightHalf = (): JSX.Element => {
   let token = localStorage.getItem("userToken");
 
   const [name, setName] = useState("");
+  const [cartOpen, setCartOpen] = useState(false);
+  const [searchOpen, setSearchOpen] = useState(false);
+  const [sideBar, setSideBar] = useState(false);
 
   const { user } = useAppSelector((state) => state.userCrudAction);
 
@@ -36,7 +43,36 @@ const RightHalf = (): JSX.Element => {
       </li>
     </ul>
   ) : (
-    <>
+    <div className="flex">
+      <ul className="flex justify-evenly w-[16rem] items-center">
+        <li className="relative lg:hidden md:block">
+          <button
+            className="text-lg flex"
+            onClick={() => setSearchOpen(!searchOpen)}
+          >
+            <BsSearch />
+          </button>
+          {searchOpen && <Search setOpen={(val) => setSearchOpen(val)} />}
+        </li>
+          <li className="relative">
+            <button
+              className="text-2xl flex"
+              onClick={() => {
+                setCartOpen(!cartOpen);
+              }}
+            >
+              <BsCart />
+            </button>
+            {cartOpen && <Menu children={<Cart />} />}
+          </li>
+          <li>
+            <Link to="/all/orders">
+              <button>
+                <span className="font-bold">Your Orders</span>
+              </button>
+            </Link>
+          </li>
+      </ul>
       <div className="flex items-center gap-x-2">
         <CgProfile className="object-cover w-8 h-8 rounded-full" />
         <div>
@@ -45,7 +81,7 @@ const RightHalf = (): JSX.Element => {
           </h1>
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

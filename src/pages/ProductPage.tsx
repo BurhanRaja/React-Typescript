@@ -1,6 +1,6 @@
 import { useParams } from "react-router";
 import ProductCard from "../components/users/Product/ProductCard";
-import { AiFillStar } from "react-icons/ai";
+import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import useAppSelector from "../hooks/useAppSelector";
 import useAppDispatch from "../hooks/useAppDispatch";
 import { useEffect } from "react";
@@ -8,6 +8,7 @@ import {
   clearSingleProduct,
   getSingleProductThunk,
 } from "../features/product/singleProduct";
+import { useState } from "react";
 
 const ProductPage = () => {
   const { id } = useParams();
@@ -21,6 +22,19 @@ const ProductPage = () => {
     dispatch(clearSingleProduct());
     dispatch(getSingleProductThunk(id));
   }, []);
+
+  const [selectedStars, setSelectedStars] = useState(1);
+  const [message, setMessage] = useState("");
+
+  const [errorMsg, setErrorMsg] = useState("");
+
+  function addReview() {
+    if (message === "") {
+      setErrorMsg("Please fill the above field.")
+      return;
+    }
+
+  }
 
   return (
     <>
@@ -52,43 +66,38 @@ const ProductPage = () => {
                 Your opinion matters!
               </h2>
               <div className="flex flex-col items-center py-6 space-y-3">
-                <span className="text-center">How was your experience?</span>
+                <span className="text-center">
+                  How much did you like this product?
+                </span>
                 <div className="flex space-x-3">
-                  <button
-                    type="button"
-                    title="Rate 1 stars"
-                    aria-label="Rate 1 stars"
-                  >
-                    <AiFillStar className="text-yellow-500 text-4xl" />
-                  </button>
-                  <button
-                    type="button"
-                    title="Rate 2 stars"
-                    aria-label="Rate 2 stars"
-                  >
-                    <AiFillStar className="text-yellow-500 text-4xl" />
-                  </button>
-                  <button
-                    type="button"
-                    title="Rate 3 stars"
-                    aria-label="Rate 3 stars"
-                  >
-                    <AiFillStar className="text-yellow-500 text-4xl" />
-                  </button>
-                  <button
-                    type="button"
-                    title="Rate 4 stars"
-                    aria-label="Rate 4 stars"
-                  >
-                    <AiFillStar className="text-yellow-500 text-4xl" />
-                  </button>
-                  <button
-                    type="button"
-                    title="Rate 5 stars"
-                    aria-label="Rate 5 stars"
-                  >
-                    <AiFillStar className="text-yellow-500 text-4xl" />
-                  </button>
+                  {Array.from({ length: selectedStars }, (v, i) => i)?.map(
+                    (el) => {
+                      return (
+                        <button
+                          type="button"
+                          title="Rate 1 stars"
+                          aria-label="Rate 1 stars"
+                          onClick={() => setSelectedStars(el + 1)}
+                        >
+                          <AiFillStar className="text-yellow-500 text-4xl" />
+                        </button>
+                      );
+                    }
+                  )}
+                  {Array.from({ length: 5 - selectedStars }, (v, i) => i)
+                    ?.reverse()
+                    ?.map((el) => {
+                      return (
+                        <button
+                          type="button"
+                          title="Rate 5 stars"
+                          aria-label="Rate 5 stars"
+                          onClick={() => setSelectedStars(5 - el)}
+                        >
+                          <AiOutlineStar className="text-yellow-500 text-4xl" />
+                        </button>
+                      );
+                    })}
                 </div>
               </div>
               <div className="flex flex-col w-full">
@@ -96,12 +105,18 @@ const ProductPage = () => {
                   rows={3}
                   placeholder="Message..."
                   className="p-4 rounded-md resize-none border border-black"
+                  value={message}
+                  onChange={(e) => setMessage(e.target.value)}
                 ></textarea>
+                {
+                  errorMsg && message === "" ? <small className="text-red-500">{errorMsg}</small> : ""
+                }
                 <button
                   type="button"
                   className="py-4 my-8 font-semibold rounded-md bg-black text-white"
+                  onClick={addReview}
                 >
-                  Leave feedback
+                  Add Reviews
                 </button>
               </div>
             </div>

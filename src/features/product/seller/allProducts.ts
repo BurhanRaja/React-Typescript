@@ -12,7 +12,7 @@ const initialState = {
   isLoading: false,
   isError: false,
   isSuccess: false,
-  products: {},
+  products: [],
 } as InitialState;
 
 export const getAllSellerProductsThunk = createAsyncThunk("sellerProducts/allProducts", async () => {
