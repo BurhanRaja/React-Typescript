@@ -4,11 +4,17 @@ import { AiFillStar, AiOutlineStar } from "react-icons/ai";
 import useAppSelector from "../hooks/useAppSelector";
 import useAppDispatch from "../hooks/useAppDispatch";
 import { useEffect } from "react";
+import { CgProfile } from "react-icons/cg";
 import {
   clearSingleProduct,
   getSingleProductThunk,
 } from "../features/product/singleProduct";
 import { useState } from "react";
+import {
+  addReviewsThunk,
+  clearCrudReviewsState,
+} from "../features/product/crudReview";
+import { toast } from "react-toastify";
 
 const ProductPage = () => {
   const { id } = useParams();
@@ -28,14 +34,34 @@ const ProductPage = () => {
 
   const [errorMsg, setErrorMsg] = useState("");
 
+  console.log(product);
+
   function addReview() {
     if (message === "") {
-      setErrorMsg("Please fill the above field.")
+      setErrorMsg("Please fill the above field.");
       return;
     }
 
-  }
+    let data = {
+      ratings: selectedStars,
+      content: message,
+    };
 
+    dispatch(clearCrudReviewsState());
+    dispatch(addReviewsThunk({ data, id })).then((data: any) => {
+      if (data?.error?.code === "ERR_BAD_REQUEST") {
+        toast.warn("Review Already Given.");
+        return;
+      }
+      if (data?.error?.code === "ERR_NETWORK") {
+        toast.error("Internal Server Error");
+        return;
+      }
+      console.log(data);
+      toast.success("Successfully Reviews added.");
+      return;
+    });
+  }
   return (
     <>
       {!isLoading && (
@@ -108,9 +134,11 @@ const ProductPage = () => {
                   value={message}
                   onChange={(e) => setMessage(e.target.value)}
                 ></textarea>
-                {
-                  errorMsg && message === "" ? <small className="text-red-500">{errorMsg}</small> : ""
-                }
+                {errorMsg && message === "" ? (
+                  <small className="text-red-500">{errorMsg}</small>
+                ) : (
+                  ""
+                )}
                 <button
                   type="button"
                   className="py-4 my-8 font-semibold rounded-md bg-black text-white"
@@ -233,11 +261,7 @@ const ProductPage = () => {
           <div className="flex justify-between p-4">
             <div className="flex space-x-4">
               <div>
-                <img
-                  src="https://source.unsplash.com/100x100/?portrait"
-                  alt=""
-                  className="object-cover w-12 h-12 rounded-full dark:bg-gray-500"
-                />
+                <CgProfile className="object-cover w-8 h-8 rounded-full" />
               </div>
               <div>
                 <h4 className="font-bold">Leroy Jenkins</h4>

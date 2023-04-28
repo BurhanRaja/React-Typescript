@@ -55,3 +55,17 @@ export const getAllProducts = async (
 
   return response.data;
 };
+
+export const addReview = async (data: any, id: string | undefined) => {
+  let token = localStorage.getItem("userToken");
+  let response = await instance({
+    url: `/api/product/add/review/${id}`,
+    method: "POST",
+    data,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+};

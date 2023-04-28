@@ -46,9 +46,11 @@ const Login = () => {
     dispatch(userLoginThunk(data)).then((data: any) => {
       if (data?.error?.code === "ERR_BAD_REQUEST") {
         toast.warn("Invalid Credentials.");
+        return;
       }
       if (data?.error?.code === "ERR_NETWORK") {
         toast.error("Internal Server Error");
+        return;
       }
     });
   };
