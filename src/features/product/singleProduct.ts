@@ -39,7 +39,7 @@ const singleProductSlice = createSlice({
       .addCase(getSingleProductThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.product = action.payload?.product[0];
+        state.product = action.payload?.product;
       })
       .addCase(getSingleProductThunk.rejected, (state, action) => {
         state.isLoading = false;
