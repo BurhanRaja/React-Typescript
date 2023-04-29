@@ -8,6 +8,7 @@ import { BsCart, BsSearch } from "react-icons/bs";
 import Menu from "./Menu";
 import Cart from "./customizedMenus/Cart";
 import Search from "./customizedMenus/Search";
+import { toast } from "react-toastify";
 
 const RightHalf = (): JSX.Element => {
   let token = localStorage.getItem("userToken");
@@ -15,7 +16,7 @@ const RightHalf = (): JSX.Element => {
   const [name, setName] = useState("");
   const [cartOpen, setCartOpen] = useState(false);
   const [searchOpen, setSearchOpen] = useState(false);
-  const [sideBar, setSideBar] = useState(false);
+  const [openDrop, setOpenDrop] = useState(false);
 
   const { user } = useAppSelector((state) => state.userCrudAction);
 
@@ -24,6 +25,12 @@ const RightHalf = (): JSX.Element => {
   useEffect(() => {
     dispatch(getUserThunk());
   }, []);
+
+  function handleLogout() {
+    localStorage.clear();
+    toast.success("Successfully Logged Out!");
+    setOpenDrop(false);
+  }
 
   return !token ? (
     <ul className="flex justify-center w-[16rem] items-center">
@@ -54,31 +61,40 @@ const RightHalf = (): JSX.Element => {
           </button>
           {searchOpen && <Search setOpen={(val) => setSearchOpen(val)} />}
         </li>
-          <li className="relative">
-            <button
-              className="text-2xl flex"
-              onClick={() => {
-                setCartOpen(!cartOpen);
-              }}
-            >
-              <BsCart />
+        <li className="relative">
+          <button
+            className="text-2xl flex"
+            onClick={() => {
+              setCartOpen(!cartOpen);
+            }}
+          >
+            <BsCart />
+          </button>
+          {cartOpen && <Menu children={<Cart />} />}
+        </li>
+        <li>
+          <Link to="/all/orders">
+            <button>
+              <span className="font-bold">Your Orders</span>
             </button>
-            {cartOpen && <Menu children={<Cart />} />}
-          </li>
-          <li>
-            <Link to="/all/orders">
-              <button>
-                <span className="font-bold">Your Orders</span>
-              </button>
-            </Link>
-          </li>
+          </Link>
+        </li>
       </ul>
       <div className="flex items-center gap-x-2">
         <CgProfile className="object-cover w-8 h-8 rounded-full" />
-        <div>
-          <h1 className="text-lg font-semibold text-gray-700 capitalize ">
+        <div className="relative">
+          <h1
+            className="text-lg font-semibold text-gray-700 capitalize cursor-pointer"
+            onClick={() => setOpenDrop(!openDrop)}
+          >
             {user?.first_name + " " + user?.last_name}
           </h1>
+          {openDrop && (
+            <div className="absolute p-2 w-32 z-50 bg-gray-100 bottom-[-95px] left-[-10px] shadow-md rounded-sm">
+              <button className="text-sm p-2 hover:bg-white w-full">Profile</button>
+              <button className="text-sm p-2 hover:bg-red-500 hover:text-white w-full" onClick={handleLogout}>LogOut</button>
+            </div>
+          )}
         </div>
       </div>
     </div>

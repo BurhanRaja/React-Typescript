@@ -2,9 +2,9 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { getPCategories } from "../../api/categories";
 
 interface InitialState {
-  isLoading: boolean,
-  pCategories: any[],
-  isError: boolean
+  isLoading: boolean;
+  pCategories: any[];
+  isError: boolean;
 }
 
 const initialState = {
@@ -24,7 +24,9 @@ export const getParentCatThunk = createAsyncThunk(
 const parentCategorySlice = createSlice({
   name: "parentCategory",
   initialState,
-  reducers: {},
+  reducers: {
+    clearParentCat: () => initialState,
+  },
   extraReducers: (build) => {
     build
       .addCase(getParentCatThunk.pending, (state) => {
@@ -40,5 +42,7 @@ const parentCategorySlice = createSlice({
       });
   },
 });
+
+export const { clearParentCat } = parentCategorySlice.actions;
 
 export default parentCategorySlice.reducer;

@@ -28,6 +28,7 @@ import AllOrders from "../pages/AllOrders";
 import NotFound from "../pages/NotFound";
 import OrderDetails from "../pages/seller/order/OrderDetails";
 import Dashboard from "../pages/seller/Dashboard";
+import SellerInfoProfile from "../pages/seller/SellerInfoProfile";
 
 const AppRoutes = () => {
   let token = localStorage.getItem("sellerToken");
@@ -76,9 +77,7 @@ const AppRoutes = () => {
                 <Route path="order/:id" element={<OrderDetails />} />
                 <Route path="completed/orders" element={<DeliveredOrder />} />
                 {/* SellerInfo */}
-                <Route path="info/profile" />
-                {/* Seller */}
-                <Route path="profile" />
+                <Route path="profile" element={<SellerInfoProfile />} />
               </Route>
             </Route>
           </Route>

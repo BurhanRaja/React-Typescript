@@ -46,4 +46,6 @@ const sellerInfoSlice = createSlice({
   },
 });
 
+export const { clearSellerInfo } = sellerInfoSlice.actions;
+
 export default sellerInfoSlice.reducer;

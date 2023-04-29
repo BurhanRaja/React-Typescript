@@ -155,21 +155,13 @@ const Sidebar = (): JSX.Element => {
             </nav>
           </details>
 
-          <a
-            href="#"
-            className="flex items-center gap-2 rounded-lg px-4 py-3 hover:bg-gray-100 hover:text-gray-700 text-base"
-          >
-            <CgProfile />
-            <span className="font-medium"> Seller Profile </span>
-          </a>
-
-          <a
-            href="#"
+          <Link
+            to="/seller/profile"
             className="flex items-center gap-2 rounded-lg px-4 py-3  hover:bg-gray-100 hover:text-gray-700 text-base"
           >
             <RiProfileLine />
             <span className="font-medium"> Seller Info </span>
-          </a>
+          </Link>
 
           <form action="/logout">
             <button

@@ -127,49 +127,51 @@ const AddDiscount = () => {
                 ""
               )}
               {products?.map((el: any) => {
-                return (
-                  <>
-                    <input
-                      className="peer sr-only"
-                      id={el?._id}
-                      type="checkbox"
-                      tabIndex={-1}
-                      name="products"
-                      value={el?._id}
-                      onChange={handleSelectedProducts}
-                    />
-                    <label
-                      htmlFor={el?._id}
-                      className={`block w-full rounded-lg border ${
-                        selectedProducts?.includes(el?._id)
-                          ? "border-green-600"
-                          : ""
-                      } p-3 mb-2 relative`}
-                    >
-                      {selectedProducts?.includes(el?._id) && (
-                        <button className="bg-green-600 text-white p-2 rounded-full absolute top-[-20px] right-0">
-                          <BsCheckLg className="" />
-                        </button>
-                      )}
-                      <span className="text-sm font-medium">
-                        <div className="flex justify-start">
-                          <img
-                            src={el?.thumbnail}
-                            alt="productimg"
-                            width={100}
-                            height={100}
-                          />
-                          <div className="w-[85%] ml-10">
-                            <h3 className="text-xl font-bold">{el?.name}</h3>
-                            <p>
-                              <b>Price:</b> ₹ {el?.price_avg}
-                            </p>
+                if (!el?.discount) {
+                  return (
+                    <>
+                      <input
+                        className="peer sr-only"
+                        id={el?._id}
+                        type="checkbox"
+                        tabIndex={-1}
+                        name="products"
+                        value={el?._id}
+                        onChange={handleSelectedProducts}
+                      />
+                      <label
+                        htmlFor={el?._id}
+                        className={`block w-full rounded-lg border ${
+                          selectedProducts?.includes(el?._id)
+                            ? "border-green-600"
+                            : ""
+                        } p-3 mb-2 relative`}
+                      >
+                        {selectedProducts?.includes(el?._id) && (
+                          <button className="bg-green-600 text-white p-2 rounded-full absolute top-[-20px] right-0">
+                            <BsCheckLg className="" />
+                          </button>
+                        )}
+                        <span className="text-sm font-medium">
+                          <div className="flex justify-start">
+                            <img
+                              src={el?.thumbnail}
+                              alt="productimg"
+                              width={100}
+                              height={100}
+                            />
+                            <div className="w-[85%] ml-10">
+                              <h3 className="text-xl font-bold">{el?.name}</h3>
+                              <p>
+                                <b>Price:</b> ₹ {el?.price_avg}
+                              </p>
+                            </div>
                           </div>
-                        </div>
-                      </span>
-                    </label>
-                  </>
-                );
+                        </span>
+                      </label>
+                    </>
+                  );
+                }
               })}
             </div>
             <button className="text-white bg-black border-0 py-2 px-8 focus:outline-none hover:bg-gray-900 rounded text-lg w-[100%]">
