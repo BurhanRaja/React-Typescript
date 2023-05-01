@@ -15,6 +15,12 @@ import {
   getParentCatThunk,
 } from "../../features/categories/parentCategory";
 import { AiFillEdit } from "react-icons/ai";
+import { updateSellerInfoThunk } from "../../features/seller/crudsellerinfo";
+import { toast } from "react-toastify";
+import { updateSellerThunk } from "../../features/seller/crudseller";
+
+const LINK_REGEX =
+  /^(https?:\/\/)?([\da-z\.-]+)\.([a-z\.]{2,6})([\/\w \.-]*)*\/?$/;
 
 const SellerInfoProfile = () => {
   const dispatch = useAppDispatch();
@@ -44,6 +50,8 @@ const SellerInfoProfile = () => {
   const [editSeller, setEditSeller] = useState(true);
   const [editInfo, setEditInfo] = useState(true);
 
+  const [errorMsg, setErrorMsg] = useState("");
+
   useEffect(() => {
     if (seller) {
       setFname(seller?.first_name);
@@ -63,10 +71,60 @@ const SellerInfoProfile = () => {
 
   function handleSellerEdit(e: any) {
     e.preventDefault();
+
+    if (fname === "" || lname === "" || email === "") {
+      setErrorMsg("Please fill in all fields");
+      return;
+    }
+
+    let data = {
+      fname,
+      lname,
+      email,
+    };
+
+    dispatch(updateSellerThunk(data)).then((data: any) => {
+      if (data?.error?.code === "ERR_BAD_REQUEST") {
+        toast.warn("Seller doesn't Exists.");
+        return;
+      }
+      if (data?.error?.code === "ERR_NETWORK") {
+        toast.error("Internal Server Error.");
+        return;
+      }
+      console.log(data);
+      toast.success("Successfully Seller Profile Updated.");
+    });
   }
 
   function handleSellerInfoEdit(e: any) {
     e.preventDefault();
+
+    let c1 = LINK_REGEX.test(companyWebsite);
+
+    if (companyName === "" || !c1 || companyPhone === "") {
+      setErrorMsg("Please Fill the above field correctly.");
+      return;
+    }
+
+    let data = {
+      company_name: companyName,
+      company_type: companyType,
+      company_website: companyWebsite,
+      phone: companyPhone,
+    };
+
+    dispatch(updateSellerInfoThunk({data, id: sellerInfo?._id})).then((data: any) => {
+      if (data?.error?.code === "ERR_BAD_REQUEST") {
+        toast.warn("Company doesn't Exists.");
+        return;
+      }
+      if (data?.error?.code === "ERR_NETWORK") {
+        toast.error("Internal Server Error.");
+        return;
+      }
+      toast.success("Successfully Company Info Updated.");
+    });
   }
 
   return (
@@ -82,7 +140,7 @@ const SellerInfoProfile = () => {
           </button>
         </div>
         <div className="text-gray-700">
-          <form>
+          <form onSubmit={handleSellerEdit}>
             <div className="flex">
               <div className="px-4 py-2 font-semibold w-32">First Name</div>
               <div className="px-4 py-2 w-[100%]">
@@ -93,6 +151,11 @@ const SellerInfoProfile = () => {
                   disabled={editSeller}
                   value={fname}
                 />
+                {!editSeller && errorMsg && fname === "" ? (
+                  <small className="text-red-500">{errorMsg}</small>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
             <div className="flex">
@@ -105,6 +168,11 @@ const SellerInfoProfile = () => {
                   disabled={editSeller}
                   value={lname}
                 />
+                {!editSeller && errorMsg && lname === "" ? (
+                  <small className="text-red-500">{errorMsg}</small>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
             <div className="flex">
@@ -118,6 +186,11 @@ const SellerInfoProfile = () => {
                   value={email}
                 />
               </div>
+              {!editSeller && errorMsg && email === "" ? (
+                <small className="text-red-500">{errorMsg}</small>
+              ) : (
+                ""
+              )}
             </div>
             {!editSeller && (
               <div className="text-center mt-5">
@@ -140,7 +213,7 @@ const SellerInfoProfile = () => {
           </button>
         </div>
         <div className="text-gray-700">
-          <form>
+          <form onSubmit={handleSellerInfoEdit}>
             <div className="flex">
               <div className="px-4 py-2 font-semibold w-52">Company Name</div>
               <div className="px-4 py-2 w-[100%]">
@@ -152,6 +225,11 @@ const SellerInfoProfile = () => {
                   value={companyName}
                   onChange={(e) => setCompanyName(e.target.value)}
                 />
+                {!editInfo && errorMsg && companyName === "" ? (
+                  <small className="text-red-500">{errorMsg}</small>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
             <div className="flex">
@@ -191,6 +269,11 @@ const SellerInfoProfile = () => {
                   setId={() => {}}
                   val={companyType}
                 />
+                {!editInfo && errorMsg && companyType === "" ? (
+                  <small className="text-red-500">{errorMsg}</small>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
             <div className="flex">
@@ -206,6 +289,11 @@ const SellerInfoProfile = () => {
                   value={companyWebsite}
                   onChange={(e) => setCompanyWebsite(e.target.value)}
                 />
+                {!editInfo && errorMsg && companyWebsite === "" ? (
+                  <small className="text-red-500">{errorMsg}</small>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
             <div className="flex">
@@ -219,6 +307,11 @@ const SellerInfoProfile = () => {
                   value={companyPhone}
                   onChange={(e) => setCompanyPhone(e.target.value)}
                 />
+                {!editInfo && errorMsg && companyPhone === "" ? (
+                  <small className="text-red-500">{errorMsg}</small>
+                ) : (
+                  ""
+                )}
               </div>
             </div>
             {!editInfo && (

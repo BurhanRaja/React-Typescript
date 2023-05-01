@@ -39,6 +39,7 @@ import singleSellerOrderReducer from "../features/sellerorder/singleSellerOrder"
 
 // Seller
 import sellerProfileReducer from "../features/seller/sellerprofile";
+import crudsellerReducer from "../features/seller/crudseller";
 
 // Address
 import getAddressReducer from "../features/address/address";
@@ -61,6 +62,7 @@ const store = configureStore({
 
     // Seller
     sellerProfileAction: sellerProfileReducer,
+    crudsellerAction: crudsellerReducer,
 
     // Product
     addProduct: addProductReducer,

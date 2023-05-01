@@ -35,10 +35,10 @@ export const addSellerInfo = async (data: Object) => {
   return response.data;
 };
 
-export const updateSellerInfo = async (data: Object) => {
+export const updateSellerInfo = async (data: Object, id: string) => {
   let token = localStorage.getItem("sellerToken");
   let response = await instance({
-    url: "/api/seller/info/update",
+    url:`/api/seller/info/update/${id}`,
     method: "PUT",
     data,
     headers: {

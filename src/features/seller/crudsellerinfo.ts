@@ -21,10 +21,15 @@ export const addSellerInfoThunk = createAsyncThunk(
   }
 );
 
+interface UpdateSellerInfoProps {
+  data: any;
+  id: string
+}
+
 export const updateSellerInfoThunk = createAsyncThunk(
   "sellerinfo/update",
-  async (data: any) => {
-    let response = await updateSellerInfo(data);
+  async ({data, id}: UpdateSellerInfoProps) => {
+    let response = await updateSellerInfo(data, id);
     return response;
   }
 );
