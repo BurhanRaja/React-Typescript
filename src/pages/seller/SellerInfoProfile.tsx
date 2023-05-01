@@ -114,17 +114,19 @@ const SellerInfoProfile = () => {
       phone: companyPhone,
     };
 
-    dispatch(updateSellerInfoThunk({data, id: sellerInfo?._id})).then((data: any) => {
-      if (data?.error?.code === "ERR_BAD_REQUEST") {
-        toast.warn("Company doesn't Exists.");
-        return;
+    dispatch(updateSellerInfoThunk({ data, id: sellerInfo?._id })).then(
+      (data: any) => {
+        if (data?.error?.code === "ERR_BAD_REQUEST") {
+          toast.warn("Company doesn't Exists.");
+          return;
+        }
+        if (data?.error?.code === "ERR_NETWORK") {
+          toast.error("Internal Server Error.");
+          return;
+        }
+        toast.success("Successfully Company Info Updated.");
       }
-      if (data?.error?.code === "ERR_NETWORK") {
-        toast.error("Internal Server Error.");
-        return;
-      }
-      toast.success("Successfully Company Info Updated.");
-    });
+    );
   }
 
   return (
@@ -150,6 +152,7 @@ const SellerInfoProfile = () => {
                   className="rounded-lg w-full border p-2 text-sm shadow-sm focus:outline-0"
                   disabled={editSeller}
                   value={fname}
+                  onChange={(e) => setFname(e.target.value)}
                 />
                 {!editSeller && errorMsg && fname === "" ? (
                   <small className="text-red-500">{errorMsg}</small>
@@ -167,6 +170,7 @@ const SellerInfoProfile = () => {
                   className="rounded-lg w-full border p-2 text-sm shadow-sm focus:outline-0"
                   disabled={editSeller}
                   value={lname}
+                  onChange={(e) => setLname(e.target.value)}
                 />
                 {!editSeller && errorMsg && lname === "" ? (
                   <small className="text-red-500">{errorMsg}</small>
@@ -184,6 +188,7 @@ const SellerInfoProfile = () => {
                   className="rounded-lg w-full border p-2 text-sm shadow-sm focus:outline-0"
                   disabled={editSeller}
                   value={email}
+                  onChange={(e) => setEmail(e.target.value)}
                 />
               </div>
               {!editSeller && errorMsg && email === "" ? (

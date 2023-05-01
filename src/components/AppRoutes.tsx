@@ -29,6 +29,7 @@ import NotFound from "../pages/NotFound";
 import OrderDetails from "../pages/seller/order/OrderDetails";
 import Dashboard from "../pages/seller/Dashboard";
 import SellerInfoProfile from "../pages/seller/SellerInfoProfile";
+import Profile from "../pages/Profile";
 
 const AppRoutes = () => {
   let token = localStorage.getItem("sellerToken");
@@ -50,7 +51,7 @@ const AppRoutes = () => {
             <Route path="/wishlist" />
             <Route path="/add/address" element={<AddAddress />} />
             <Route path="/edit/address/:id" element={<EditAddress />} />
-            <Route path="/profile/:id" />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/product/:id" element={<ProductPage />} />
             <Route path="/all/orders" element={<AllOrders />} />
             <Route path="/order/:id" element={<SingleOrder />} />

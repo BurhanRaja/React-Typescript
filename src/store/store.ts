@@ -46,6 +46,9 @@ import getAddressReducer from "../features/address/address";
 import crudAddressReducer from "../features/address/crudaddress";
 import singleAddressReducer from "../features/address/singleAddress";
 
+// User
+import userprofileReducer from "../features/user/userprofile";
+
 // state Manage
 import imagesInfoReducer from "../features/product/seller/productImagesInfo";
 
@@ -81,6 +84,9 @@ const store = configureStore({
     // User Auth
     userAuthAction: userAuthReducer,
     userCrudAction: userCrudReducer,
+
+    // User
+    userProfileAction: userprofileReducer,
 
     // User Products
     allProducts: getAllProductsReducer,
