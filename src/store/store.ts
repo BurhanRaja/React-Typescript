@@ -49,6 +49,11 @@ import singleAddressReducer from "../features/address/singleAddress";
 // User
 import userprofileReducer from "../features/user/userprofile";
 
+// Payments
+import crudcardsReducer from "../features/user/crudcards";
+import allcardsReducer from "../features/user/allcards";
+import paymentsReducer from "../features/user/payments";
+
 // state Manage
 import imagesInfoReducer from "../features/product/seller/productImagesInfo";
 
@@ -111,6 +116,11 @@ const store = configureStore({
 
     // Total
     cartTotalAction: cartTotalReducer,
+
+    // Payment
+    crudcardsAction: crudcardsReducer,
+    allCardsAction: allcardsReducer,
+    paymentsActon: paymentsReducer,
 
     // state Manage
     imagesInfo: imagesInfoReducer,

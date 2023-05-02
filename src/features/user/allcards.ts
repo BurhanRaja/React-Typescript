@@ -12,7 +12,7 @@ const initialState = {
   isLoading: false,
   isError: false,
   isSuccess: false,
-  cards: {},
+  cards: [],
 } as InitialState;
 
 export const getAllCardsThunk = createAsyncThunk(
