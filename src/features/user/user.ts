@@ -5,20 +5,13 @@ interface InitialState {
   isLoading: boolean;
   isError: boolean;
   isSuccess: boolean;
-  user: any;
 }
 
 const initialState = {
   isLoading: false,
   isError: false,
   isSuccess: false,
-  user: {},
 } as InitialState;
-
-export const getUserThunk = createAsyncThunk("crudUser/get", async () => {
-  let response = await getUser();
-  return response;
-});
 
 export const updateUserThunk = createAsyncThunk(
   "crudUser/update",
@@ -37,20 +30,7 @@ const crudUserSlice = createSlice({
     },
   },
   extraReducers: (builder) => {
-    builder
-      .addCase(getUserThunk.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(getUserThunk.fulfilled, (state, { payload }) => {
-        state.isLoading = false;
-        state.isSuccess = true;
-        state.user = payload.user;
-      })
-      .addCase(getUserThunk.rejected, (state) => {
-        state.isLoading = false;
-        state.isError = true;
-      })
-      .addCase(updateUserThunk.pending, (state) => {
+    builder.addCase(updateUserThunk.pending, (state) => {
         state.isLoading = true;
       })
       .addCase(updateUserThunk.fulfilled, (state) => {

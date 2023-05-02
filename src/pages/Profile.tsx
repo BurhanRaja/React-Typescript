@@ -6,6 +6,9 @@ import {
   clearUserprofile,
   getUserProfileThunk,
 } from "../features/user/userprofile";
+import {updateUserThunk} from "../features/user/user";
+import { addCardsThunk, clearCrudCardState } from "../features/user/crudcards";
+import { toast } from "react-toastify";
 
 const Profile = () => {
   const { user } = useAppSelector((state) => state.userProfileAction);
@@ -20,6 +23,7 @@ const Profile = () => {
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [phone, setPhone] = useState("");
+  const [errorUserMsg, setErrorUserMsg] = useState("");
 
   // Card
   const [cardName, setCardName] = useState("");
@@ -49,16 +53,74 @@ const Profile = () => {
     }
   }, [user]);
 
-  function handleUserEdit() {}
+  // Edit User
+  function handleUserEdit(e: any) {
+    e.preventDefault();
 
+    if (editUser && fname === "" && lname === "" && email === "" && phone === "") {
+      setErrorUserMsg("Please enter above field.")
+      return;
+    }
+
+    let data = {
+      first_name: fname,
+      last_name: lname,
+      email,
+      phone_number: phone
+    }
+
+    dispatch(updateUserThunk(data)).then((data: any) => {
+      if (data?.error?.code === "ERR_BAD_REQUEST") {
+        toast.warn("User doesn't exists.");
+        return;
+      }
+      if (data?.error?.code === "ERR_NETWORK") {
+        toast.error("Internal Server Error.");
+        return;
+      }
+
+      toast.success("Successfully User Updated!");
+      return;
+    });
+
+  }
+
+  // Add Cards
   function handleAddCards(e: any) {
     e.preventDefault();
 
     if (cardName === "" || cardExp === "" || cardNumber === "" || cardCVC === "") {
+      setErrorAddMsg("Please fill the above field.");
       return;
     }
+
+    let my = cardExp.split("/");
+
+    let data = {
+      cardName,
+      cardExpMonth: my[0],
+      cardExpYear: my[1],
+      cardNumber,
+      cardCVC
+    }
+
+    dispatch(clearCrudCardState());
+    dispatch(addCardsThunk(data)).then((data: any) => {
+      if (data?.error?.code === "ERR_BAD_REQUEST") {
+        toast.warn("Some Error Ocurred.");
+        return;
+      }
+      if (data?.error?.code === "ERR_NETWORK") {
+        toast.error("Internal Server Error.");
+        return;
+      }
+
+      toast.success("Successfully Card Added!");
+      return;
+    });
   }
 
+  // Edit Card Enable 
   function enableEditCard(
     id: string,
     name: string,
@@ -185,6 +247,9 @@ const Profile = () => {
                         value={cardName}
                         onChange={(e) => setCardName(e.target.value)}
                       />
+                      {
+                        errorAddMsg && cardName === "" ? <small className="text-red-500">{errorAddMsg}</small> : ""
+                      }
                     </div>
                   </div>
                   <div className="flex">
@@ -200,6 +265,9 @@ const Profile = () => {
                         value={cardNumber}
                         onChange={(e) => setCardNumber(e.target.value)}
                       />
+                      {
+                        errorAddMsg && cardNumber === "" ? <small className="text-red-500">{errorAddMsg}</small> : ""
+                      }
                     </div>
                   </div>
                 </div>
@@ -217,6 +285,9 @@ const Profile = () => {
                         value={cardExp}
                         onChange={(e) => setCardExp(e.target.value)}
                       />
+                      {
+                        errorAddMsg && cardExp === "" ? <small className="text-red-500">{errorAddMsg}</small> : ""
+                      }
                     </div>
                   </div>
                   <div className="flex">
@@ -230,6 +301,9 @@ const Profile = () => {
                         value={cardCVC}
                         onChange={(e) => setCardCVC(e.target.value)}
                       />
+                      {
+                        errorAddMsg && cardCVC === "" ? <small className="text-red-500">{errorAddMsg}</small> : ""
+                      }
                     </div>
                   </div>
                 </div>

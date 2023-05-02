@@ -12,7 +12,7 @@ const initialState = {
   isLoading: false,
   isError: false,
   isSuccess: false,
-  user: "",
+  user: {},
 } as InitialState;
 
 export const getUserProfileThunk = createAsyncThunk(
