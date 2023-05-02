@@ -80,6 +80,7 @@ const ProductPage = () => {
           sellerId={product?.seller_id}
           sellerInfoId={product?.sellerinfo?._id}
           thumbnail={product?.thumbnail}
+          discount={product?.discount}
         />
       )}
 

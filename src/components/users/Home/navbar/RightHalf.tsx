@@ -3,7 +3,7 @@ import { CgProfile } from "react-icons/cg";
 import { useEffect, useState } from "react";
 import useAppDispatch from "../../../../hooks/useAppDispatch";
 import useAppSelector from "../../../../hooks/useAppSelector";
-import { getUserThunk } from "../../../../features/user/user";
+import { getUserProfileThunk } from "../../../../features/user/userprofile";
 import { BsCart, BsSearch } from "react-icons/bs";
 import Menu from "./Menu";
 import Cart from "./customizedMenus/Cart";
@@ -18,12 +18,12 @@ const RightHalf = (): JSX.Element => {
   const [searchOpen, setSearchOpen] = useState(false);
   const [openDrop, setOpenDrop] = useState(false);
 
-  const { user } = useAppSelector((state) => state.userCrudAction);
+  const { user } = useAppSelector((state) => state.userProfileAction);
 
   const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(getUserThunk());
+    dispatch(getUserProfileThunk());
   }, []);
 
   function handleLogout() {

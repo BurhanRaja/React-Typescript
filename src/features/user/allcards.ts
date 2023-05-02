@@ -5,7 +5,7 @@ interface InitialState {
   isLoading: boolean;
   isError: boolean;
   isSuccess: boolean;
-  cards: any;
+  cards: any[];
 }
 
 const initialState = {
@@ -37,7 +37,7 @@ const getAllCardsSlice = createSlice({
       .addCase(getAllCardsThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.isSuccess = true;
-        state.cards = payload;
+        state.cards = payload?.cards;
       })
       .addCase(getAllCardsThunk.rejected, (state) => {
         state.isLoading = false;

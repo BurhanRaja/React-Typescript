@@ -68,6 +68,7 @@ type ProductCardProps = {
   sellerId: string;
   sellerInfoId: string;
   thumbnail: string;
+  discount: any | undefined | null;
 };
 
 const ProductCard = ({
@@ -83,6 +84,7 @@ const ProductCard = ({
   sellerId,
   sellerInfoId,
   thumbnail,
+  discount,
 }: ProductCardProps): JSX.Element => {
   const [quantity, setQuantity] = useState(1);
   const [info, setInfo] = useState<any>({});
@@ -136,7 +138,11 @@ const ProductCard = ({
       info_type: infoType,
       thumbnail,
       color: colorInfo.split("+")[0],
-      price: info?.price,
+      price: discount
+        ? Math.round(
+            info?.price - (info?.price * discount?.discount_percentage) / 100
+          )
+        : info?.price,
       sellerid: sellerId,
       seller_info_id: sellerInfoId,
       productid: id,
@@ -159,6 +165,7 @@ const ProductCard = ({
       }
 
       toast.success(`Item Added to Cart.`);
+      return;
     });
   }
 
@@ -252,7 +259,24 @@ const ProductCard = ({
             </div>
             <div className="flex">
               <span className="title-font font-medium text-2xl text-gray-900">
-                ₹{info?.price}
+                {discount ? (
+                  <>
+                    <span className="tracking-wider line-through text-gray-900">
+                      {" "}
+                      ₹{info?.price}
+                    </span>
+                    <span className="tracking-wider text-gray-900">
+                      {" "}
+                      ₹
+                      {Math.round(
+                        info?.price -
+                          (info?.price * discount?.discount_percentage) / 100
+                      )}
+                    </span>
+                  </>
+                ) : (
+                  "₹" + info?.price
+                )}
               </span>
               <button
                 className="flex ml-auto text-white bg-orange-500 border-0 py-2 px-6 focus:outline-none hover:bg-orange-600 rounded"

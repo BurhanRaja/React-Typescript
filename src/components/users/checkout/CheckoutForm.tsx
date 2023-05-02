@@ -22,9 +22,13 @@ const CheckoutForm = ({ cartId, totalPrice }: CheckoutFormProps) => {
   const [paymentType, setPaymentType] = useState("");
   const [addressId, setAddressId] = useState("");
 
-  const { addresses } = useAppSelector((state) => state.getAddressAction);
+  const [cardName, setCardName] = useState("");
+  const [cardNumber, setCardNumber] = useState("");
+  const [cardExp, setCardExp] = useState("");
+  const [cardCVC, setCardCVC] = useState("");
+  const [saveCard, setSaveCard] = useState(false);
 
-  console.log(addresses[0]);
+  const { addresses } = useAppSelector((state) => state.getAddressAction);
 
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
@@ -203,11 +207,18 @@ const CheckoutForm = ({ cartId, totalPrice }: CheckoutFormProps) => {
 
           {paymentType === "card" && (
             <fieldset className="col-span-6">
-              <legend className="block text-sm font-medium text-gray-700">
+              <legend className="block text-sm font-medium text-gray-700 mb-2">
                 Card Details
               </legend>
               <div className="mt-1 rounded-md bg-white shadow-sm">
                 <div>
+                  <input
+                    type="text"
+                    placeholder="Card Name"
+                    className="block w-full py-2.5 text-gray-700 placeholder-gray-400/70 bg-white border border-gray-200 rounded-lg px-5  focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
+                  />
+                </div>
+                <div className="mt-3">
                   <input
                     type="text"
                     placeholder="Card Number"
@@ -223,15 +234,28 @@ const CheckoutForm = ({ cartId, totalPrice }: CheckoutFormProps) => {
                       className="block w-full py-2.5 text-gray-700 placeholder-gray-400/70 bg-white border border-gray-200 rounded-lg px-5  focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                     />
                   </div>
-
                   <div className="flex-1">
                     <input
                       type="text"
-                      id="CardCVV"
-                      placeholder="CVV"
+                      id="CardCVC"
+                      placeholder="CVC"
                       className="block w-full py-2.5 text-gray-700 placeholder-gray-400/70 bg-white border border-gray-200 rounded-lg px-5  focus:border-blue-400 focus:ring-blue-300 focus:outline-none focus:ring focus:ring-opacity-40"
                     />
                   </div>
+                </div>
+                <div className="mt-3">
+                  <label
+                    className="flex items-center"
+                    htmlFor="checkboxDefault"
+                  >
+                    <input
+                      className="p-4"
+                      type="checkbox"
+                      checked={saveCard}
+                      onChange={() => setSaveCard(!saveCard)}
+                    />
+                    <p className="ml-4">Save this card</p>
+                  </label>
                 </div>
               </div>
             </fieldset>
