@@ -91,8 +91,17 @@ const RightHalf = (): JSX.Element => {
           </h1>
           {openDrop && (
             <div className="absolute p-2 w-32 z-50 bg-gray-100 bottom-[-95px] left-[-10px] shadow-md rounded-sm">
-              <button className="text-sm p-2 hover:bg-white w-full">Profile</button>
-              <button className="text-sm p-2 hover:bg-red-500 hover:text-white w-full" onClick={handleLogout}>LogOut</button>
+              <Link to="/profile">
+                <button className="text-sm p-2 hover:bg-white w-full">
+                  Profile
+                </button>
+              </Link>
+              <button
+                className="text-sm p-2 hover:bg-red-500 hover:text-white w-full"
+                onClick={handleLogout}
+              >
+                LogOut
+              </button>
             </div>
           )}
         </div>
