@@ -5,6 +5,7 @@ export const addPayment = async (data: any) => {
   const response = await instance({
     url: "/api/payments/charge",
     method: "POST",
+    data,
     headers: {
       Authorization: `Bearer ${token}`,
     },
