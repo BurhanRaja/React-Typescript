@@ -4,6 +4,7 @@ import { Provider } from "react-redux";
 import App from "./App";
 import "./index.css";
 import store from "./store/store";
+import 'tw-elements';
 
 const root = ReactDOM.createRoot(
   document.getElementById("root") as HTMLElement

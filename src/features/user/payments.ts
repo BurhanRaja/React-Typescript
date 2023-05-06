@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import { addPayment } from "../../api/user/payment";
+import { addOrder, verifyOrder } from "../../api/user/payment";
 
 interface InitialState {
   isLoading: boolean;
@@ -13,10 +13,18 @@ const initialState = {
   isSuccess: false,
 } as InitialState;
 
-export const addPaymentChargesThunk = createAsyncThunk(
+export const addPaymentOrdersThunk = createAsyncThunk(
   "payments/add",
   async (data: any) => {
-    let response = await addPayment(data);
+    let response = await addOrder(data);
+    return response;
+  }
+);
+
+export const verifyPaymentOrdersThunk = createAsyncThunk(
+  "payments/verify",
+  async (data: any) => {
+    let response = await verifyOrder(data);
     return response;
   }
 );
@@ -29,17 +37,29 @@ const paymentSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(addPaymentChargesThunk.pending, (state) => {
+      .addCase(addPaymentOrdersThunk.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(addPaymentChargesThunk.fulfilled, (state) => {
+      .addCase(addPaymentOrdersThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.isSuccess = true;
       })
-      .addCase(addPaymentChargesThunk.rejected, (state) => {
+      .addCase(addPaymentOrdersThunk.rejected, (state) => {
         state.isLoading = false;
         state.isError = true;
-      });
+      })
+      .addCase(verifyPaymentOrdersThunk.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(verifyPaymentOrdersThunk.fulfilled, (state) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+      })
+      .addCase(verifyPaymentOrdersThunk.rejected, (state) => {
+        state.isLoading = false;
+        state.isError = true;
+      })
+      ;
   },
 });
 

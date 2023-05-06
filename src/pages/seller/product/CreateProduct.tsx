@@ -62,7 +62,6 @@ const CreateProduct = () => {
       description === "" ||
       thumbnail === "" ||
       category === "" ||
-      subcategory === "" ||
       !images_info
     ) {
       setErrorMsg("Please fill the above field.");
@@ -86,21 +85,17 @@ const CreateProduct = () => {
       if (data?.error?.code === "ERR_NETWORK") {
         toast.error("Internal Server Error");
       }
-    });
-
-    if (isSuccess) {
       toast.success("Successfully Product Created");
       setName("");
       setDescription("");
       setThumbnail("");
       setCategory("");
       setSubcategory("");
-
+  
       disptach(clearImagesInfo());
       disptach(clearProductState());
-    }
-
-    return;
+      return;
+    });
   }
 
   return (

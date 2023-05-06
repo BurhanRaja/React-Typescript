@@ -1,25 +1,25 @@
 import { useEffect, useState } from "react";
 import useAppSelector from "../hooks/useAppSelector";
 import useAppDispatch from "../hooks/useAppDispatch";
-import { AiFillEdit, AiFillDelete } from "react-icons/ai";
-import { RiVisaFill, RiMastercardFill } from "react-icons/ri";
+import { AiFillEdit } from "react-icons/ai";
+// import { RiVisaFill, RiMastercardFill } from "react-icons/ri";
 import {
   clearUserprofile,
   getUserProfileThunk,
 } from "../features/user/userprofile";
 import { updateUserThunk } from "../features/user/user";
-import {
-  addCardsThunk,
-  clearCrudCardState,
-  deleteCardsThunk,
-} from "../features/user/crudcards";
+// import {
+//   addCardsThunk,
+//   clearCrudCardState,
+//   deleteCardsThunk,
+// } from "../features/user/crudcards";
 import { toast } from "react-toastify";
-import { clearAllCardState, getAllCardsThunk } from "../features/user/allcards";
-import { Link } from "react-router-dom";
+// import { clearAllCardState, getAllCardsThunk } from "../features/user/allcards";
+// import { Link } from "react-router-dom";
 
 const Profile = () => {
   const { user } = useAppSelector((state) => state.userProfileAction);
-  const { cards } = useAppSelector((state) => state.allCardsAction);
+  // const { cards } = useAppSelector((state) => state.allCardsAction);
   const dispatch = useAppDispatch();
 
   const [editUser, setEditUser] = useState(true);
@@ -30,26 +30,23 @@ const Profile = () => {
   const [fname, setFname] = useState("");
   const [lname, setLname] = useState("");
   const [phone, setPhone] = useState("");
-  const [errorUserMsg, setErrorUserMsg] = useState("");
 
-  // Card
-  const [cardName, setCardName] = useState("");
-  const [cardNumber, setCardNumber] = useState("");
-  const [cardExp, setCardExp] = useState("");
-  const [cardCVC, setCardCVC] = useState("");
-  const [errorAddMsg, setErrorAddMsg] = useState("");
+  // // Card
+  // const [cardName, setCardName] = useState("");
+  // const [cardNumber, setCardNumber] = useState("");
+  // const [cardExp, setCardExp] = useState("");
+  // const [cardCVC, setCardCVC] = useState("");
+  // const [errorAddMsg, setErrorAddMsg] = useState("");
 
   useEffect(() => {
     dispatch(clearUserprofile());
     dispatch(getUserProfileThunk());
   }, []);
 
-  useEffect(() => {
-    dispatch(clearAllCardState());
-    dispatch(getAllCardsThunk());
-  }, []);
-
-  console.log(cards);
+  // useEffect(() => {
+  //   dispatch(clearAllCardState());
+  //   dispatch(getAllCardsThunk());
+  // }, []);
 
   useEffect(() => {
     if (user) {
@@ -71,7 +68,7 @@ const Profile = () => {
       email === "" &&
       phone === ""
     ) {
-      setErrorUserMsg("Please enter above field.");
+      setErrorMsg("Please enter above field.");
       return;
     }
 
@@ -100,75 +97,75 @@ const Profile = () => {
   }
 
   // Add Cards
-  function handleAddCards(e: any) {
-    e.preventDefault();
+  // function handleAddCards(e: any) {
+  //   e.preventDefault();
 
-    if (
-      cardName === "" ||
-      cardExp === "" ||
-      cardNumber === "" ||
-      cardCVC === ""
-    ) {
-      setErrorAddMsg("Please fill the above field.");
-      return;
-    }
+  //   if (
+  //     cardName === "" ||
+  //     cardExp === "" ||
+  //     cardNumber === "" ||
+  //     cardCVC === ""
+  //   ) {
+  //     setErrorAddMsg("Please fill the above field.");
+  //     return;
+  //   }
 
-    if (
-      cardNumber !== "4242 4242 4242 4242" &&
-      cardNumber !== "4000 0566 5566 5556" &&
-      cardNumber !== "5555 5555 5555 4444" &&
-      cardNumber !== "5200 8282 8282 8210"
-    ) {
-      toast.error("Invalid Card Number.");
-      return;
-    }
+  //   if (
+  //     cardNumber !== "4242 4242 4242 4242" &&
+  //     cardNumber !== "4000 0566 5566 5556" &&
+  //     cardNumber !== "5555 5555 5555 4444" &&
+  //     cardNumber !== "5200 8282 8282 8210"
+  //   ) {
+  //     toast.error("Invalid Card Number.");
+  //     return;
+  //   }
 
-    let number = cardNumber.split(" ")[0].split("")[0];
+  //   let number = cardNumber.split(" ")[0].split("")[0];
 
-    if (Number(number) !== 4 && Number(number) !== 5) {
-      toast.warn("Please Enter correct Card Number.");
-      return;
-    }
+  //   if (Number(number) !== 4 && Number(number) !== 5) {
+  //     toast.warn("Please Enter correct Card Number.");
+  //     return;
+  //   }
 
-    let cardType = "";
-    if (Number(number) === 4) {
-      cardType = "V";
-    } else {
-      cardType = "M";
-    }
+  //   let cardType = "";
+  //   if (Number(number) === 4) {
+  //     cardType = "V";
+  //   } else {
+  //     cardType = "M";
+  //   }
 
-    let my = cardExp.split("/");
+  //   let my = cardExp.split("/");
 
-    let data = {
-      cardName,
-      cardExpMonth: Number(my[0]),
-      cardExpYear: Number(my[1]),
-      cardNumber,
-      cardCVC,
-      cardType,
-    };
+  //   let data = {
+  //     cardName,
+  //     cardExpMonth: Number(my[0]),
+  //     cardExpYear: Number(my[1]),
+  //     cardNumber,
+  //     cardCVC,
+  //     cardType,
+  //   };
 
-    dispatch(clearCrudCardState());
-    dispatch(addCardsThunk(data)).then((data: any) => {
-      if (data?.error?.code === "ERR_BAD_REQUEST") {
-        toast.warn("Some Error Ocurred.");
-        return;
-      }
-      if (data?.error?.code === "ERR_NETWORK") {
-        toast.error("Internal Server Error.");
-        return;
-      }
+  //   dispatch(clearCrudCardState());
+  //   dispatch(addCardsThunk(data)).then((data: any) => {
+  //     if (data?.error?.code === "ERR_BAD_REQUEST") {
+  //       toast.warn("Some Error Ocurred.");
+  //       return;
+  //     }
+  //     if (data?.error?.code === "ERR_NETWORK") {
+  //       toast.error("Internal Server Error.");
+  //       return;
+  //     }
 
-      toast.success("Successfully Card Added!");
-      setCardCVC("");
-      setCardName("");
-      setCardNumber("");
-      setCardExp("");
-      dispatch(clearAllCardState());
-      dispatch(getAllCardsThunk());
-      return;
-    });
-  }
+  //     toast.success("Successfully Card Added!");
+  //     setCardCVC("");
+  //     setCardName("");
+  //     setCardNumber("");
+  //     setCardExp("");
+  //     dispatch(clearAllCardState());
+  //     dispatch(getAllCardsThunk());
+  //     return;
+  //   });
+  // }
 
   return (
     <>
@@ -266,7 +263,7 @@ const Profile = () => {
               )}
             </form>
           </div>
-          <div className="px-4 mt-8">
+          {/* <div className="px-4 mt-8">
             <div className="mt-10">
               <h4 className="text-2xl mb-3 font-semibold">Add Card</h4>
               <small className="text-red-500">
@@ -498,7 +495,7 @@ const Profile = () => {
                 </tbody>
               </table>
             </div>
-          </div>
+          </div> */}
         </div>
       </section>
     </>

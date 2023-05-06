@@ -8,7 +8,7 @@ type EditorProps = {
 
 const RichEditor = ({ val, setVal }: EditorProps) => {
   function handleVal(text: string) {
-    console.log(text);
+    setVal(text);
   }
 
   const modules = {
