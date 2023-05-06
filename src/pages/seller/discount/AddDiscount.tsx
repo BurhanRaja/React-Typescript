@@ -1,9 +1,9 @@
 import { BsCheckLg } from "react-icons/bs";
-import useAppSelector from "../../hooks/useAppSelector";
-import useAppDispatch from "../../hooks/useAppDispatch";
+import useAppSelector from "../../../hooks/useAppSelector";
+import useAppDispatch from "../../../hooks/useAppDispatch";
 import { useEffect, useState } from "react";
-import { getAllSellerProductsThunk } from "../../features/product/seller/allProducts";
-import { addDiscountThunk } from "../../features/discount/crudDiscount";
+import { getAllSellerProductsThunk } from "../../../features/product/seller/allProducts";
+import { addDiscountThunk, clearDiscountState } from "../../../features/discount/crudDiscount";
 import { toast } from "react-toastify";
 
 const AddDiscount = () => {
@@ -52,6 +52,7 @@ const AddDiscount = () => {
       products: selectedProducts,
     };
 
+    dispatch(clearDiscountState());
     dispatch(addDiscountThunk(data)).then((data: any) => {
       if (data?.error?.code === "ERR_BAD_REQUEST") {
         toast.warn("User Already Exists.");

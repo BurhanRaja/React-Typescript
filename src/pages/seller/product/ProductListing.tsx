@@ -20,7 +20,8 @@ const ProductListing = () => {
     dispatch(getAllSellerProductsThunk());
   }, []);
 
-  const [dropDown, setDropDown] = useState(false);
+  const [dropDown, setDropDown] = useState(0);
+  const [openDropDown, setOpenDropDown] = useState(false);
 
   return (
     <>
@@ -60,7 +61,7 @@ const ProductListing = () => {
           </thead>
           <tbody className="divide-y divide-gray-100 border-t border-gray-100">
             {isSuccess &&
-              products?.map((el: any) => {
+              products?.map((el: any, index: any) => {
                 return (
                   <tr key={el._id}>
                     {/* Thumbnail */}
@@ -158,7 +159,10 @@ const ProductListing = () => {
 
                           <button
                             className="h-full p-2 text-gray-600 hover:bg-gray-50 hover:text-gray-700"
-                            onClick={() => setDropDown(!dropDown)}
+                            onClick={() => {
+                              setOpenDropDown(!openDropDown);
+                              setDropDown(index + 1);
+                            }}
                           >
                             <span className="sr-only">Menu</span>
                             <FiChevronDown />
@@ -167,7 +171,9 @@ const ProductListing = () => {
 
                         <div
                           className={`absolute right-0 z-10 mt-2 w-56 rounded-md border border-gray-100 bg-white shadow-lg transition-all duration-150 ${
-                            dropDown ? "opacity-100 block" : "opacity-0 hidden"
+                            dropDown === index + 1 && openDropDown
+                              ? "opacity-100 block"
+                              : "opacity-0 hidden"
                           }`}
                           role="menu"
                         >

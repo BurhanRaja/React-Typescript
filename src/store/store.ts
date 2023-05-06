@@ -16,6 +16,11 @@ import addProductReducer from "../features/product/seller/crudProduct";
 import allSellerProductsReducer from "../features/product/seller/allProducts";
 import filterproductsReducer from "../features/product/filterproducts";
 
+// Discount
+import crudDiscountReducer from "../features/discount/crudDiscount";
+import allDiscountReducer from "../features/discount/allDiscount";
+import singleDiscountReducer from "../features/discount/singleDiscount";
+
 // Seller Info
 import sellerInfoReducer from "../features/seller/sellerInfo";
 import crudsellerinfoReducer from "../features/seller/crudsellerinfo";
@@ -76,6 +81,11 @@ const store = configureStore({
     addProduct: addProductReducer,
     sellerProducts: allSellerProductsReducer,
     singleProductAction: getSingleProductReducer,
+
+    // Discount
+    allDiscountAction: allDiscountReducer,
+    crudDiscountAction: crudDiscountReducer,
+    singleDiscountAction: singleDiscountReducer,
 
     // Product Filters
     imagesFilterAction: imagesInfoFilterReducer,

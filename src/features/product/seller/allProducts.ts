@@ -15,15 +15,20 @@ const initialState = {
   products: [],
 } as InitialState;
 
-export const getAllSellerProductsThunk = createAsyncThunk("sellerProducts/allProducts", async () => {
-  let response = await getAllProducts();
-  return response;
-});
+export const getAllSellerProductsThunk = createAsyncThunk(
+  "sellerProducts/allProducts",
+  async () => {
+    let response = await getAllProducts();
+    return response;
+  }
+);
 
 const allProductSlice = createSlice({
   name: "sellerProducts",
   initialState,
-  reducers: {},
+  reducers: {
+    clearAllSellerProductState: () => initialState,
+  },
   extraReducers: (builder) => {
     builder
       .addCase(getAllSellerProductsThunk.pending, (state) => {
@@ -41,5 +46,6 @@ const allProductSlice = createSlice({
   },
 });
 
+export const { clearAllSellerProductState } = allProductSlice.actions;
 
 export default allProductSlice.reducer;

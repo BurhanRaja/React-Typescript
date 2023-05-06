@@ -7,20 +7,20 @@ const Header = (): JSX.Element => {
         <div className="lg:flex lg:items-center lg:justify-end">
           <div className="absolute z-20 lg:w-[50%] px-6 py-4 transition-all duration-300 ease-in-out bg-white  lg:mt-0 lg:p-0 lg:top-0 lg:relative lg:bg-transparent lg:opacity-100 lg:translate-x-0 lg:flex lg:items-center  lg:justify-end">
             <div className="flex items-center justify-between mt-4 lg:mt-0 w-[100%]">
-              <input
+              {/* <input
                 type="text"
                 className="py-2 px-3 pr-4 text-gray-700 bg-white border rounded-lg focus:border-blue-400  focus:outline-none focus:ring focus:ring-opacity-40 focus:ring-blue-300 w-[70%]"
                 placeholder="Search"
-              />
-
+              /> */}
+{/* 
               <button
                 className="hidden mx-4 text-gray-600 transition-colors duration-300 transform lg:block hover:text-gray-700 focus:text-gray-700 focus:outline-none"
                 aria-label="show notifications"
               >
                 <IoMdNotificationsOutline className="text-xl" />
-              </button>
+              </button> */}
 
-              <button
+              {/* <button
                 type="button"
                 className="flex items-center focus:outline-none"
                 aria-label="toggle profile dropdown"
@@ -36,7 +36,7 @@ const Header = (): JSX.Element => {
                 <h3 className="mx-2 text-gray-700 dark:text-gray-200 lg:hidden">
                   Khatab wedaa
                 </h3>
-              </button>
+              </button> */}
             </div>
           </div>
         </div>

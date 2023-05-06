@@ -23,7 +23,7 @@ const PendingOrder = () => {
     dispatch(getAllSellerOrderThunk());
   }, []);
 
-  console.log(sellerorders);
+  
 
   const [dropDown, setDropDown] = useState(false);
 
@@ -140,13 +140,6 @@ const PendingOrder = () => {
                         className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm hover:bg-gray-50"
                         role="menuitem"
                       >Mark as Complete</button>
-                      <button
-                        className="flex w-full items-center gap-2 rounded-lg px-4 py-2 text-sm text-red-700 hover:bg-red-50"
-                        role="menuitem"
-                      >
-                        <RiDeleteBin6Line />
-                        Delete Product
-                      </button>
                     </div>
                   </div>
                 </div>

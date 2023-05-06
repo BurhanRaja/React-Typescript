@@ -26,8 +26,8 @@ export const addDiscountThunk = createAsyncThunk(
 );
 
 type updateDiscountParams = {
-  id: string;
-  data: string;
+  id: string | undefined;
+  data: any;
 };
 
 export const updateDiscountThunk = createAsyncThunk(

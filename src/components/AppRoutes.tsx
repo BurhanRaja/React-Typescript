@@ -7,7 +7,7 @@ import Login from "./users/Login";
 import Register from "./users/Register";
 
 // Seller
-import AddDiscount from "../pages/seller/AddDiscount";
+import AddDiscount from "../pages/seller/discount/AddDiscount";
 import CreateProduct from "../pages/seller/product/CreateProduct";
 import DeliveredOrder from "../pages/seller/order/DeliveredOrder";
 import PendingOrder from "../pages/seller/order/PendingOrder";
@@ -30,6 +30,9 @@ import OrderDetails from "../pages/seller/order/OrderDetails";
 import Dashboard from "../pages/seller/Dashboard";
 import SellerInfoProfile from "../pages/seller/SellerInfoProfile";
 import Profile from "../pages/Profile";
+import DiscountListing from "../pages/seller/discount/DiscountListing";
+import DiscountDetails from "../pages/seller/discount/DiscountDetails";
+import EditDiscount from "../pages/seller/discount/EditDiscount";
 
 const AppRoutes = () => {
   let token = localStorage.getItem("sellerToken");
@@ -69,10 +72,10 @@ const AppRoutes = () => {
                 <Route path="product/list" element={<ProductListing />} />
                 <Route path="product/:id" element={<ProductDetails />} />
                 {/* Discounts */}
-                <Route path="discount/list" />
-                <Route path="discount/:id" />
+                <Route path="discount/list" element={<DiscountListing />} />
+                <Route path="discount/:discountid" element={<DiscountDetails />} />
                 <Route path="add/discount" element={<AddDiscount />} />
-                <Route path="edit/discount" />
+                <Route path="edit/discount/:id" element={<EditDiscount />} />
                 {/* Orders */}
                 <Route path="pending/orders" element={<PendingOrder />} />
                 <Route path="order/:id" element={<OrderDetails />} />

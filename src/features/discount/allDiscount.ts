@@ -37,7 +37,7 @@ const allDiscountSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(getAllDiscountThunk.fulfilled, (state, { payload }) => {
-        state.discounts = payload.discounts;
+        state.discounts = payload?.discounts;
         state.isLoading = false;
         state.isSuccess = true;
       })

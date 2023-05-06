@@ -16,15 +16,15 @@ const initialState = {
 } as InitialState;
 
 export const getSingleDiscountThunk = createAsyncThunk(
-  "",
-  async (id: string) => {
+  "singleDiscount/get",
+  async (id: string | undefined) => {
     const response = await getSingleDiscount(id);
     return response;
   }
 );
 
 const singleDiscountSlice = createSlice({
-  name: "",
+  name: "singleDiscount",
   initialState,
   reducers: {
     clearSingleDiscountState: () => {
