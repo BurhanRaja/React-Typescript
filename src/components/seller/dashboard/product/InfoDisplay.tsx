@@ -7,11 +7,6 @@ type InfoDisplayProps = {
 };
 
 const InfoDisplay = ({ imagesInfo, deleteInfo, count }: InfoDisplayProps) => {
-
-  function handleDelete(id: string) {
-    deleteInfo(id);
-  }
-
   return (
     <div>
       <div className="container p-2 mx-auto sm:p-4 dark:text-gray-900">
@@ -26,8 +21,9 @@ const InfoDisplay = ({ imagesInfo, deleteInfo, count }: InfoDisplayProps) => {
               <div className="overflow-x-auto">
                 <div className="flex justify-end items-center">
                   <button
+                    type="button"
                     className="underline text-red-500 text-2xl p-2"
-                    onClick={() => handleDelete(el._id ?? "")}
+                    onClick={() => deleteInfo(el?._id)}
                   >
                     <IoMdClose />
                   </button>

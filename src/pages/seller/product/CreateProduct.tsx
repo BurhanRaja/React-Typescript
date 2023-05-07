@@ -35,12 +35,10 @@ const CreateProduct = () => {
   const { subCategories } = useAppSelector((state) => state.subCategoryAction);
   const { images_info, count } = useAppSelector((state) => state.imagesInfo);
 
-  const { sellerInfo } = useAppSelector(
-    (state) => state.getSellerinfoAction
-  );
+  const { sellerInfo } = useAppSelector((state) => state.getSellerinfoAction);
 
   // Add Product
-  const { isSuccess } = useAppSelector((state) => state.addProduct);
+  const { isSuccess } = useAppSelector((state) => state.crudProductAction);
 
   // Get Sub-category
   function handleSubCat(catId: string) {
@@ -91,7 +89,7 @@ const CreateProduct = () => {
       setThumbnail("");
       setCategory("");
       setSubcategory("");
-  
+
       disptach(clearImagesInfo());
       disptach(clearProductState());
       return;

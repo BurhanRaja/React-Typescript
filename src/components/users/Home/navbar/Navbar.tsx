@@ -7,7 +7,12 @@ const Navbar = (): JSX.Element => {
     <nav className="flex py-5 justify-between items-center px-9">
       <div className="flex">
         <h2 className="font-extrabold uppercase lg:block">
-          <Link to="/">Company</Link>
+          <Link to="/">
+            <img
+              src="/images/logo.png"
+              className="w-24 h-16 text-white p-2 rounded-full"
+            />
+          </Link>
         </h2>
       </div>
       {/* <form className="flex justify-center items-center w-[60%] lg:flex max-lg:hidden">

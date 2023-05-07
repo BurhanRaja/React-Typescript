@@ -19,9 +19,14 @@ export const addProductThunk = createAsyncThunk(
   }
 );
 
+type updateProductParams = {
+  id: string | undefined;
+  data: any;
+};
+
 export const editProductThunk = createAsyncThunk(
   "crudproduct/update",
-  async (id: string, data: any) => {
+  async ({ id, data }: updateProductParams) => {
     let response = await updateProduct(id, data);
     return response;
   }

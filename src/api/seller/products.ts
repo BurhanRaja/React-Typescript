@@ -12,6 +12,18 @@ export const getAllProducts = async () => {
   return response.data;
 };
 
+export const singleProduct = async (id: string | undefined) => {
+  let token = localStorage.getItem("sellerToken");
+  let response = await instance({
+    url: `/api/product/${id}`,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  });
+
+  return response.data;
+};
+
 export const addProduct = async (data: Object) => {
   let token = localStorage.getItem("sellerToken");
   let response = await instance({
@@ -26,7 +38,7 @@ export const addProduct = async (data: Object) => {
   return response.data;
 };
 
-export const updateProduct = async (id: String, data: Object) => {
+export const updateProduct = async (id: string | undefined, data: any) => {
   let token = localStorage.getItem("sellerToken");
   let response = await instance({
     url: `/api/product/update/${id}`,

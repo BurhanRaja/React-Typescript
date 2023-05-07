@@ -70,7 +70,7 @@ const ProductListing = () => {
                         className="rounded-sm object-cover object-center"
                         src={el?.thumbnail}
                         alt=""
-                        width={"30"}
+                        width={80}
                       />
                     </td>
                     {/* Name */}

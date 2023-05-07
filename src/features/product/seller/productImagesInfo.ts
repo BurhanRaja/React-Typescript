@@ -30,7 +30,7 @@ const imageInfoSlice = createSlice({
     },
     deleteImageInfo: (state, action) => {
       let filteredAns = state.images_info.filter(
-        (el) => el._id !== action.payload.id
+        (el) => el._id !== action.payload
       );
       state.images_info = filteredAns;
       state.count -= 1;
