@@ -92,6 +92,8 @@ const ProductCard = ({
   const [infoType, setInfoType] = useState("");
   const [size, setSize] = useState("");
 
+  const [readmore, setReadMore] = useState(false);
+
   const { data, isLoading } = useAppSelector(
     (state) => state.imagesFilterAction
   );
@@ -99,6 +101,7 @@ const ProductCard = ({
 
   function handleImagesInfoFilter(val: string) {
     const splitVal = val.split("+");
+    console.log(splitVal);
     setColorInfo(val);
     dispatch(clearImageInfoState());
     dispatch(
@@ -108,6 +111,7 @@ const ProductCard = ({
 
   useEffect(() => {
     if (!isLoading) {
+      console.log(data);
       setInfo(data[0]);
     }
   }, [isLoading]);
@@ -185,14 +189,38 @@ const ProductCard = ({
                 Description
               </a>
             </div>
-            {description && (
-              <p
-                className="leading-relaxed mb-4"
-                dangerouslySetInnerHTML={{
-                  __html: `${description.substring(0, 500)}...`,
-                }}
-              ></p>
-            )}
+            {description &&
+              (!readmore ? (
+                <>
+                  <p
+                    className="leading-relaxed mb-1"
+                    dangerouslySetInnerHTML={{
+                      __html: `${description.substring(0, 500)}...`,
+                    }}
+                  ></p>
+                  <button
+                    className="mb-4 text-black font-bold p-0"
+                    onClick={() => setReadMore(true)}
+                  >
+                    Read More
+                  </button>
+                </>
+              ) : (
+                <>
+                  <p
+                    className="leading-relaxed mb-1"
+                    dangerouslySetInnerHTML={{
+                      __html: `${description}`,
+                    }}
+                  ></p>
+                  <button
+                    className="mb-4 text-black font-bold p-0"
+                    onClick={() => setReadMore(false)}
+                  >
+                    Read Less
+                  </button>
+                </>
+              ))}
             {colors?.length !== 0 && (
               <div className="flex justify-between items-center border-t border-gray-200 py-2">
                 <span className="text-gray-500">Color</span>
