@@ -22,11 +22,21 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v3
 
+      - name: Installing Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: "16"
+
       - name: Install all the dependencies
         run: npm install
 
       - name: Build the application
-        run: npm run build
+        run: |
+          touch .env
+          echo REACT_APP_API_URL=${{ secrets.APP_URL }} >> .env
+          echo REACT_RAZORPAY_KEY=${{ secrets.RAZORPAY_KEY }} >> .env
+          npm run build
+          rm .env
 
       - name: Deploy to S3 Bucket
         uses: reggionick/s3-deploy@v3
