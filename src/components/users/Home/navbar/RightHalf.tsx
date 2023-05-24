@@ -32,6 +32,8 @@ const RightHalf = (): JSX.Element => {
     setOpenDrop(false);
   }
 
+  console.log(user);
+
   return !token ? (
     <ul className="flex justify-center w-[16rem] items-center">
       <li>
