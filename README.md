@@ -1,46 +1,65 @@
-# Getting Started with Create React App
+# Frontend of Company E-commerce
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Description
 
-## Available Scripts
+### What is project about?
 
-In the project directory, you can run:
+The project is an E-commerce Web App. This project contains both the customer side and a seller side too. You can be a customer to buy things as well as a seller to sell products. The front of the E-commerce i.e. customers, you buy the products from the world of Fashion, Beauty, Electronics and Furniture/Home Decor. The seller side contains an admin panel where you can do CRUD of Products, CRUD of discounts, and can edit seller info and company's info. This project is built on React with typescript. I have used libraries like redux-toolkit, tailwindcss, slick-carousel, tinymce for adding description, uui and axios.
 
-### `npm start`
+### Intention
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+The intention behind building this web app is to learn a lot of things that goes into a world-class production web apps used by many. I have tried to keep the project structure as close to a professional codebase. I have used CI/CD pipelines to make the deployment and tesing process becomes easier for the maintainers of the project. I have deployed the project on aws S3 bucket.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+### Problems I faced while building the project
 
-### `npm test`
+I faced some problems while implementing logics in typescript as it is a very strict language. I used typescript with React for the first time, so it was hard to build project. I found it difficult at initial state when I was setting Redux for the project as also used it for the first in a big project but after that it became easy to use. 
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+## Project Setup for Local Development
 
-### `npm run build`
+#### Clone the repo
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+```
+git clone https://github.com/BurhanRaja/React-Typescript.git
+```
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### Install Dependencies
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+```
+npm install
+```
 
-### `npm run eject`
+#### Run locally
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+```
+npm run start
+```
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+## Project setup for production build
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+#### Clone the repo
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+```
+git clone https://github.com/BurhanRaja/React-Typescript.git
+```
 
-## Learn More
+#### Install Dependencies
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+```
+npm install
+```
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+#### Build production build
+
+```
+npm run build
+```
+
+you will get a build folder and you can run `serve -s build` command to run the static build in local env.
+
+## Demo
+
+
+
+## Technology Used
+
+<img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original-wordmark.svg" height="50" width="50" />  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/redux/redux-original.svg" height="50" width="50" />  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" height="50" width="50" />  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/tailwindcss/tailwindcss-plain.svg" height="50" width="50" />  <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/amazonwebservices/amazonwebservices-plain-wordmark.svg" height="50" width="50" />
