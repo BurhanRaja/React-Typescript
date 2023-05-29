@@ -89,7 +89,7 @@ const RightHalf = (): JSX.Element => {
             className="text-lg font-semibold text-gray-700 capitalize cursor-pointer"
             onClick={() => setOpenDrop(!openDrop)}
           >
-            {user?.first_name + " " + user?.last_name}
+            {user?.first_name ? user?.first_name + " " + user?.last_name : ""}
           </h1>
           {openDrop && (
             <div className="absolute p-2 w-32 z-50 bg-gray-100 bottom-[-95px] left-[-10px] shadow-md rounded-sm">
