@@ -11,7 +11,10 @@ import {
   deleteAddressThunk,
 } from "../../../features/address/crudaddress";
 import { toast } from "react-toastify";
-import { addOrderThunk, clearCrudOrderState } from "../../../features/order/crudOrder";
+import {
+  addOrderThunk,
+  clearCrudOrderState,
+} from "../../../features/order/crudOrder";
 // import { RiVisaFill, RiMastercardFill } from "react-icons/ri";
 // import {
 //   clearAllCardState,
@@ -78,71 +81,95 @@ const CheckoutForm = ({ cartId, totalPrice }: CheckoutFormProps) => {
       return;
     }
 
-    dispatch(clearPaymentState());
-    dispatch(addPaymentOrdersThunk({ amount: totalPrice })).then(
-      (data: any) => {
-        let order = data?.payload?.order;
+    console.log("Hello");
 
-        let orderData = {
-          cart_id: cartId,
-          address_id: addressId,
-          payment_type: paymentType,
-          payment_status: paymentType === "online" ? true : false,
-          is_delivered: false,
-          total: totalPrice,
-        };
+    if (paymentType === "online") {
+      dispatch(clearPaymentState());
+      dispatch(addPaymentOrdersThunk({ amount: totalPrice })).then(
+        (data: any) => {
+          let order = data?.payload?.order;
 
-        const options = {
-          key: process.env.REACT_RAZORPAY_KEY
-            ? process.env.REACT_RAZORPAY_KEY
-            : "",
-          amount: order.amount,
-          currency: order.currency,
-          name: "Company pvt. ltd",
-          description: "Order Payment",
-          order_id: order.id,
-          logo: "http://localhost:3000/images/logo.png",
+          let orderData = {
+            cart_id: cartId,
+            address_id: addressId,
+            payment_type: paymentType,
+            payment_status: true,
+            is_delivered: false,
+            total: totalPrice,
+          };
 
-          handler: (response: any) => {
+          const options = {
+            key: process.env.REACT_RAZORPAY_KEY
+              ? process.env.REACT_RAZORPAY_KEY
+              : "",
+            amount: order.amount,
+            currency: order.currency,
+            name: "Company pvt. ltd",
+            description: "Order Payment",
+            order_id: order.id,
+            logo: "http://localhost:3000/images/logo.png",
+            handler: (response: any) => {
+              dispatch(clearCrudOrderState());
+              dispatch(clearPaymentState());
+              dispatch(addOrderThunk(orderData)).then((data: any) => {
+                if (data?.error?.code === "ERR_BAD_REQUEST") {
+                  toast.warn("Some Error Ocurred. Please Try Again.");
+                  return;
+                }
+                if (data?.error?.code === "ERR_NETWORK") {
+                  toast.error("Internal Server Error");
+                  return;
+                }
+                toast.success("Placed Order Successfully.");
+              });
 
-            dispatch(clearCrudOrderState());
-            dispatch(clearPaymentState());
-            dispatch(addOrderThunk(orderData)).then((data: any) => {
+              dispatch(verifyPaymentOrdersThunk(response)).then((data: any) => {
+                if (data?.error?.code === "ERR_BAD_REQUEST") {
+                  toast.warn("Some Error Ocurred. Please Try Again.");
+                  return;
+                }
+                if (data?.error?.code === "ERR_NETWORK") {
+                  toast.error("Internal Server Error");
+                  return;
+                }
+                toast.success("Payment Successful");
+                navigate("/");
+                // window.location.href = "/all/orders";
+              });
+            },
+            theme: {
+              color: "#000000",
+            },
+          };
 
-              if (data?.error?.code === "ERR_BAD_REQUEST") {
-                toast.warn("Some Error Ocurred. Please Try Again.");
-                return;
-              }
-              if (data?.error?.code === "ERR_NETWORK") {
-                toast.error("Internal Server Error");
-                return;
-              }
-              toast.success("Placed Order Successfully.");
-            });
-
-            dispatch(verifyPaymentOrdersThunk(response)).then((data: any) => {
-              if (data?.error?.code === "ERR_BAD_REQUEST") {
-                toast.warn("Some Error Ocurred. Please Try Again.");
-                return;
-              }
-              if (data?.error?.code === "ERR_NETWORK") {
-                toast.error("Internal Server Error");
-                return;
-              }
-              toast.success("Payment Successful");
-              navigate("/");
-              // window.location.href = "/all/orders";
-            });
-          },
-          theme: {
-            color: "#000000",
-          },
-        };
-
-        const razorpayModal = new Razorpay(options);
-        razorpayModal.open();
-      }
-    );
+          const razorpayModal = new Razorpay(options);
+          razorpayModal.open();
+        }
+      );
+    } else {
+      let orderData = {
+        cart_id: cartId,
+        address_id: addressId,
+        payment_type: paymentType,
+        payment_status: false,
+        is_delivered: false,
+        total: totalPrice,
+      };
+      dispatch(clearCrudOrderState());
+      dispatch(clearPaymentState());
+      dispatch(addOrderThunk(orderData)).then((data: any) => {
+        if (data?.error?.code === "ERR_BAD_REQUEST") {
+          toast.warn("Some Error Ocurred. Please Try Again.");
+          return;
+        }
+        if (data?.error?.code === "ERR_NETWORK") {
+          toast.error("Internal Server Error");
+          return;
+        }
+        toast.success("Placed Order Successfully.");
+        navigate("/");
+      });
+    }
   }
 
   // function handlePayment() {
@@ -559,19 +586,32 @@ const CheckoutForm = ({ cartId, totalPrice }: CheckoutFormProps) => {
             ))}
         </div> */}
 
-        <div className="col-span-6">
-          <button
-            type="button"
-            data-te-toggle="modal"
-            data-te-target="#exampleModal"
-            data-te-ripple-init
-            data-te-ripple-color="light"
-            className="block w-full rounded-md bg-black p-2.5 text-sm text-white transition hover:shadow-lg"
-          >
-            Place Order
-          </button>
-        </div>
-        <Modal handleClick={() => handlePayment()} />
+        {paymentType === "online" ? (
+          <>
+            <div className="col-span-6">
+              <button
+                type="button"
+                data-te-toggle="modal"
+                data-te-target="#exampleModal"
+                data-te-ripple-init
+                data-te-ripple-color="light"
+                className="block w-full rounded-md bg-black p-2.5 text-sm text-white transition hover:shadow-lg"
+              >
+                Place Order
+              </button>
+            </div>
+            <Modal handleClick={() => handlePayment()} />
+          </>
+        ) : (
+          <div className="col-span-6">
+            <button
+              onClick={() => handlePayment()}
+              className="block w-full rounded-md bg-black p-2.5 text-sm text-white transition hover:shadow-lg"
+            >
+              Place order
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
