@@ -62,8 +62,7 @@ const SellerInfo = () => {
       tax_info: companygst,
     };
 
-    console.log("Hello");
-
+    
     dispatch(addSellerInfoThunk(data)).then((data: any) => {
       if (data?.error?.code === "ERR_BAD_REQUEST") {
         toast.warn("Company Already Exists.");
@@ -77,7 +76,7 @@ const SellerInfo = () => {
       localStorage.setItem("address", "true");
       navigate("/seller/dashboard");
     });
-
+    
     setCompanyname("");
     setCompanygst("");
     setCompanyidentity("");

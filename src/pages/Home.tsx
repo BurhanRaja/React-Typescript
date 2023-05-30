@@ -58,9 +58,9 @@ const Home = () => {
         />
       </HeroSlider>
       <ProductsLineup
-        title="Featured Products"
+        title="Recent Products"
         mappedProducts={products?.map((el, index) => {
-          if (index <= 3) {
+          if (index <= products.length - 1 && index >= products.length - 4) {
             return (
               <li>
                 <Link

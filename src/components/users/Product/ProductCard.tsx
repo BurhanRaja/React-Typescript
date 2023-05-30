@@ -11,6 +11,7 @@ import {
   clearCrudCartState,
 } from "../../../features/cart/crudCart";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router";
 
 const DownArrowSvg = (): JSX.Element => {
   return (
@@ -93,6 +94,7 @@ const ProductCard = ({
   const [size, setSize] = useState("");
 
   const [readmore, setReadMore] = useState(false);
+  const navigate = useNavigate();
 
   const { data, isLoading } = useAppSelector(
     (state) => state.imagesFilterAction
@@ -171,6 +173,11 @@ const ProductCard = ({
       toast.success(`Item Added to Cart.`);
       return;
     });
+  }
+
+  function handleBuyNow() {
+    handleAddToCart();
+    navigate("/checkout");
   }
 
   return (
@@ -312,7 +319,7 @@ const ProductCard = ({
               >
                 Add to Cart
               </button>
-              <button className="flex ml-4 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
+              <button onClick={() =>  handleBuyNow()} className="flex ml-4 text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">
                 Buy Now
               </button>
             </div>

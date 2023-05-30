@@ -4,6 +4,10 @@ import useAppSelector from "../../hooks/useAppSelector";
 import useAppDispatch from "../../hooks/useAppDispatch";
 import { clearState, loginSellerThunk } from "../../features/seller/auth";
 import { toast } from "react-toastify";
+import {
+  clearSellerInfo,
+  getSellerInfoThunk,
+} from "../../features/seller/sellerInfo";
 
 const Login = () => {
   const [email, setEmail] = useState("");
@@ -15,6 +19,8 @@ const Login = () => {
   const { token, isError, isLoading } = useAppSelector(
     (state: any) => state.sellerAuth
   );
+  const { sellerInfo } = useAppSelector((state) => state.getSellerinfoAction);
+
   const dispatch = useAppDispatch();
 
   const navigate = useNavigate();
@@ -26,9 +32,25 @@ const Login = () => {
       sessionStorage.setItem("address", "true");
       toast.success("Successfully Logged In");
       dispatch(clearState());
-      navigate("/seller/dashboard");
     }
   }, [isLoading, isError]);
+
+  useEffect(() => {
+    if (localStorage.getItem("sellerToken")) {
+      dispatch(clearSellerInfo());
+      dispatch(getSellerInfoThunk());
+    }
+  }, []);
+
+  useEffect(() => {
+    if (localStorage.getItem("sellerToken") !== null) {
+      if (sellerInfo.company_name !== undefined) {
+        navigate("/seller/dashboard");
+      } else {
+        navigate("/seller/add/sellerinfo");
+      }
+    }
+  }, []);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -57,9 +79,7 @@ const Login = () => {
 
   let sellerToken = localStorage.getItem("sellerToken");
 
-  return sellerToken ? (
-    <Navigate to="/seller/dashboard" />
-  ) : (
+  return (
     <div className="mx-auto max-w-screen-xl px-4 py-16 sm:px-6 lg:px-8">
       <div className="mx-auto max-w-lg">
         <h1 className="text-center text-2xl font-bold text-indigo-600 sm:text-3xl">

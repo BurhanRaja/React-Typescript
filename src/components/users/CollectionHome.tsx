@@ -40,9 +40,11 @@ const CollectionHome = () => {
   }
 
   useEffect(() => {
-    dispatch(clearSingleParentCatState());
-    dispatch(getSingleParentCatThunk(parentcategory));
-  }, []);
+    if (parentcategory) {
+      dispatch(clearSingleParentCatState());
+      dispatch(getSingleParentCatThunk(parentcategory));
+    }
+  }, [parentcategory]);
 
   useEffect(() => {
     if (pCat?._id) {
@@ -72,6 +74,8 @@ const CollectionHome = () => {
       getAllSeller(pCat?._id);
     }
   }, [pCat]);
+
+  console.log(parentcategory);
 
   return (
     <>

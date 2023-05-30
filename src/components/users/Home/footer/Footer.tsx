@@ -37,7 +37,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/shop/64451b23f9916a9ed221bdfe"
+                  to="/shop/64302302b666d1135c49fba3"
                   className="text-gray-600 hover:text-gray-800"
                 >
                   Home Decor and Furniture
@@ -45,7 +45,7 @@ const Footer = () => {
               </li>
               <li>
                 <Link
-                  to="/shop/64302302b666d1135c49fba3"
+                  to="/shop/64451b23f9916a9ed221bdfe"
                   className="text-gray-600 hover:text-gray-800"
                 >
                   Beauty and Care
