@@ -32,25 +32,20 @@ const Login = () => {
       sessionStorage.setItem("address", "true");
       toast.success("Successfully Logged In");
       dispatch(clearState());
+      dispatch(clearSellerInfo());
+      dispatch(getSellerInfoThunk());
     }
   }, [isLoading, isError]);
 
   useEffect(() => {
     if (localStorage.getItem("sellerToken")) {
-      dispatch(clearSellerInfo());
-      dispatch(getSellerInfoThunk());
-    }
-  }, []);
-
-  useEffect(() => {
-    if (localStorage.getItem("sellerToken") !== null) {
-      if (sellerInfo.company_name !== undefined) {
+      if (sellerInfo.company_name) {
         navigate("/seller/dashboard");
       } else {
         navigate("/seller/add/sellerinfo");
       }
     }
-  }, []);
+  }, [sellerInfo]);
 
   const handleSubmit = (e: any) => {
     e.preventDefault();
@@ -66,8 +61,6 @@ const Login = () => {
     };
 
     dispatch(loginSellerThunk(data)).then((data: any) => {
-      console.log("hello");
-
       if (data?.error?.code === "ERR_BAD_REQUEST") {
         toast.warn("User Already Exists.");
       }
