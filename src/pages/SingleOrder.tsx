@@ -16,9 +16,7 @@ const SingleOrder = () => {
   useEffect(() => {
     dispatch(clearSingleOrderState());
     dispatch(getSingleOrderThunk(id));
-  }, []);
-
-  console.log(order);
+  }, [id]);
 
   return (
     <>

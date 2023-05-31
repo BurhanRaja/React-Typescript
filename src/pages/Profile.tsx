@@ -73,13 +73,16 @@ const Profile = () => {
     }
 
     let data = {
-      first_name: fname,
-      last_name: lname,
+      fname,
+      lname,
       email,
-      phone_number: phone,
+      phone,
     };
 
+    console.log(data);
+
     dispatch(updateUserThunk(data)).then((data: any) => {
+      console.log(data);
       if (data?.error?.code === "ERR_BAD_REQUEST") {
         toast.warn("User doesn't exists.");
         return;

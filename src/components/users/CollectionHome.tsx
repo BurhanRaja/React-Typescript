@@ -40,6 +40,10 @@ const CollectionHome = () => {
   }
 
   useEffect(() => {
+    dispatch(clearFilteredProductState());
+  }, []);
+
+  useEffect(() => {
     if (parentcategory) {
       dispatch(clearSingleParentCatState());
       dispatch(getSingleParentCatThunk(parentcategory));
@@ -48,10 +52,9 @@ const CollectionHome = () => {
 
   useEffect(() => {
     if (pCat?._id) {
-      dispatch(clearFilteredProductState());
       dispatch(
         getFilteredProductsThunk({
-          pCat: pCat?._id,
+          pCat: parentcategory,
           cat: filteredCat.join(","),
           subcat: "",
           price: priceFrom + "," + priceTo,
@@ -74,8 +77,6 @@ const CollectionHome = () => {
       getAllSeller(pCat?._id);
     }
   }, [pCat]);
-
-  console.log(parentcategory);
 
   return (
     <>

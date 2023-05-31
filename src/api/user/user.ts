@@ -1,9 +1,13 @@
 import instance from "../../instance";
 
 export const updateUser = async (data: any) => {
+  let token = localStorage.getItem("userToken");
   let response = await instance({
     url: "/api/client/update",
-    method: "POST",
+    method: "PUT",
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
     data,
   });
 

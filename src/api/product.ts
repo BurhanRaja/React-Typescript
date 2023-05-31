@@ -41,7 +41,7 @@ export const getfilteredImages = async (
 };
 
 export const getAllProducts = async (
-  pCat: string,
+  pCat: string | undefined,
   cat?: string,
   subcat?: string,
   price?: string,

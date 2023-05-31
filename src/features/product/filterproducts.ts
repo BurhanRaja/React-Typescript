@@ -16,7 +16,7 @@ const initialState = {
 } as InitialState;
 
 interface FilterThunk {
-  pCat: string;
+  pCat: string | undefined;
   cat?: string;
   subcat?: string;
   price?: string;
