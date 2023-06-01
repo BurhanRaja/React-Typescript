@@ -59,6 +59,8 @@ you will get a build folder and you can run `serve -s build` command to run the 
 ## Demo
 
 
+https://github.com/BurhanRaja/React-Typescript/assets/76507095/85206360-2b2a-4e3e-8c58-7ca1cc0ef5e7
+
 
 ## Technology Used
 
