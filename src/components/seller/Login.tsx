@@ -62,7 +62,7 @@ const Login = () => {
 
     dispatch(loginSellerThunk(data)).then((data: any) => {
       if (data?.error?.code === "ERR_BAD_REQUEST") {
-        toast.warn("User Already Exists.");
+        toast.warn("Invalid Credentials.");
       }
       if (data?.error?.code === "ERR_NETWORK") {
         toast.error("Internal Server Error");

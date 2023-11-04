@@ -2,9 +2,9 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import { loginSeller, registerSeller } from "../../api/seller/seller";
 
 interface InitialState {
-  token: string,
-  isLoading: boolean,
-  isError: boolean
+  token: string;
+  isLoading: boolean;
+  isError: boolean;
 }
 
 const initialState = {
@@ -35,7 +35,7 @@ const authSlice = createSlice({
   reducers: {
     clearState: () => {
       return initialState;
-    }
+    },
   },
   extraReducers: (build) => {
     build
@@ -53,18 +53,17 @@ const authSlice = createSlice({
       .addCase(loginSellerThunk.pending, (state) => {
         state.isLoading = true;
       })
-      .addCase(loginSellerThunk.fulfilled, (state, {payload}) => {
+      .addCase(loginSellerThunk.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.token = payload.token;
       })
       .addCase(loginSellerThunk.rejected, (state) => {
         state.isLoading = false;
         state.isError = true;
-      })
-      ;
+      });
   },
 });
 
-export const {clearState} = authSlice.actions;
+export const { clearState } = authSlice.actions;
 
 export default authSlice.reducer;
