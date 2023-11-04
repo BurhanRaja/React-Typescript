@@ -57,7 +57,8 @@ const CollectionHome = () => {
           pCat: parentcategory,
           cat: filteredCat.join(","),
           subcat: "",
-          price: priceFrom + "," + priceTo,
+          price:
+            priceFrom !== "" || priceTo !== "" ? priceFrom + "," + priceTo : "",
           ratings: filteredRating.toString(),
           company: filteredCompany.join(","),
         })
